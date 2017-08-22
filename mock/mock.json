@@ -1,0 +1,46 @@
+{
+	"routes": [
+		{
+			"name" : "auth",
+			"endpoint": "/",
+			"template": "auth",
+			"async": false
+		},
+		{
+			"name" : "auth_phone",
+			"endpoint": "/phone/",
+			"template": "auth_phone",
+			"async": false
+		},
+		{
+			"name" : "newpsd",
+			"endpoint" : "/newpsd",
+			"template" : "newpsd",
+			"async" : false
+		},
+		{
+			"name" : "newpsd_phone",
+			"endpoint" : "/phone/newpsd",
+			"template" : "newpsd_phone",
+			"async" : false
+		},
+		{
+			"name" : "api.login",
+			"endpoint": "/api/v1.0/login/",
+			"method":"get",
+			"async": true
+		},
+		{
+			"name" : "api.register",
+			"endpoint" : "/api/v1.0/register/",
+			"method" : "post",
+			"async" : true
+		}
+	],
+	"data":{
+		"api.login":{
+			"uid": 1,
+			"token":"dafjslkfljfiasjjOJFOJDIOFJ"
+		}
+	}
+}

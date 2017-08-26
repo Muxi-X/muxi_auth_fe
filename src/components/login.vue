@@ -4,12 +4,11 @@
             <div class="box box-height transparent">
                 <div class="iconbox full-height width inline-block vertical-align">
                     <svg viewBox="0 0 200 200" class="icon">
-                            <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#email"></use>
-                        </svg>
+                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#username"></use>
+                    </svg>
                 </div>
-                <eInput v-model.trim="emailInput" class="inputbox transparent inline-block vertical-align"></eInput>
+                <userInput v-model.trim="username" class="inputbox transparent inline-block vertical-align"></userInput>
             </div>
-            <div v-if="!$v.emailInput.email" class="check tip-color min-font">邮箱格式有误</div>
         </div>
         <div class="row">
             <div class="box box-height transparent">
@@ -37,7 +36,7 @@
 </template>
 
 <script>
-    import Input from './Input.vue'
+    import userInput from './userInput.vue'
     import {
         email,
         required,
@@ -48,7 +47,7 @@
     export default {
         data() {
             return {
-                emailInput: '',
+                username: '',
                 passwordInput: '',
                 showPass: false,
                 submitFlag: false,
@@ -56,17 +55,12 @@
             }
         },
         components: {
-            "eInput": Input
+            "userInput": userInput
         },
         validations: {
-            emailInput: {
-                email,
-                required
-            },
             passwordInput: {
                 required
-            },
-            validationGroup: ['emailInput', 'passwordInput']
+            }
         },
         created() {
             this.$parent.footer_display = false
@@ -83,17 +77,19 @@
                 var location = window.location.pathname
                 window.location.pathname += 'newpsd';
             },
-            submit(e) {
+            submit() {
                 if (this.submitFlag) return
                 this.submitFlag = true
-                if (this.$v.validationGroup) {
-                    fetch("/api/login/", {
-                        method: 'GET',
+                if (this.$v.passwordInput.required) {
+                    fetch("/login/", {
+                        method: 'POST',
                         headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/x-www-form-unlencoded',
-                            'Authorization': 'Basic ' + btoa(this.emailInput + ':' + this.passwordInput)
-                        }
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            username: this.username,
+                            password: btoa(this.passwordInput)
+                        })
                     }).then(res => {
                         if (res.ok) {
                             return res.json()

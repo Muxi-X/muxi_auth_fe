@@ -59,14 +59,14 @@ export default {
         methods: {
             submit() {
                 if (this.$v.validationGroup) {
-                    fetch("/api/forgot_password/reset/", {
+                    fetch("/password/reset/", {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            new_password: this.passwordInput,
+                            new_password: btoa(this.passwordInput),
                             email: this.emailInput,
                             captcha: this.captchaInput
                         })

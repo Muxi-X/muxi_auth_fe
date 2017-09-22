@@ -11,12 +11,19 @@ body {
 .header {
     background-color: #f9f5d3;
     height: 37px;
+    width: 100%;
 }
 
 .logo {
     width: 180px;
-    height: 100px;
-    margin-top: -32px;
+    height: 37px;
+    background-image: url('../pictures/logo.png');
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .top {

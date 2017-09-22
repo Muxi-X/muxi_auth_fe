@@ -15,18 +15,24 @@ body {
     background-color: #ffffff;
 }
 
-.logo {
+.logo-a {
     line-height: 73px;
     font-size: 20px;
     margin-left: 50px;
     cursor: pointer;
-    width: 300px;
+    width: 200px;
     height: 70px;
+    display: inline-block;
 }
-.logo-svg {
+.logo {
+    background-image: url('../pictures/logo.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 200px;
     height: 70px;
-    width: 500px;
+    background-position: center;
 }
+
 .left-right {
     width: 50%;
     height: 100%;

@@ -11,6 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "koa": "^2.2.0",
+    "koa-router": "^7.2.0",
+    "koa-send": "^4.1.0",
+    "koa-useragent": "^1.0.0",
+    "swig": "^1.4.2",
     "css-loader": "^0.28.5",
     "favicons-webpack-plugin": "0.0.7",
     "sass-loader": "^6.0.6",

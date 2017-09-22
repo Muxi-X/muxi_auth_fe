@@ -3,9 +3,6 @@
         <div class="no-footer">
             <div class="header text-align full-width">
                 <div class="logo"></div>
-                <!-- <svg class="logo" viewBox="0 0 200 200">
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use>
-                </svg> -->
             </div>
             <div class="full-height full-width main">
                 <div class="top">

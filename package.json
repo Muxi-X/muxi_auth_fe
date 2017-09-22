@@ -20,7 +20,7 @@
     "favicons-webpack-plugin": "0.0.7",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
-    "vue": "^2.3.2",
+    "vue": "^2.4.2",
     "vue-router": "^2.7.0",
     "vue-template-compiler": "^2.4.2",
     "vuelidate": "^0.5.0",

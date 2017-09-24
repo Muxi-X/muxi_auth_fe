@@ -5,7 +5,6 @@
   "main": "./src/index.js",
   "scripts": {
     "dev": "ninja start",
-    "start": "node index.js",
     "build": "rm -rf ./dist/* && node ./build/build.js"
   },
   "keywords": [],

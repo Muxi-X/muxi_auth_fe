@@ -62,11 +62,11 @@ router.get('/success', function(ctx, next){
         ctx.body = template({})
 });
 
-router.get(/^\/static(?:\/|$)/, async (ctx) => {
+router.get(/^\/static(?:\/|$)/, async(ctx) => {
      await send(ctx, ctx.path, {
          root: path.join(__dirname, "../dist")
      });
-})
+});
 
 app
     .use(router.routes())

@@ -63,9 +63,10 @@ router.get('/success', function(ctx, next){
 });
 
 router.get(/^\/static(?:\/|$)/, async(ctx) => {
-     await send(ctx, ctx.path, {
-         root: path.join(__dirname, "../dist")
-     });
+    let filePath = ctx.path.replace(/static\//, "")
+    await send(ctx, filePath, {
+        root: path.join(__dirname, "../dist")
+    });
 });
 
 app

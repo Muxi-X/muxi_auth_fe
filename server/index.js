@@ -7,7 +7,7 @@ const swig = require('swig');
 const router = new Router();
 const app = new Koa();
 
-const templateRoot = path.join(__dirname, "../dist/template/main")
+const templateRoot = path.join(__dirname, "../dist/template")
 
 app.use(userAgent);
 
@@ -63,8 +63,8 @@ router.get('/success', function(ctx, next){
 });
 
 router.get(/^\/static(?:\/|$)/, async(ctx) => {
-    let filePath = ctx.path.replace(/static\//, "")
-    await send(ctx, filePath, {
+    let filepath = ctx.path.replace(/static\//, "")
+    await send(ctx, filepath, {
         root: path.join(__dirname, "../dist")
     });
 });

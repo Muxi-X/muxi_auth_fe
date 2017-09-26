@@ -21,6 +21,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     },
     output: {
         path: config.build.assetsRoot,
+        publicPath: './static/',
         filename: '[name].[chunkhash].js',
         chunkFilename: '[id].[chunkhash].js'
     },

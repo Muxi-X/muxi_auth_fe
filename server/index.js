@@ -7,7 +7,7 @@ const swig = require('swig');
 const router = new Router();
 const app = new Koa();
 
-const templateRoot = path.join(__dirname, "../dist/template/main")
+const templateRoot = path.join(__dirname, "../dist/template")
 
 app.use(userAgent);
 

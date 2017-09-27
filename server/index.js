@@ -68,6 +68,7 @@ router.get(/^\/static(?:\/|$)/, async(ctx) => {
         root: path.join(__dirname, "../dist")
     });
 });
+
 app
     .use(router.routes())
     .use(router.allowedMethods());

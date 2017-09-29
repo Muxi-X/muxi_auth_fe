@@ -3,7 +3,6 @@ import Auth from './components/auth.vue'
 import Login from './components/login.vue'
 import Register from './components/register.vue'
 import style from './main.scss'
-// import './pc.scss'
 import Vuelidate from 'vuelidate'
 import VueRouter from 'vue-router'
 

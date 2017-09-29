@@ -78,7 +78,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            filename: 'template/base.html',
+            filename: './template/base.html',
             inject: false,
             template: path.join(__dirname, '../template/base.ejs'),
             // favicon: './src/pictures/favicon.png',
@@ -86,26 +86,26 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            filename: 'template/svg.html',
+            filename: './template/svg.html',
             inject: false,
             template: './template/svg.ejs'
         }),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            filename: 'template/header.html',
+            filename: './template/header.html',
             inject: false,
             template: './template/header.ejs'
         }),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            filename: 'template/auth_phone.html',
+            filename: './template/auth_phone.html',
             inject: false,
             template: './template/auth_phone.ejs',
             chunks: ['auth_phone']
         }),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            filename: 'template/auth.html',
+            filename: './template/auth.html',
             inject: false,
             template: './template/auth.ejs',
             chunks: ['auth']
@@ -118,14 +118,14 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            filename: 'template/newpsd.html',
+            filename: './template/newpsd.html',
             inject: false,
             template: './template/newpsd.ejs',
             chunks: ['newpsd']
         }),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            filename: 'template/newpsd_phone.html',
+            filename: './template/newpsd_phone.html',
             inject: false,
             template: './template/newpsd_phone.ejs',
             chunks: ['newpsd_phone']

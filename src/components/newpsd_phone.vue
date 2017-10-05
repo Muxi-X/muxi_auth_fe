@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
         <div class="no-footer">
-            <a href="https://user.muxixyz.com" class="back inline-block"> < 返回</a>
+            <a href="/" class="back inline-block"> < 返回</a>
                     <div class="header  full-width inline-block">
                         <div class="title-find text-align">
                             找回密码

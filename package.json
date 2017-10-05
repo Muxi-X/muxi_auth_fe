@@ -11,15 +11,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "css-loader": "^0.28.5",
+    "favicons-webpack-plugin": "^0.0.7",
     "koa": "^2.2.0",
     "koa-router": "^7.2.0",
     "koa-send": "^4.1.0",
     "koa-useragent": "^1.0.0",
-    "swig": "^1.4.2",
-    "css-loader": "^0.28.5",
-    "favicons-webpack-plugin": "0.0.7",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "swig": "^1.4.2",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
     "vue-template-compiler": "^2.4.2",
@@ -30,6 +30,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "favicons-webpack-plugin": "^0.0.7",
     "babel-polyfill": "*",
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",

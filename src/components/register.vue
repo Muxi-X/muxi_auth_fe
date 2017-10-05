@@ -146,7 +146,11 @@ export default {
             submit() {
                 if (this.submitFlag) return
                 this.submitFlag = true
-                // if (this.$v.validationGroup) {
+                if (this.$v.username.required && this.$v.username.isUnique 
+                    && this.$v.emailInput.required && this.$v.emailInput.email && this.$v.emailInput.isUnique
+                    && this.$v.passwordInput.required && this.$v.passwordInput.minLength
+                    && this.$v.psdsecond.sameAs
+                    ) {
                     fetch("/signup/", {
                         method: 'POST',
                         headers: {
@@ -160,11 +164,10 @@ export default {
                         })
                     }).then(res => {
                         if (res.ok) {
-                            console.log("hhh")
-                            // window.location = "/"
+                            window.location = "/"
                         }
                     })
-                // }
+                }
             }
         }
 }

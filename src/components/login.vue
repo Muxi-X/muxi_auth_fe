@@ -99,7 +99,7 @@
                     }).then(value => {
                         let landing = localStorage.getItem('landing')
                         if (landing) {
-                            window.location.href = 'http://'+ landing + '?email=' + this.emailInput +'&token=' + value.token
+                            window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + value.token
                         }
                     })
                 }

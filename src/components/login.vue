@@ -81,7 +81,7 @@
                 if (this.submitFlag) return
                 this.submitFlag = true
                 if (this.$v.passwordInput.required) {
-                    fetch("/login/", {
+                    fetch("/api/login/", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

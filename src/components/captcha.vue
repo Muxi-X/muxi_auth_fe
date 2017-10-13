@@ -71,13 +71,13 @@ export default {
         },
         methods: {
             checkemail(value) {
-                return fetch(`/check_email/?email=${value}`)
+                return fetch(`/api/check_email/?email=${value}`)
             },
             sendCode(value) {
                 value.stopPropagation();
                 value.preventDefault();
                 if (this.$v.emailInput.email && !this.$v.emailInput.isUnique && this.$v.emailInput.required) {
-                    fetch("/password/get_captcha/", {
+                    fetch("/api/password/get_captcha/", {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -96,7 +96,7 @@ export default {
             },
             next() {
                 if (this.code && this.captchaInput) {
-                    fetch("/password/check_captcha/", {
+                    fetch("/api/password/check_captcha/", {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',

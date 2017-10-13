@@ -59,7 +59,7 @@ export default {
         methods: {
             submit() {
                 if (this.$v.validationGroup) {
-                    fetch("/password/reset/", {
+                    fetch("/api/password/reset/", {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',

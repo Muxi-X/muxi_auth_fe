@@ -134,10 +134,10 @@ export default {
                 this.$parent.footer_display = false
             },
             checkemail(value) {
-                return fetch(`/check_email/?email=${value}`)
+                return fetch(`/api/check_email/?email=${value}`)
             },
             checkUsername(value) {
-                return fetch(`/check_name/?username=${value}`)
+                return fetch(`/api/check_name/?username=${value}`)
             },
             isFocus() {
                 this.submitFlag = false
@@ -151,7 +151,7 @@ export default {
                     && this.$v.passwordInput.required && this.$v.passwordInput.minLength
                     && this.$v.psdsecond.sameAs
                     ) {
-                    fetch("/signup/", {
+                    fetch("/api/signup/", {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',

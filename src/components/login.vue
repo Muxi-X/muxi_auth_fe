@@ -4,7 +4,7 @@
             <div class="box box-height transparent">
                 <div class="iconbox full-height width inline-block vertical-align">
                     <svg viewBox="0 0 200 200" class="icon">
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#username"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#username"></use>
                     </svg>
                 </div>
                 <userInput v-model.trim="username" class="inputbox transparent inline-block vertical-align"></userInput>
@@ -14,14 +14,14 @@
             <div class="box box-height transparent">
                 <div class="iconbox full-height width inline-block vertical-align">
                     <svg viewBox="0 0 200 200" class="icon">
-                            <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#password"></use>
-                        </svg>
+                            <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#password"></use>
+                    </svg>
                 </div>
                 <input v-model.trim="passwordInput" type="password" class="inputbox transparent inline-block vertical-align" placeholder="密码" v-show="!showPass" @focus="isFocus" @blur="isBlur">
                 <input v-model.trim="passwordInput" type="text" class="inputbox transparent inline-block vertical-align" placeholder="密码" v-show="showPass" @focus="isFocus" @blur="isBlur">
                 <div class="iconbox full-height eye inline-block vertical-align" v-on:click="showPass = !showPass">
                     <svg viewBox="0 0 200 200" class="icon">
-                            <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#eye"></use>
+                            <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#eye"></use>
                         </svg>
                 </div>
             </div>
@@ -43,7 +43,7 @@
         isUnique
     } from 'vuelidate/lib/validators'
     import getCookie from '../getCookie'
-    
+    import Service from "../service"
     export default {
         data() {
             return {
@@ -81,25 +81,14 @@
                 if (this.submitFlag) return
                 this.submitFlag = true
                 if (this.$v.passwordInput.required) {
-                    fetch("/api/login/", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            username: this.username,
-                            password: btoa(this.passwordInput)
-                        })
-                    }).then(res => {
-                        if (res.ok) {
-                            return res.json()
+                   Service.Login(this.username, this.passwordInput).then(res => {
+                        if (res !== null && res!== undefined) {
+                            let landing = localStorage.getItem('landing')
+                            if (landing) {
+                                window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + res.token
+                            }
                         } else {
                             this.failed = true
-                        }
-                    }).then(value => {
-                        let landing = localStorage.getItem('landing')
-                        if (landing) {
-                            window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + value.token
                         }
                     })
                 }

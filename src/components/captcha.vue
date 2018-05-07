@@ -4,7 +4,7 @@
             <div class="row-line full-width">
                 <div class="iconbox inline-block full-height vertical-align">
                     <svg viewBox="0 0 200 200" class="vertical-align icon-size">
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#email"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email"></use>
                     </svg>
                 </div>
                 <eInput v-model.trim="emailInput" class="transparent inline-block vertical-align inputword"></eInput>
@@ -18,7 +18,7 @@
             <div class="row-line full-width">
                 <div class="iconbox inline-block full-height vertical-align">
                     <svg viewBox="0 0 200 200" class="vertical-align icon-size">
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#captcha"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#captcha"></use>
                     </svg>
                 </div>
                 <input type="text" v-model.trim="captchaInput" class="transparent inline-block vertical-align inputword" placeholder="输入验证码">
@@ -36,6 +36,7 @@ import {
     required,
     isUnique
 } from 'vuelidate/lib/validators'
+import Service from "../service"
 export default {
     data() {
             return {
@@ -57,11 +58,11 @@ export default {
                 isUnique(value) {
                     return new Promise(
                         (resolve, reject) => {
-                        this.checkemail(value).then(res => {
+                        Service.checkEmail(value).then(res => {
                             resolve(res.ok)
-                            },() => {
+                        },() => {
                             reject(res.ok)
-                            })
+                        })
                     })
                 }
             }
@@ -70,24 +71,13 @@ export default {
             this.$parent.message = []
         },
         methods: {
-            checkemail(value) {
-                return fetch(`/api/check_email/?email=${value}`)
-            },
             sendCode(value) {
                 value.stopPropagation();
                 value.preventDefault();
+                console.log(this.emailInput)
                 if (this.$v.emailInput.email && !this.$v.emailInput.isUnique && this.$v.emailInput.required) {
-                    fetch("/api/password/get_captcha/", {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            email: this.emailInput
-                        })
-                    }).then(res => {
-                        if (res.ok) {
+                    Service.getCaptcha(this.emailInput).then(res => {
+                        if (res!== null && res !== undefined) {
                             this.start = true
                             this.code = true
                         }
@@ -96,18 +86,8 @@ export default {
             },
             next() {
                 if (this.code && this.captchaInput) {
-                    fetch("/api/password/check_captcha/", {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            email: this.emailInput,
-                            captcha: this.captchaInput
-                        })
-                    }).then(res => {
-                        if (res.ok) {
+                    Service.checkCaptcha(this.emailInput, this.captchaInput).then(res => {
+                        if (res!==null && res !== undefined) {
                             this.$parent.message.push(this.emailInput)
                             this.$parent.message.push(this.captchaInput)
                             this.$router.push('reset')

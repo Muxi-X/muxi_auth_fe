@@ -4,7 +4,7 @@
             <div class="row-line full-width">
                 <div class="iconbox inline-block full-height vertical-align">
                     <svg viewBox="0 0 200 200" class="vertical-align icon-size">
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#password"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#password"></use>
                     </svg>
                 </div>
                 <input class="transparent inline-block vertical-align inputword" v-model.trim="passwordInput" type="password" placeholder="请输入新密码">
@@ -15,7 +15,7 @@
             <div class="row-line full-width">
                 <div class="iconbox inline-block full-height vertical-align">
                     <svg viewBox="0 0 200 200" class="vertical-align icon-size">
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#password"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#password"></use>
                     </svg>
                 </div>
                 <input class="transparent inline-block vertical-align inputword" v-model.trim="psdsecond" type="password" placeholder="请再次输入新密码">
@@ -26,6 +26,7 @@
     </div>
 </template>
 <script>
+import Service from "../service";
 import {
     minLength,
     sameAs,

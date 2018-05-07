@@ -4,7 +4,7 @@
             <div class="box box-height transparent">
                 <div class="iconbox full-height width inline-block vertical-align">
                     <svg viewBox="0 0 200 200" class="icon">
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#username"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#username"></use>
                     </svg>
                 </div>
                 <userInput v-model.trim="username" class="inputbox transparent inline-block vertical-align"></userInput>
@@ -16,7 +16,7 @@
             <div class="box box-height transparent">
                 <div class="iconbox full-height width inline-block vertical-align">
                     <svg viewBox="0 0 200 200" class="icon">
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#email"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#email"></use>
                     </svg>
                 </div>
                 <eInput v-model.trim="emailInput" class="inputbox transparent inline-block vertical-align"></eInput>
@@ -29,14 +29,14 @@
             <div class="box box-height transparent">
                 <div class="iconbox full-height width inline-block vertical-align">
                     <svg viewBox="0 0 200 200" class="icon">>
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#password"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#password"></use>
                     </svg>
                 </div>
                 <input v-model.trim="passwordInput" @focus="isFocus" @blur="isBlur" type="password" class="inputbox transparent inline-block vertical-align" placeholder="密码(不少于八位)" v-show="!showPass">
                 <input v-model.trim="passwordInput" @focus="isFocus" @blur="isBlur" type="text" class="inputbox transparent inline-block vertical-align" placeholder="密码(不少于八位)" v-show="showPass">
                 <div class="iconbox full-height eye inline-block vertical-align" v-on:click="showPass = !showPass">
                     <svg viewBox="0 0 200 200" class="icon">
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#eye"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#eye"></use>
                     </svg>
                 </div>
             </div>
@@ -46,14 +46,14 @@
             <div class="box box-height transparent">
                 <div class="iconbox full-height width inline-block vertical-align">
                     <svg viewBox="0 0 200 200" class="icon">>
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#password"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#password"></use>
                     </svg>
                 </div>
                 <input v-model.trim="psdsecond" @focus="isFocus" @blur="isBlur" class="inputbox transparent inline-block vertical-align" type="password" placeholder="再次输入密码" v-show="!showPass">
                 <input v-model.trim="psdsecond" @focus="isFocus" @blur="isBlur" class="inputbox transparent inline-block vertical-align" type="text" placeholder="再次输入密码" v-show="showPass">
                 <div class="iconbox full-height eye inline-block vertical-align" v-on:click="showPass = !showPass">
                     <svg viewBox="0 0 200 200" class="icon">
-                        <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#eye"></use>
+                        <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#eye"></use>
                     </svg>
                 </div>
             </div>
@@ -71,6 +71,7 @@ import {
     sameAs,
     required
 } from 'vuelidate/lib/validators'
+import Service from "../service"
 export default {
     data() {
             return {
@@ -91,11 +92,11 @@ export default {
                 required,
                 isUnique(value) {
                     return new Promise((resolve, reject) => {
-                        this.checkUsername(value).then(res=> {
+                        Service.checkUsername(value).then(res=> {
                             resolve(res.ok)
-                            },() => {
+                        },() => {
                             resolve(res.ok)
-                            })
+                        })
                     })
                 }
             },
@@ -104,11 +105,11 @@ export default {
                 required,
                 isUnique(value) {
                     return new Promise((resolve, reject) => {
-                        this.checkemail(value).then(res => {
+                        Service.checkEmail(value).then(res => {
                             resolve(res.ok)
-                            },() => {
+                        },() => {
                             reject(res.ok)
-                            })
+                        })
                     })
                 }
             },
@@ -133,12 +134,6 @@ export default {
             isBlur() {
                 this.$parent.footer_display = false
             },
-            checkemail(value) {
-                return fetch(`/api/check_email/?email=${value}`)
-            },
-            checkUsername(value) {
-                return fetch(`/api/check_name/?username=${value}`)
-            },
             isFocus() {
                 this.submitFlag = false
                 this.$parent.footer_display = true
@@ -151,19 +146,8 @@ export default {
                     && this.$v.passwordInput.required && this.$v.passwordInput.minLength
                     && this.$v.psdsecond.sameAs
                     ) {
-                    fetch("/api/signup/", {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            email: this.emailInput,
-                            username: this.username,
-                            password: this.passwordInput
-                        })
-                    }).then(res => {
-                        if (res.ok) {
+                    Service.register(this.emailInput, this.username, this.passwordInput).then(res => {
+                        if (res !== null && res !== undefined) {
                             window.location = "/"
                         }
                     })

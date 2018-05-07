@@ -81,7 +81,7 @@ module.exports = {
             filename: './template/base.html',
             inject: false,
             template: path.join(__dirname, '../template/base.ejs'),
-            favicon: './src/pictures/favicon.png',
+            //favicon: './src/pictures/favicon.png',
             chunks: ['manifest', 'vendor']
         }),
         new HtmlWebpackPlugin({

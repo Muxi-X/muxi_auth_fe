@@ -1,7 +1,7 @@
 <template>
     <div>
         <svg class="finish margin" viewBox="0 0 1024 1024">
-            <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="#finish"></use>
+            <use xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#finish"></use>
         </svg>
         <div class="title-find text-align set-top">
             恭喜您，密码设置成功！

@@ -16,7 +16,9 @@ module.exports = {
         'auth': ['./src/auth.js'],
         'auth_phone': ['./src/auth_phone.js'],
         'newpsd': ['./src/newpsd.js'],
-        'newpsd_phone': ['./src/newpsd_phone.js']
+        'newpsd_phone': ['./src/newpsd_phone.js'],
+        'profile': ['./src/profile.js'],
+        'editpro': ['./src/editpro.js'],
         // vendor: ["vue", "whatwg-fetch", "vuelidate", "vue-router"]
     },
     output: {
@@ -129,6 +131,20 @@ module.exports = {
             inject: false,
             template: './template/newpsd_phone.ejs',
             chunks: ['newpsd_phone']
+        }),
+        new HtmlWebpackPlugin({
+            alwaysWriteToDisk: true,
+            filename: './template/profile.html',
+            inject: false,
+            template: './template/profile.ejs',
+            chunks: ['profile']
+        }),
+        new HtmlWebpackPlugin({
+            alwaysWriteToDisk: true,
+            filename: './template/editpro.html',
+            inject: false,
+            template: './template/editpro.ejs',
+            chunks: ['editpro']
         }),
         new HtmlWebpackHarddiskPlugin()
     ]

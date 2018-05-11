@@ -3,18 +3,19 @@
     <div class="side">
         <div class="user">
         <img src="../pictures/favicon.png" class="avatar">
-        <span>{{this.username}}</span>
+        <span>用户名{{this.username}}</span>
         </div>
-        <div class="edit">
-            <span class="item">用户名</span><input>
-            <span class="item">头像链接</span><input>
-            <span class="item">入组时间</span><input>
-            <span class="item">生日</span><input>
-            <span class="item">家乡</span><input>
-            <span class="item">github链接</span><input>
-            <span class="item">知乎链接</span><input>
-            <span class="item">微博链接</span><input>
-            <span class="item">博客链接</span><input>
+        <div class="edits">
+            <div class="edit"><span class="item">用户名</span><input></div>
+            <div class="edit"><span class="item">头像链接</span><input></div>
+            <div class="edit"><span class="item">组别</span><input></div>
+            <div class="edit"><span class="item">入组时间</span><input></div>
+            <div class="edit"><span class="item">生日</span><input></div>
+            <div class="edit"><span class="item">家乡</span><input></div>
+            <div class="edit"><span class="item">github链接</span><input></div>
+            <div class="edit"><span class="item">知乎链接</span><input></div>
+            <div class="edit"><span class="item">微博链接</span><input></div>
+            <div class="edit"><span class="item">博客链接</span><input></div>
         </div>
     </div>
       
@@ -69,9 +70,7 @@ body{
     margin: 2% auto;
     background-image: url(../pictures/side.png);
     background-repeat: no-repeat;
-    // background-position: top center;
-    background-size: 100% ;
-    // text-align: center;
+    background-size: 100% 100%;
 }
 .side{
     background-color: #ffffff;
@@ -85,27 +84,41 @@ body{
     padding-left: 10%;
     padding-top: 5%;
     width: 130px;
+    height: 1000px;
     font-size: 14px;
     color: #666666;
     text-align: center;
+    float: left;
 
 }
 .avatar{
     width:100%;
     margin-bottom: 20px;
+    
+}
+.edits{
+    padding-top: 40px;
+    // padding-left: 100px;
+    // width: 800px;
 }
 .edit{
-    padding-left: 30%;
+     
 }
 .item{
-    width: 100px;
-    // padding: 10px;
+    width: 200px;
+    padding-top: 40px;
     display: inline-block;
+    color: #666666;
+    text-align: right;
+    
 }
 input{
-    width:60%;
-    margin-left: 5%;
-    margin-right: 20%;
+    width: 30%;
+    height:30px;
+    margin-left: 2%;
+    border: solid 1px;
+    border-color: #666666;
+    border-radius: 15px;
     
 
 }

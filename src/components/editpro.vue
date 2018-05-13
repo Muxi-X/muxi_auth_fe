@@ -1,33 +1,33 @@
 <template>
   <div class="root">
     <div class="side">
-        <div class="user">
-        <img src="../pictures/favicon.png" class="avatar">
+        <div class="user text-align">
+        <img src="../pictures/favicon.png" class="avatar full-width">
         <span>用户名{{this.username}}</span>
         </div>
         <div class="edits">
-            <div class="edit"><span class="item">用户名</span><input></div>
-            <div class="edit"><span class="item">头像链接</span><input></div>
+            <div class="edit"><span class="item">用户名</span><input class="editinfo min-font" v-model="username"></div>
+            <div class="edit"><span class="item">头像链接</span><input class="editinfo min-font" v-model="avatar_url"></div>
             <div class="edit"><span class="item">组别</span>
-                <select class="group">
-                    <option value="first" selected>木犀前端组</option> 
-                    <option value="second" >木犀后台组</option>
-                    <option value="third">木犀安卓组</option>
-                    <option value="fourth">木犀产品组</option>
-                    <option value="fifth">木犀设计组</option>
+                <select class="date" v-model="group">
+                    <option value="frontend">木犀前端组</option> 
+                    <option value="backend" >木犀后台组</option>
+                    <option value="android">木犀安卓组</option>
+                    <option value="production">木犀产品组</option>
+                    <option value="design">木犀设计组</option>
                 </select>
             </div>
             <div class="edit"><span class="item">入组时间</span>
-                <select class="date">
-                    <option  selected>2014</option> 
+                <select class="date" v-model="jointime[0]">
+                    <option >2014</option> 
                     <option >2015</option>
                     <option >2016</option>
                     <option >2017</option>
                     <option >2018</option>
                 </select>
                 <span class="text">年</span>
-                 <select class="date">
-                    <option  selected>1</option> 
+                 <select class="date" v-model="jointime[1]">
+                    <option >1</option> 
                     <option >2</option>
                     <option >3</option>
                     <option >4</option>
@@ -44,8 +44,8 @@
             
             </div>
             <div class="edit"><span class="item">生日</span>
-                <select class="date">
-                    <option  selected>1</option> 
+                <select class="date" v-model="birthday[0]">
+                    <option >1</option> 
                     <option >2</option>
                     <option >3</option>
                     <option >4</option>
@@ -58,52 +58,22 @@
                     <option >11</option>
                     <option >12</option>
                 </select>
+
                 <!-- <input type="month"> -->
                 <span class="text">月</span>
-                <select class="date">
-                    <option  selected>1</option> 
-                    <option >2</option>
-                    <option >3</option>
-                    <option >4</option>
-                    <option >5</option>
-                    <option >6</option> 
-                    <option >7</option>
-                    <option >8</option>
-                    <option >9</option>
-                    <option >10</option>
-                    <option >11</option>
-                    <option >12</option>
-                    <option >13</option>
-                    <option >14</option>
-                    <option >15</option>
-                    <option >16</option>
-                    <option >17</option> 
-                    <option >18</option>
-                    <option >19</option>
-                    <option >20</option>
-                    <option >21</option>
-                    <option >22</option>
-                    <option >23</option>
-                    <option >24</option>
-                    <option >25</option>
-                    <option >26</option> 
-                    <option >27</option>
-                    <option >28</option>
-                    <option >29</option>
-                    <option >30</option>
-                    <option >31</option>
+                <select class="date min-font" v-model="birthday[1]">
+                    <option v-for = "n in day[birthday[0]]" :key="n.id">{{n}}</option>
                 </select>
-                <!-- <input type="date"> -->
                  <span class="text">日</span>
             </div>
-            <div class="edit"><span class="item">家乡</span><input></div>
-            <div class="edit"><span class="item">github链接</span><input></div>
-            <div class="edit"><span class="item">知乎链接</span><input></div>
-            <div class="edit"><span class="item">微博链接</span><input></div>
-            <div class="edit"><span class="item">博客链接</span><input></div>
+            <div class="edit"><span class="item">家乡</span><input class="editinfo min-font" v-model="hometown"></div>
+            <div class="edit"><span class="item">github链接</span><input class="editinfo min-font" v-model="github"></div>
+            <div class="edit"><span class="item">知乎链接</span><input class="editinfo min-font" v-model="zhihu"></div>
+            <div class="edit"><span class="item">微博链接</span><input class="editinfo min-font" v-model="weibo"></div>
+            <div class="edit"><span class="item">博客链接</span><input class="editinfo min-font" v-model="personal_blog"></div>
             <div class="save">
-                <button v-on:click="saveinfo">保存</button>
-                <button v-on:click="cancel" class="cancel">取消</button>
+                <button class="savebut" v-on:click="saveinfo">保存</button>
+                <button class="savebut cancel" v-on:click="cancel" >取消</button>
             </div>
         </div>
     </div>
@@ -127,7 +97,11 @@ export default {
           github: "",         //url
           weibo: "",          //url
           zhihu: "",          //url
+          jointime: [2017,9], //加入时间
+          day: [,31,28,31,30,31,30,31,31,30,31,30,31],
 
+        //   birthday: [3,5], //array
+        //   group: "frontend",
       }
   },
   mounted() {
@@ -146,6 +120,11 @@ export default {
           this.email = res.email;
           this.info = res.info;
           this.birthday = res.birthday;
+          this.avatar_url = res.avatar_url;
+          this.personal_blog = res.personal_blog;  
+          this.github = res.github;         
+          this.weibo = res.weibo;          
+          this.zhihu = res.zhihu;
       })
   },
   method: {
@@ -175,6 +154,7 @@ export default {
 }
 </script>
 <style lang="scss">
+@import "../utility.scss";
 body{
     background-color: #f5f5f5;
 
@@ -201,12 +181,10 @@ body{
     height: 1000px;
     font-size: 14px;
     color: #666666;
-    text-align: center;
     float: left;
 
 }
 .avatar{
-    width:100%;
     margin-bottom: 20px;
     
 }
@@ -224,17 +202,16 @@ body{
     display: inline-block;
     text-align: right;  
 }
-input{
+.editinfo{
     width: 30%;
     height:30px;
     margin-left: 2%;
     padding: 0 10px;
     border: solid 1px #666666;
     border-radius: 15px;
-    font-size: 12px;
     color: #666666;
 }
-select{
+.date{
 
     margin-left: 2%;
     min-width: 80px;
@@ -243,23 +220,18 @@ select{
     border: solid 1px #666666;
     border-radius: 15px;
     background-color: #ffffff;
-    font-size: 12px;
     color: #666666;
     background:url() no-repeat right center;  
-	appearance:none;
+	// appearance:none;
 	-moz-appearance:none;
     -webkit-appearance:none;
     outline: none;
-    text-align: center;
     text-align-last: center;
 }
 .text{
     margin-left: 20px;
 }
-.group{
-
-}
-button{
+.savebut{
     font-size: 16px;
     padding: 10px 45px;
     border: solid 1px #666666;

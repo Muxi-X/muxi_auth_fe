@@ -1,17 +1,17 @@
 <template>
-  <div class="root">
-      <div class="head">
+  <div >
+      <div class="head text-align full-width">
       <!-- <img src="../pictures/head.png" class = "head"> -->
       <img src="../pictures/favicon.png" class="avatar">
   
-      <div class="intro">
+      <div class="intro text-align min-font">
         <div class="username">{{this.username}}</div>
         <div>{{this.email}}</div>
         <div>个人介绍{{this.info}}</div>
       </div>
       </div>
-      <div class="parent">
-        <div class="tags">
+      <div class="parent margin">
+        <div class="tags min-font">
             <span class="tag">木犀设计组{{this.group}}</span>
             <span class="tag">HOME/{{this.hometown}}</span>
             <span class="tag">BIRTH/{{this.birthday}}</span>
@@ -26,7 +26,6 @@
         <div class="blog" v-for = "article in articles" :key="article.id">
             <span>{{article.title}}</span>
             <div class="text">{{article.text}}</div>
-            
         </div>
 
       </div>
@@ -74,30 +73,27 @@ export default {
           this.email = res.email;
           this.info = res.info;
           this.birthday = res.birthday;
+          this.avatar_url = res.avatar_url;
+          this.personal_blog = res.personal_blog;  
+          this.github = res.github;         
+          this.weibo = res.weibo;          
+          this.zhihu = res.zhihu;
       })
   }
 }
 </script>
 <style lang="scss">
+@import "../utility.scss";
+
 body{
     background-color: #f5f5f5;
-    font-family:"Microsoft YaHei";
-}
-div{
-    display: block;
-}
-.root{
-
 }
 
 .head{
-    width:100%;
-    margin: 0 auto;
     background-image: url(../pictures/head.png);
     background-repeat: no-repeat;
     background-position: top center;
     background-size: 100% ;
-    text-align: center;
 }
 
 .avatar{
@@ -105,9 +101,7 @@ div{
     width: 8%;
 }
 .intro{
-    text-align: center;
     color: #666666;
-    font-size: 12px;
 }
 .username{
     font-size: 24px;
@@ -115,7 +109,6 @@ div{
 }
 .parent{
     // text-align: center;
-    margin: 0 auto;
     width: 950px;
 }
 .blog{
@@ -126,7 +119,6 @@ div{
     padding: 30px;
 }
 .text{
-    // width:100%;
     color: #666666;
     font-size: 14px;
     
@@ -145,13 +137,9 @@ div{
     background-color:#cccccc;
     padding: 4px 10px;
     height: 30px;
-    border-radius: 15px;  
-    text-align: center;
+    border-radius: 15px; 
     line-height: 30px;
     color: #ffffff;
-    font-size: 12px;
-    
-
 }
 .urls{
     padding-top: 30px;

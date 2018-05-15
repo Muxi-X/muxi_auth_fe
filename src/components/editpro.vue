@@ -9,7 +9,7 @@
             <div class="edit"><span class="item">用户名</span><input class="editinfo min-font" v-model="username"></div>
             <div class="edit"><span class="item">头像链接</span><input class="editinfo min-font" v-model="avatar_url"></div>
             <div class="edit"><span class="item">组别</span>
-                <select class="date" v-model="group">
+                <select class="sel text-align" v-model="group">
                     <option value="frontend">木犀前端组</option> 
                     <option value="backend" >木犀后台组</option>
                     <option value="android">木犀安卓组</option>
@@ -18,7 +18,7 @@
                 </select>
             </div>
             <div class="edit"><span class="item">入组时间</span>
-                <select class="date" v-model="jointime[0]">
+                <select class="sel text-align" v-model="jointime[0]">
                     <option >2014</option> 
                     <option >2015</option>
                     <option >2016</option>
@@ -26,42 +26,20 @@
                     <option >2018</option>
                 </select>
                 <span class="text">年</span>
-                 <select class="date" v-model="jointime[1]">
-                    <option >1</option> 
-                    <option >2</option>
-                    <option >3</option>
-                    <option >4</option>
-                    <option >5</option>
-                    <option >6</option> 
-                    <option >7</option>
-                    <option >8</option>
-                    <option >9</option>
-                    <option >10</option>
-                    <option >11</option>
-                    <option >12</option>
+                 <select class="sel text-align" v-model="jointime[1]">
+                    <option v-for = "n in 12" :key="n.id">{{n}}</option>
                 </select>
                  <span class="text">月</span>
             
             </div>
             <div class="edit"><span class="item">生日</span>
-                <select class="date" v-model="birthday[0]">
-                    <option >1</option> 
-                    <option >2</option>
-                    <option >3</option>
-                    <option >4</option>
-                    <option >5</option>
-                    <option >6</option> 
-                    <option >7</option>
-                    <option >8</option>
-                    <option >9</option>
-                    <option >10</option>
-                    <option >11</option>
-                    <option >12</option>
+                <select class="sel text-align" v-model="birthday[0]">
+                    <option v-for = "n in 12" :key="n.id">{{n}}</option>
                 </select>
 
                 <!-- <input type="month"> -->
                 <span class="text">月</span>
-                <select class="date min-font" v-model="birthday[1]">
+                <select class="sel text-align min-font" v-model="birthday[1]">
                     <option v-for = "n in day[birthday[0]]" :key="n.id">{{n}}</option>
                 </select>
                  <span class="text">日</span>
@@ -204,25 +182,28 @@ body{
 }
 .editinfo{
     width: 30%;
-    height:30px;
+    height:33px;
     margin-left: 2%;
     padding: 0 10px;
     border: solid 1px #666666;
     border-radius: 15px;
     color: #666666;
 }
-.date{
+.sel{
 
     margin-left: 2%;
-    min-width: 80px;
-    height: 30px;
-    padding: 0 20px;
+    min-width: 100px;
+    height: 33px;
+    // padding: 0 20px;
+    padding-left: 20px;
+    padding-right: 40px;
     border: solid 1px #666666;
     border-radius: 15px;
     background-color: #ffffff;
     color: #666666;
-    background:url() no-repeat right center;  
-	// appearance:none;
+    background: url(../pictures/arrow.png) no-repeat 80% center;  
+	background-size: auto 35%;
+    // appearance:none;
 	-moz-appearance:none;
     -webkit-appearance:none;
     outline: none;

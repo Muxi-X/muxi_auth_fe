@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="root full-height">
       <div class="head text-align full-width">
       <!-- <img src="../pictures/head.png" class = "head"> -->
       <img src="../pictures/favicon.png" class="avatar">
@@ -85,7 +85,7 @@ export default {
 <style lang="scss">
 @import "../utility.scss";
 
-body{
+.root{
     background-color: #f5f5f5;
 }
 

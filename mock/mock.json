@@ -7,6 +7,18 @@
 			"async": false
 		},
 		{
+			"name" : "profile",
+			"endpoint": "/profile/:Int",
+			"template": "profile",
+			"async": false
+		},
+		{
+			"name" : "editpro",
+			"endpoint": "/editpro/:Int",
+			"template": "editpro",
+			"async": false
+		},
+		{
 			"name" : "auth_phone",
 			"endpoint": "/phone/",
 			"template": "auth_phone",

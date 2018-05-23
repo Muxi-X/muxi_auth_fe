@@ -1,18 +1,17 @@
 <template>
-  <div class="root full-height">
+  <div class="root ">
       <div class="head text-align full-width">
-      <!-- <img src="../pictures/head.png" class = "head"> -->
-      <img src="../pictures/favicon.png" class="avatar">
+      <img v-bind:src="this.avatar_url" class="avatar">
   
       <div class="intro text-align min-font">
         <div class="username">{{this.username}}</div>
         <div>{{this.email}}</div>
-        <div>个人介绍{{this.info}}</div>
+        <div>{{this.info}}</div>
       </div>
       </div>
       <div class="parent margin">
         <div class="tags min-font">
-            <span class="tag">木犀设计组{{this.group}}</span>
+            <span class="tag">{{this.group}}</span>
             <span class="tag">HOME/{{this.hometown}}</span>
             <span class="tag">BIRTH/{{this.birthday}}</span>
             <div class="urls">
@@ -23,10 +22,16 @@
             </div>
         </div>  
 
-        <div class="blog" v-for = "article in articles" :key="article.id">
+        <!-- <div class="blog" v-for = "article in articles" :key="article.id">
             <span>{{article.title}}</span>
             <div class="text">{{article.text}}</div>
+        </div> -->
+
+        <div class="blog" v-for = "share in shares" :key="share.id">
+            <span>{{share.title}}</span>
+            <div class="text">{{share.share}}</div>
         </div>
+
 
       </div>
       
@@ -48,13 +53,8 @@ export default {
           github: "",         //url
           weibo: "",          //url
           zhihu: "",          //url
-          articles:[{
-              title: 1,
-              text: "lalllla"
-          },{
-              title: 2,
-              text: "buwaejq"
-          }]
+          shares: [],
+        
       }
   },
   mounted() {
@@ -78,6 +78,21 @@ export default {
           this.github = res.github;         
           this.weibo = res.weibo;          
           this.zhihu = res.zhihu;
+          this.hometown = res.hometown;
+          this.group = res.group;
+      }),
+
+      fetch("/getShare/",{
+          method: 'GET',
+          headers: {
+              "Content-Type":"application/json"
+          }
+      }).then(res => {
+          if(res.ok)
+          return res.json()
+      }).then(res => {
+          this.shares = res.shares;
+        console.log(res.shares)
       })
   }
 }
@@ -87,6 +102,8 @@ export default {
 
 .root{
     background-color: #f5f5f5;
+    padding-bottom: 30px;
+    min-height: 100%;
 }
 
 .head{
@@ -94,11 +111,13 @@ export default {
     background-repeat: no-repeat;
     background-position: top center;
     background-size: 100% ;
+    padding-top: 17%;
 }
 
 .avatar{
-    padding-top: 18%;
+    // padding-top: 18%;
     width: 8%;
+    border-radius: 50%;
 }
 .intro{
     color: #666666;
@@ -121,7 +140,8 @@ export default {
 .text{
     color: #666666;
     font-size: 14px;
-    
+    padding-top: 10px;
+    overflow: hidden;
 }
 
 .tags{

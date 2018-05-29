@@ -85,7 +85,7 @@
                         if (res !== null && res!== undefined) {
                             let landing = localStorage.getItem('landing')
                             if (landing) {
-                                window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + res.token
+                                window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + res.token + '&id=' + res.user_id
                             }
                         } else {
                             this.failed = true

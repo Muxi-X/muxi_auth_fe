@@ -86,6 +86,16 @@ let Service = {
         captcha: captcha
       }
     })
+  },
+  // get profile
+  getProfile(id, token) {
+    return Fetch("/api/show_profile/"+id, {
+        token: token
+    })
+  },
+  // get user's share
+  getShare(id) {
+    return Fetch("http://share.muxixyz.com/api/v2.0/get_one_all/" + id + "/")
   }
 };
 

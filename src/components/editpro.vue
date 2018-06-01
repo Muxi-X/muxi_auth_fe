@@ -10,12 +10,11 @@
             <div class="edit"><span class="item">用户名</span><input class="editinfo min-font" v-model="username"></div>
             <div class="edit"><span class="item">头像链接</span><input class="editinfo min-font" v-model="avatar_url"></div>
             <div class="edit"><span class="item">组别</span>
-                <select class="sel text-align whitebg" v-model="group">
-                    <option >木犀前端组</option> 
-                    <option >木犀后台组</option>
-                    <option >木犀安卓组</option>
-                    <option >木犀产品组</option>
-                    <option >木犀设计组</option>
+                    <option value="frontend">木犀前端组</option> 
+                    <option value="backend" >木犀后台组</option>
+                    <option value="android">木犀安卓组</option>
+                    <option value="production">木犀产品组</option>
+                    <option value="design">木犀设计组</option>
                 </select>
             </div>
             <div class="edit"><span class="item">入组时间</span>
@@ -37,7 +36,6 @@
                 <select class="sel text-align whitebg" v-model="birthday[0]">
                     <option v-for = "item in 12" :key="item.id">{{item}}</option>
                 </select>
-
                 <span class="text">月</span>
                 <select class="sel text-align min-font whitebg" v-model="birthday[1]">
                     <option v-for = "item in day[birthday[0]]" :key="item.id">{{item}}</option>
@@ -75,10 +73,8 @@ export default {
           github: "",         //url
           weibo: "",          //url
           zhihu: "",          //url
-
           jointime: [2017,9], //加入时间
-          day: [,31,28,31,30,31,30,31,31,30,31,30,31],
-
+          day: [,31,28,31,30,31,30,31,31,30,31,30,31]
       }
   },
   mounted() {
@@ -188,8 +184,6 @@ $grey: #666666;
 .avatar{
     min-height: 130px;
     margin-bottom: 20px;
-    border-radius: 65px;
-    
 }
 .edits{
     padding-top: 40px;

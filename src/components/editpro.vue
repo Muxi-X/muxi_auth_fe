@@ -3,14 +3,13 @@
     <div class="parent margin">
     <div class="side whitebg">
         <div class="user text-align">
-        <img src="../pictures/favicon.png" class="avatar full-width">
-        <span>用户名{{this.username}}</span>
+        <img  v-bind:src="this.avatar_url" class="avatar full-width">
+        <span>{{this.username}}</span>
         </div>
         <div class="edits">
             <div class="edit"><span class="item">用户名</span><input class="editinfo min-font" v-model="username"></div>
             <div class="edit"><span class="item">头像链接</span><input class="editinfo min-font" v-model="avatar_url"></div>
             <div class="edit"><span class="item">组别</span>
-                <select class="sel text-align whitebg" v-model="group">
                     <option value="frontend">木犀前端组</option> 
                     <option value="backend" >木犀后台组</option>
                     <option value="android">木犀安卓组</option>
@@ -37,8 +36,6 @@
                 <select class="sel text-align whitebg" v-model="birthday[0]">
                     <option v-for = "item in 12" :key="item.id">{{item}}</option>
                 </select>
-
-                <!-- <input type="month"> -->
                 <span class="text">月</span>
                 <select class="sel text-align min-font whitebg" v-model="birthday[1]">
                     <option v-for = "item in day[birthday[0]]" :key="item.id">{{item}}</option>
@@ -68,7 +65,7 @@ export default {
           id: 1,
           email: "",
           info: "",
-          birthday: "",
+          birthday: [],
           hometown: "",  
           group: "",
           avatar_url: "",     //url
@@ -77,10 +74,7 @@ export default {
           weibo: "",          //url
           zhihu: "",          //url
           jointime: [2017,9], //加入时间
-          day: [,31,28,31,30,31,30,31,31,30,31,30,31],
-
-        //   birthday: [3,5], //array
-        //   group: "frontend",
+          day: [,31,28,31,30,31,30,31,31,30,31,30,31]
       }
   },
   mounted() {
@@ -98,22 +92,34 @@ export default {
           this.username = res.username;
           this.email = res.email;
           this.info = res.info;
-          this.birthday = res.birthday;
+          this.birthday = res.birthday.split('.');
           this.avatar_url = res.avatar_url;
           this.personal_blog = res.personal_blog;  
           this.github = res.github;         
           this.weibo = res.weibo;          
           this.zhihu = res.zhihu;
+          this.hometown = res.hometown;
+          this.group = res.group;
       })
   },
-  method: {
-      save() {
+  methods: {
+      saveinfo() {
           var data = {
-              
+              "username": this.username,
+              "email": this.email,
+              "info": this.info,
+              "birthday": this.birthday.join('.'),
+              "avatar_url": this.avatar_url,
+              "personal_blog": this.personal_blog,
+              "zhihu": this.zhihu,
+              "github": this.github,
+              "weibo": this.weibo,
+              "hometown": this.hometown,
+              "group": this.group,
           };
           fetch("/api/edit_profile/", {
-              methon: 'POST',
-              body: JSON.stringify(data),
+              method: 'POST',
+              body:  JSON.stringify(data),
               headers: {
                 "token": "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ODF9.2qVoAYnT-cwHr1eJdXc_u8FrhlfFTbQSrB-JVizHf5w" ,
                 "Content-Type":"application/json"   
@@ -122,11 +128,16 @@ export default {
               if (res.ok) {
 		        return res.json()
               } else {
-                this.failed = true
+                  console.log('x');
+                this.failed = true;
 	          }
             }).then(value => {
-	            // do something
+                // do something
+                
             })
+      },
+      cancel(){
+          location.reload();
       }
 
   }
@@ -148,7 +159,8 @@ $grey: #666666;
     padding: 2% 0;
 }
 .parent{
-    width:65%;
+    // width:65%;
+    width: 1245px;
     background-image: url(../pictures/side.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -170,8 +182,8 @@ $grey: #666666;
 
 }
 .avatar{
+    min-height: 130px;
     margin-bottom: 20px;
-    
 }
 .edits{
     padding-top: 40px;
@@ -188,8 +200,8 @@ $grey: #666666;
     text-align: right;  
 }
 .editinfo{
-    width: 30%;
-    height:33px;
+    width: 35%;
+    height:35px;
     margin-left: 2%;
     padding: 0 10px;
     border: 1px solid $grey;

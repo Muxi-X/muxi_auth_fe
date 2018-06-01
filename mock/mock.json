@@ -47,12 +47,92 @@
 			"endpoint" : "/api/v1.0/register/",
 			"method" : "post",
 			"async" : true
+		},
+		{
+			"name": "getShare",
+			"endpoint": "/getShare/",
+			"method":"get",
+			"async": true
 		}
 	],
 	"data":{
 		"api.login":{
 			"uid": 1,
 			"token":"dafjslkfljfiasjjOJFOJDIOFJ"
-		}
+		},
+		"getShare": {
+			
+				"page": 1, 
+				"pages_count": 232, 
+				"share_num": 5, 
+				"shares": [
+				  {
+					"avatar": "http://7xrvvt.com1.z0.glb.clouddn.com/shakedog.gif", 
+					"comment": "/api/v2.0/1239/comments/", 
+					"comment_num": 0, 
+					"date": "Sat, 19 May 2018 08:48:52 GMT", 
+					"id": 1239, 
+					"read_num": 0, 
+					"share": "[\u8bbe\u8ba1\u5c0f\u59d0\u59d0\u7ed9\u6211\u7684\u8fde\u73af N \u95ee](https://github.com/Cruyun/Diary/blob/c44fadf581a717c86efaf09857331484e9d5a0d0/2018/%E9%9D%A2%E5%90%91%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%89%8D%E7%AB%AF%E5%88%86%E4%BA%AB.md)", 
+					"tag": "frontend", 
+					"title": "\u9762\u5411\u8bbe\u8ba1\u7684\u524d\u7aef\u5206\u4eab", 
+					"user_id": 82, 
+					"username": "%E8%94%A1%E8%8C%B9%E8%8A%B8"
+				  }, 
+				  {
+					"avatar": "http://7xrvvt.com1.z0.glb.clouddn.com/shakedog.gif", 
+					"comment": "/api/v2.0/1238/comments/", 
+					"comment_num": 0, 
+					"date": "Sat, 19 May 2018 06:28:42 GMT", 
+					"id": 1238, 
+					"read_num": 0, 
+					"share": "[The Node.js Event Loop, Timers, and process.nextTick()](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)\n\n[Node.js Event Loop \u7684\u7406\u89e3 Timers\uff0cprocess.nextTick()](https://cnodejs.org/topic/57d68794cb6f605d360105bf)", 
+					"tag": "frontend", 
+					"title": "\u524d\u7aef\u5206\u4eabEvent Loop", 
+					"user_id": 108, 
+					"username": "fengzi2016"
+				  }, 
+				  {
+					"avatar": "http://7xrvvt.com1.z0.glb.clouddn.com/shakedog.gif", 
+					"comment": "/api/v2.0/1237/comments/", 
+					"comment_num": 0, 
+					"date": "Sat, 19 May 2018 05:23:23 GMT", 
+					"id": 1237, 
+					"read_num": 0, 
+					"share": "[\u6211\u662f\u94fe\u63a5](https://www.jianshu.com/p/dec9a453573f)\n\n\u56de\u6eaf\u548c\u52a8\u6001\u89c4\u5212\u7684\u7ecf\u5178\u9898\u76ee\u8fd8\u662f\u8981\u505a\u4e00\u4e0b\u7684\uff1a\n\n[\u516b\u7687\u540e\u95ee\u9898-vijos](https://vijos.org/d/sssgzx/p/59f691c5d3d8a10a532cf779)\n\nvijos\u7684\u754c\u9762\u6bd4\u4ee5\u524d\u4e0d\u77e5\u9053\u597d\u770b\u4e86\u591a\u5c11\uff01\uff01\uff01\u662f\u6211\u6700\u521d\u4f7f\u7528\u7684OJ\n\n[01\u80cc\u5305](http://codevs.cn/problem/5709/)\n\n\u80cc\u5305\u95ee\u9898\u662f\u6700\u7ecf\u5178\u7684\u52a8\u6001\u89c4\u5212\u95ee\u9898\uff0c\u800c\u5176\u4e2d01\u80cc\u5305\u53c8\u662f\u6700\u7ecf\u5178\u7684\u80cc\u5305\u95ee\u9898\u3002", 
+					"tag": "backend", 
+					"title": "\u56de\u6eaf\uff0c\u968f\u673a\u5316\uff0c\u52a8\u6001\u89c4\u5212\u7b97\u6cd5", 
+					"user_id": 113, 
+					"username": "ShiinaOrez"
+				  }, 
+				  {
+					"avatar": "http://ourrzxc82.bkt.clouddn.com/muxistudio743998682.jpg", 
+					"comment": "/api/v2.0/1236/comments/", 
+					"comment_num": 0, 
+					"date": "Sat, 19 May 2018 03:59:59 GMT", 
+					"id": 1236, 
+					"read_num": 0, 
+					"share": "[\u5728\u6b63\u786e\u7684\u7ebf\u7a0b\u4f7f\u7528Observable](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1006/3543.html)", 
+					"tag": "android", 
+					"title": "\u5728\u6b63\u786e\u7684\u7ebf\u7a0b\u4f7f\u7528Observable", 
+					"user_id": 5, 
+					"username": "kolibreath"
+				  }, 
+				  {
+					"avatar": "http://7xrvvt.com1.z0.glb.clouddn.com/shakedog.gif", 
+					"comment": "/api/v2.0/1235/comments/", 
+					"comment_num": 0, 
+					"date": "Fri, 18 May 2018 07:34:20 GMT", 
+					"id": 1235, 
+					"read_num": 0, 
+					"share": "[\u76d2\u6a21\u578b&\u7f6e\u6362\u5143\u7d20](https://github.com/fengzi2016/SUMMARY/blob/master/web/box&replace-element.md)", 
+					"tag": "frontend", 
+					"title": "5.18\u524d\u7aef\u5206\u4eab", 
+					"user_id": 108, 
+					"username": "fengzi2016"
+				  }
+				]
+			  }  
+		
 	}
 }

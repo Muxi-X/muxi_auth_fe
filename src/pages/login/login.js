@@ -3,7 +3,7 @@ import './login.css';
 import Background from '../../images/login.png';
 var sectionStyle = {
     width: "100%",
-    padding: "120px 0 0 0",
+    padding: "0 0 0 0",
     margin: "0 auto",
   // makesure here is String确保这里是一个字符串，以下是es6写法
     backgroundImage: `url(${Background})`,

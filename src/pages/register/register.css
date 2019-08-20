@@ -50,7 +50,7 @@ code {
     
 }
 
-.sign-up-container {
+.sign-in-container {
     width: 376px;
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 2px 9px 0px rgba(37, 43, 147, 0.25);
@@ -87,7 +87,7 @@ code {
     border-radius: 2px;
 }
 
-.sign-up-button {
+.sign-in-button {
     display: block;
     width: 272px;
     height: 33px;
@@ -96,7 +96,7 @@ code {
     color:white;
 }
 
-.sign-up-msg {
+.sign-in-msg {
     font-size: 12px;
     margin-top: 16px ;
 }

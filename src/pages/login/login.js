@@ -59,8 +59,8 @@ class Login extends Component {
                     <div className="sign-in-container" >
                         <div className="title" >登录</div>
                         <form method="post" >
-                            < div className="input-prepend" >
-                                < input type="text"
+                            <div className="input-prepend" >
+                                <input type="text"
                                     placeholder="用户名"
                                     value={username}
                                     onInput={this.ChangeUsername}
@@ -68,7 +68,7 @@ class Login extends Component {
                                     className="user_nickname" />
                             </div>
                             <div className="input-prepend" >
-                                < input type="email"
+                                <input type="email"
                                     placeholder="登录邮箱"
                                     value={email}
                                     onInput={this.ChangeEmail}
@@ -76,7 +76,7 @@ class Login extends Component {
                                     className="user_email_number" />
                             </div>
                             <div className="input-prepend" >
-                                < input type="password"
+                                <input type="password"
                                     placeholder="密码"
                                     value={f_password}
                                     onInput={this.ChangeFPassword}
@@ -96,7 +96,7 @@ class Login extends Component {
                                     value="true"
                                     checked="check"
                                     name="session[auto_login]"
-                                    className="session_auto_login" />  < span > 下次自动登陆 </span>
+                                    className="session_auto_login" />  <span > 下次自动登陆 </span>
                             </div>
                             <button className="sign-in-button" type="button" onClick={this.login} > 开启新世界大门 </button>
                             <p className="sign-in-msg" > 以上设置可在页面右上角个人信息中再次修改 </p>

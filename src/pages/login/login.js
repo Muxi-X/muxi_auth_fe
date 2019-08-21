@@ -32,7 +32,10 @@ class Login extends Component {
                     </div>
                     
                     <div className="sign-in-container" >
-                        <div className="title" >登录</div>
+                        <div className="title" >
+                        <div className="span1">登录</div>
+                        <div className="span2"><Link to='/register' style={{ textDecoration: 'none',color: 'rgba(145,145,145,1)' }}>注册</Link></div>
+                        </div>
                         <form method="post" >
                             
                             <div className="input-prepend" >
@@ -55,9 +58,9 @@ class Login extends Component {
                                     onChange={this.changecheck.bind(this)}
                                     name="session[auto_login]"
                                     className="session_auto_login" />  
-                                    <span> 下次自动登陆 </span>
-                                    <Link to='/find_pass' style={{ textDecoration: 'none' }}>
-                                        <div className="find_pass"> 找回密码？ </div></Link>
+                                    <div onClick={this.changecheck.bind(this)}> 下次自动登陆 </div>
+                                    <div className="find_pass"><Link to='/find_pass' style={{ textDecoration: 'none' }}>
+                                         找回密码？ </Link></div>
                             </div>
                             <button className="sign-in-button" type="button" > 登录 </button>
                             

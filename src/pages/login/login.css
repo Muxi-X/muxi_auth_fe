@@ -41,15 +41,20 @@ code {
     height:100%;
 }
 .title {
-    margin:0 auto;
-    width: fit-content;
+    width: 272px;
+    display: flex;
+    justify-content:space-around;
+    line-height: 25px;
+}
+.span1{
     font-size: 19px;
-    font-family: MicrosoftYaHei-Bold;
     font-weight: bold;
     color: rgba(9, 9, 9, 1);
-    line-height: 25px;
-    
 }
+.span2{
+    font-size: 19px;
+}
+
 
 .sign-in-container {
     width: 376px;

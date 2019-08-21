@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import './register.css';
+import {  Link } from 'react-router-dom'
 import Background from '../../images/login.png';
 import Service from '../../compoment/service'
 var sectionStyle = {
@@ -79,7 +80,10 @@ class  Register extends Component {
                     </div>
                     
                     <div className="sign-in-container" >
-                        <div className="title" >注册</div>
+                    <div className="title" >
+                        <div className="span2"><Link to='/login' style={{ textDecoration: 'none',color: 'rgba(145,145,145,1)' }}>登录</Link></div>
+                        <div className="span1">注册</div>
+                        </div>
                         <form method="post" >
                             <div className="input-prepend" >
                                 <input type="text"
@@ -112,13 +116,6 @@ class  Register extends Component {
                                     onInput={this.ChangeSPassword.bind(this)}
                                     onChange={this.ChangeSPassword.bind(this)}
                                     className="user_confi_password" />
-                            </div>
-                            <div className="auto-login-btn" >
-                                <input type="checkbox"
-                                    value="true"
-                                    checked="check"
-                                    name="session[auto_login]"
-                                    className="session_auto_login" />  <span > 下次自动登陆 </span>
                             </div>
                             <button className="sign-in-button" type="button" onClick={this.register.bind(this)} > 开启新世界大门 </button>
                             <p className="sign-in-msg" > 以上设置可在页面右上角个人信息中再次修改 </p>

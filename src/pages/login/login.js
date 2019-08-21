@@ -6,7 +6,6 @@ var sectionStyle = {
     width: "100%",
     padding: "0 0 0 0",
     margin: "0 auto",
-  // makesure here is String确保这里是一个字符串，以下是es6写法
     backgroundImage: `url(${Background})`,
     backgroundSize: 'cover' 
   };
@@ -37,13 +36,13 @@ class Login extends Component {
                         <form method="post" >
                             
                             <div className="input-prepend" >
-                                < input type="text"
+                                <input type="text"
                                     placeholder="用户名"
                                     name="session[nickname]"
                                     className="session_nickname" />
                             </div>
                             <div className="input-prepend" >
-                                < input type="password"
+                                <input type="password"
                                     placeholder="密码"
                                     name="session[password]"
                                     className="user_password" />

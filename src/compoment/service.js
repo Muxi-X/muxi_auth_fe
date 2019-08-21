@@ -12,17 +12,20 @@ function Fetch(url, opt = {}) {
   
     return fetch(url, opt).then(response => {
       return response.json().then(json => {
-        switch (response.status) {
-          // case 200:
-          //   return json;
-          // case 502:
-          //   util.message(response.statusText, "err");
-          // case 403:
-          //   util.message(json.message, "err");
-          // case 401:
-          //   return response.status;
-          //   break;
-        }
+        // switch (response.status) {
+        //   case 200:
+        //     return json; break;
+        //   case 502:
+        //     //util.message(response.statusText, "err");
+        //     break;
+        //   case 403:
+        //     //util.message(json.message, "err");
+        //     break;
+        //   case 401:
+        //     return response.status;            
+        // }
+        if(response.status===200) return json;
+        // if(response.status===502) return util.message(response.statusText, "err");
       });
     });
   }

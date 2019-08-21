@@ -38,16 +38,26 @@ class Login extends Component {
         } 
 
     login(){
-        Service.Login(this.state.username,this.state.password).then(res=>{
-            if (res !== null && res!== undefined) {
-                let landing = localStorage.getItem('landing')
-                if (landing) {
-                        window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + res.token + '&id=' + res.user_id
-                    }
-                } else {
-                    this.failed = true
-                }
-            })
+        Service.Login(this.state.username,this.state.password).then(
+            // res=>{
+            // if (res !== null && res!== undefined) {
+            //     let landing = localStorage.getItem('landing')
+            //     if (landing) {
+            //             window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + res.token + '&id=' + res.user_id
+            //         }
+            //     } else {
+            //         this.failed = true
+            //     }
+            // }
+            // console.log("lalalal"),
+            res=>{
+                // if(res.token){
+                //     console.log("lalalal")
+                // }
+                console.log(res)
+            }
+            // window.location.href ='www.baidu.com'
+             )
         }
     render() {
         const {ischecked , username , password} = this.state;

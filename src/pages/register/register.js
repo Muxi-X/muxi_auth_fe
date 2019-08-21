@@ -6,7 +6,6 @@ var sectionStyle = {
     width: "100%",
     padding: "0 0 0 0",
     margin: "0 auto",
-  // makesure here is String确保这里是一个字符串，以下是es6写法
     backgroundImage: `url(${Background})`,
     backgroundSize: 'cover' 
   };
@@ -18,7 +17,8 @@ class  Register extends Component {
             username:'',
             email:'',
             f_password:'',
-            s_password:''
+            s_password:'',
+            flag:false
     }}
     ChangeUsername(e) {
         this.setState({
@@ -26,6 +26,7 @@ class  Register extends Component {
         })
     }
     ChangeEmail(e) {
+        
         this.setState({
           email: e.target.value
         });
@@ -39,10 +40,22 @@ class  Register extends Component {
         this.setState({
           s_password: e.target.value
         });
+        // if(this.state.f_password!==this.state.s_password){
+        //     this.setState({
+        //         flag:false
+        //     })
+        // }
+        // if(this.state.f_password===this.state.s_password){
+        //     this.setState({
+        //         flag:true
+        //     })
+        // }
     }
-    login(){
+    register(){
+        if(this.state.s_password===this.state.f_password){
         Service.register(this.state.email , this.state.username, this.state.s_password).then(res=>{
             if (res !== null && res!== undefined) {
+                alert("注册成功")
                 let landing = localStorage.getItem('landing')
                 if (landing) {
                     window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + res.token + '&id=' + res.user_id
@@ -51,10 +64,13 @@ class  Register extends Component {
                 this.failed = true
             }
             }
-        )
+        )}
+        else{
+            alert("两次输入密码不一致")
+        }
     }
     render() {
-        const { username , email , f_password , s_password}= this.state
+        const { username , email , f_password , s_password }= this.state
         return (
             <div className="sign" style={sectionStyle} >
                 <div className="main">
@@ -104,7 +120,7 @@ class  Register extends Component {
                                     name="session[auto_login]"
                                     className="session_auto_login" />  <span > 下次自动登陆 </span>
                             </div>
-                            <button className="sign-in-button" type="button" onClick={this.login.bind(this)} > 开启新世界大门 </button>
+                            <button className="sign-in-button" type="button" onClick={this.register.bind(this)} > 开启新世界大门 </button>
                             <p className="sign-in-msg" > 以上设置可在页面右上角个人信息中再次修改 </p>
 
                         </form>

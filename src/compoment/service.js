@@ -13,15 +13,15 @@ function Fetch(url, opt = {}) {
     return fetch(url, opt).then(response => {
       return response.json().then(json => {
         switch (response.status) {
-        //   case 200:
-        //     return json;
-        //   case 502:
-        //     util.message(response.statusText, "err");
-        //   case 403:
-        //     util.message(json.message, "err");
-        //   case 401:
-        //     return response.status;
-        //     break;
+          // case 200:
+          //   return json;
+          // case 502:
+          //   util.message(response.statusText, "err");
+          // case 403:
+          //   util.message(json.message, "err");
+          // case 401:
+          //   return response.status;
+          //   break;
         }
       });
     });
@@ -51,11 +51,11 @@ function Fetch(url, opt = {}) {
     },
     // check email
     checkEmail(email) {
-      return fetch(`/api/check_email/?email=${email}`)
+      return fetch(`http://pass.muxixyz.com/api/check_email/?email=${email}`)
     },
     // check username
     checkUsername(username) {
-      return fetch(`/api/check_name/?username=${username}`)
+      return fetch(`http://pass.muxixyz.com/api/check_name/?username=${username}`)
     },
     // reset password
     resetPassword(email, password, captcha) {

@@ -58,11 +58,11 @@ class Login extends Component {
                                     onChange={this.changecheck.bind(this)}
                                     name="session[auto_login]"
                                     className="session_auto_login" />  
-                                    <div onClick={this.changecheck.bind(this)}> 下次自动登陆 </div>
+                                    <div className="focus" onClick={this.changecheck.bind(this)}> 下次自动登陆 </div>
                                     <div className="find_pass"><Link to='/find_pass' style={{ textDecoration: 'none' }}>
                                          找回密码？ </Link></div>
                             </div>
-                            <button className="sign-in-button" type="button" > 登录 </button>
+                            <button className="sign-in-button focus" type="button" > 登录 </button>
                             
 
                         </form>

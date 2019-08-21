@@ -21,7 +21,9 @@ div {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-
+.focus{
+    cursor: pointer;
+}
 .sign {
     width: 100%;
     height: 803px;

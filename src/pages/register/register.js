@@ -117,7 +117,7 @@ class  Register extends Component {
                                     onChange={this.ChangeSPassword.bind(this)}
                                     className="user_confi_password" />
                             </div>
-                            <button className="sign-in-button" type="button" onClick={this.register.bind(this)} > 开启新世界大门 </button>
+                            <button className="sign-in-button focus" type="button" onClick={this.register.bind(this)} > 开启新世界大门 </button>
                             <p className="sign-in-msg" > 以上设置可在页面右上角个人信息中再次修改 </p>
 
                         </form>

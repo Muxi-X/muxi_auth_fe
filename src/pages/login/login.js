@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {  Link } from 'react-router-dom'
 import './login.css';
 import Background from '../../images/login.png';
+import Service from '../../compoment/service';
 var sectionStyle = {
     width: "100%",
     padding: "0 0 0 0",
@@ -15,15 +16,41 @@ class Login extends Component {
         super(props);
         this.state = {
             ischecked:false,
+            username:'',
+            password:''
     }}
+    ChangeUsername(e) {
+        this.setState({
+            username:e.target.value
+        })
+    };
+
+    ChangePassword(e) {
+        this.setState({
+          password: e.target.value
+        })
+    }; 
     changecheck(e){
         var now = this.state.ischecked;
             this.setState({
                 ischecked:!now
             })
+        } 
+
+    login(){
+        Service.Login(this.state.username,this.state.password).then(res=>{
+            if (res !== null && res!== undefined) {
+                let landing = localStorage.getItem('landing')
+                if (landing) {
+                        window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + res.token + '&id=' + res.user_id
+                    }
+                } else {
+                    this.failed = true
+                }
+            })
         }
     render() {
-        const {ischecked} = this.state;
+        const {ischecked , username , password} = this.state;
         return (
             <div className="sign" style={sectionStyle} >
                 <div className="main">
@@ -41,13 +68,17 @@ class Login extends Component {
                             <div className="input-prepend" >
                                 <input type="text"
                                     placeholder="用户名"
-                                    name="session[nickname]"
+                                    value={username}
+                                    onInput={this.ChangeUsername.bind(this)}
+                                    onChange={this.ChangeUsername.bind(this)}
                                     className="session_nickname" />
                             </div>
                             <div className="input-prepend" >
                                 <input type="password"
                                     placeholder="密码"
-                                    name="session[password]"
+                                    value={password}
+                                    onInput={this.ChangePassword.bind(this)}
+                                    onChange={this.ChangePassword.bind(this)}
                                     className="user_password" />
                             </div>
                             
@@ -62,7 +93,7 @@ class Login extends Component {
                                     <div className="find_pass"><Link to='/find_pass' style={{ textDecoration: 'none' }}>
                                          找回密码？ </Link></div>
                             </div>
-                            <button className="sign-in-button focus" type="button" > 登录 </button>
+                            <button className="sign-in-button focus" type="button" onClick={this.login.bind(this)}> 登录 </button>
                             
 
                         </form>

@@ -1,0 +1,23 @@
+.get_captcha{
+    width:70px;
+}
+.input-prepend1{
+    display: flex;
+    width: 272px;
+    height: 33px;
+    margin-top:17px;
+}
+.email_blank{
+    display: inline-block;
+    outline: none;
+    border: 0;
+    padding-left: 15px;
+    line-height: 33px;
+    width: 202px;
+    background: rgba(244, 244, 244, 1);
+}
+.get_captcha{
+    height: 33px;
+    background: rgba(29, 76, 181, 1);
+    color: white;
+}

@@ -1,14 +1,8 @@
 body {
     margin: 0;
-    height:100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-.sign{
-    display: flex;
-    justify-content: center; 
-    align-items: center;  
 }
 * {
     box-sizing: border-box;
@@ -17,7 +11,8 @@ body {
 } 
 .main{
     display: flex;
-    flex-direction: column;
+    justify-content: center; 
+    align-items: center;  
 }
 div {
     display: block;
@@ -82,13 +77,6 @@ code {
     text-align: start;
     width:100%;
     background: rgba(244, 244, 244, 1);
-}
-
-.auto-login-btn {
-    display: flex;
-    text-align: start;
-    font-size: 12px;
-    margin: 15px auto 11px 0;
 }
 
 .session_auto_login {

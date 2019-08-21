@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {  Link } from 'react-router-dom'
 import './login.css';
 import Background from '../../images/login.png';
 var sectionStyle = {
@@ -11,7 +12,19 @@ var sectionStyle = {
   };
 
 class Login extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            ischecked:false,
+    }}
+    changecheck(e){
+        var now = this.state.ischecked;
+            this.setState({
+                ischecked:!now
+            })
+        }
     render() {
+        const {ischecked} = this.state;
         return (
             <div className="sign" style={sectionStyle} >
                 <div className="main">
@@ -39,9 +52,13 @@ class Login extends Component {
                             <div className="auto-login-btn" >
                                 <input type="checkbox"
                                     value="true"
-                                    checked="check"
+                                    checked={ischecked}
+                                    onChange={this.changecheck.bind(this)}
                                     name="session[auto_login]"
-                                    className="session_auto_login" />  < span > 下次自动登陆 </span>
+                                    className="session_auto_login" />  
+                                    <span> 下次自动登陆 </span>
+                                    <Link to='/find_pass' style={{ textDecoration: 'none' }}>
+                                        <div className="find_pass"> 找回密码？ </div></Link>
                             </div>
                             <button className="sign-in-button" type="button" > 登录 </button>
                             

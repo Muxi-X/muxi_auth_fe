@@ -41,26 +41,13 @@ class  Register extends Component {
         this.setState({
           s_password: e.target.value
         });
-        // if(this.state.f_password!==this.state.s_password){
-        //     this.setState({
-        //         flag:false
-        //     })
-        // }
-        // if(this.state.f_password===this.state.s_password){
-        //     this.setState({
-        //         flag:true
-        //     })
-        // }
     }
     register(){
         if(this.state.s_password===this.state.f_password){
         Service.register(this.state.email , this.state.username, this.state.s_password).then(res=>{
             if (res !== null && res!== undefined) {
                 alert("注册成功")
-                let landing = localStorage.getItem('landing')
-                if (landing) {
-                    window.location.href = 'http://'+ landing + '?username=' + this.username +'&token=' + res.token + '&id=' + res.user_id
-                }
+                window.location.href = '/login'
             } else {
                 this.failed = true
             }

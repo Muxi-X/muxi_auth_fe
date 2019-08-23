@@ -2,10 +2,9 @@
     width:70px;
 }
 .input-prepend1{
-    display: flex;
     width: 272px;
     height: 33px;
-    margin-top:17px;
+    margin: 17px auto 0 auto;
 }
 .email_blank{
     display: inline-block;
@@ -42,7 +41,7 @@
 .margin-fix{
     width: 272px;
     height: 33px;
-    margin: 0 auto 0 auto;
+    margin: 20px auto 0 auto;
 }
 .user_password{
     display: inline-block;
@@ -64,7 +63,7 @@
     box-shadow: 0px 2px 9px 0px rgba(37, 43, 147, 0.25);
     border-radius: 9px;
     margin: 34px auto auto auto;    
-    padding: 30px 52px 50px 52px;
+    padding: 19px 52px;
     color: rgba(145,145,145,1);
 }
 .next-button{
@@ -73,6 +72,9 @@
     height: 33px;
     background: rgba(29, 76, 181, 1);
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 30px;
     color: white;
+}
+.emailtab{
+    margin-left:15px;
 }

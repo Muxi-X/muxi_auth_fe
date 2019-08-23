@@ -3,7 +3,8 @@ import Background from '../../images/login.png';
 import "./index.css"
 import {  Link } from 'react-router-dom'
 // import { Server } from 'https';
-// import Service from '../../compoment/service'
+import Service from '../../compoment/service';
+
 
 var sectionStyle = {
     width: "100%",
@@ -17,38 +18,35 @@ class Index extends Component {
         constructor(props){
         super(props);
         this.state = {
-            isWindowshowed:false,
+            isTureEmail:false,
             btnContent: '发送',
             btnDisable:false,
             time: 60,
             emailInput: '',
             captchaInput: '',
-            start: false,
-            code: false,
-            wrong: false
+            info_email:''
     }}
-    get_captcha(e){
-    //   sendCode(value) {
-    //     value.stopPropagation();
-    //     value.preventDefault();
-    //     console.log(this.emailInput)
-    //     if (this.$v.emailInput.email && !this.$v.emailInput.isUnique && this.$v.emailInput.required) {
-    //         Service.getCaptcha(this.emailInput).then(res => {
-    //             if (res!== null && res !== undefined) {
-    //                 this.start = true
-    //                 this.code = true
-    //             }
-    //         })
-    //     }
-    // }
-        this.setState({
-            isWindowshowed:!this.state.isWindowshowed
-        })
-    }
+
     ChangeEmail(e){
-      this.setState({
-        emailInput: e.target.value
-      });
+      var val = e.target.value;
+      var isTureEmail = false;
+      var myReg=/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+      this.setState({"emailInput":val.substring(0,20)});
+      if (myReg.test(val)){
+        isTureEmail = true;
+      }
+      if(isTureEmail !== true){
+          this.setState({"info_email":"输入的邮箱格式有误"});
+          this.setState({isTureEmail:false});
+          setTimeout(function(){
+              this.setState({"info_email":""});
+          }.bind(this),1000);
+      }else{
+          this.setState({"info_email":""});
+          this.setState({isTureEmail:true});
+          // Service.getCaptcha(){
+          // };
+      }
     }
     Changecaptcha(e){
       this.setState({
@@ -92,7 +90,7 @@ class Index extends Component {
             timeChange = setInterval(clock,1000);
           };
 
-        const{btnDisable,isWindowshowed} = this.state;
+        const{btnDisable} = this.state;
         return (          
                 <div className="sign" style={sectionStyle} >
                     <div className="main">
@@ -106,13 +104,13 @@ class Index extends Component {
                             <div className="input-prepend1" >
                                 <input type="text"
                                     placeholder="输入邮箱"
+                                    name="email"
                                     onInput={this.ChangeEmail.bind(this)}
                                     onChange={this.ChangeEmail.bind(this)}
                                     className="email_blank" />
-                                    {/* <button className="get_captcha focus" type="button" onClick={this.get_captcha.bind(this)} >发送 </button> */}
                                     <button type="primary" className={btnDisable?"get_captcha_unuse focus ":"get_captcha focus "} inline onClick={sendCode} disabled={btnDisable}>{this.state.btnContent}</button>
+                                    <label className="emailtab" for="email">{this.state.info_email}</label>
                             </div>
-                            <div className={isWindowshowed?"remind":"none"}>测试一下下</div>
                             <div className="margin-fix" >
                                 <input type="text"
                                     placeholder="验证码"
@@ -120,8 +118,9 @@ class Index extends Component {
                                     onChange={this.Changecaptcha.bind(this)}
                                     className="user_password" />
                             </div>
+                            </form>
                             <Link to="/reset"><button className="next-button focus" type="button" onClick={this.next.bind(this)}>下一步 </button></Link> 
-                        </form>
+
                         </div>
                     </div>
                 </div>

@@ -19,28 +19,67 @@ class  Register extends Component {
             email:'',
             f_password:'',
             s_password:'',
+            info_usr:'',
+            info_email:'',
+            info_f_password:'',
+            info_s_password:'',
+            isUserUsed:false,
             flag:false
     }}
     ChangeUsername(e) {
-        this.setState({
-            username:e.target.value
-        })
+        // Service.register
+        var val = e.target.value;
+        this.setState({"username":val.substring(0,15)});
+        if(this.state.isUserUsed === false){    
+            this.setState({"info_usr":"该用户名已被注册!"});
+            setTimeout(function(){
+                this.setState({"info_usr":""});
+            }.bind(this),1000);
+        }else{
+            this.setState({"info_f_password":""});
+        }
     }
+
     ChangeEmail(e) {
-        
         this.setState({
           email: e.target.value
         });
     } 
+
     ChangeFPassword(e) {
-        this.setState({
-          f_password: e.target.value
-        });
+        var val = e.target.value;
+        var length = val.length;
+        this.setState({"f_password":val.substring(0,15)});
+        if(length > 15){
+            this.setState({"info_f_password":"不能输入超过15个字!"});
+            setTimeout(function(){
+                this.setState({"info_f_password":""});
+            }.bind(this),1000);
+        }else{
+            this.setState({"info_f_password":""});
+        }
+        if(length < 8){
+            this.setState({"info_f_password":"不能输入低于8个字!"});
+            setTimeout(function(){
+                this.setState({"info_f_password":""});
+            }.bind(this),1000);
+        }else{
+            this.setState({"info_f_password":""});
+        }
     }
+
     ChangeSPassword(e) {
-        this.setState({
-          s_password: e.target.value
-        });
+        var val = e.target.value;
+        this.setState({"s_password":val.substring(0,15)});
+
+        if(val !== this.state.f_password){
+            this.setState({"info_s_password":"前后两次输入密码不正确!"});
+            setTimeout(function(){
+                this.setState({"info_s_password":""});
+            }.bind(this),1000);
+        }else{
+            this.setState({"info_s_password":""});
+        }
     }
     register(){
         if(this.state.s_password===this.state.f_password){
@@ -76,33 +115,41 @@ class  Register extends Component {
                                 <input type="text"
                                     placeholder="用户名"
                                     value={username}
+                                    name="username"
                                     onInput={this.ChangeUsername.bind(this)}
                                     onChange={this.ChangeUsername.bind(this)}
                                     className="user_nickname" />
+                                <label for="username">{this.state.info_usr}</label>
                             </div>
                             <div className="input-prepend" >
                                 <input type="email"
                                     placeholder="登录邮箱"
                                     value={email}
+                                    name="email"
                                     onInput={this.ChangeEmail.bind(this)}
                                     onChange={this.ChangeEmail.bind(this)}
                                     className="user_email_number" />
+                                <label for="email">{this.state.info_email}</label>
                             </div>
                             <div className="input-prepend" >
                                 <input type="password"
                                     placeholder="密码"
                                     value={f_password}
+                                    name="f_password"
                                     onInput={this.ChangeFPassword.bind(this)}
                                     onChange={this.ChangeFPassword.bind(this)}
                                     className="user_password" />
+                                <label for="f_password">{this.state.info_f_password}</label>
                             </div>
                             <div className="input-prepend" >
                                 <input type="password"
                                     placeholder="确认密码"
                                     value={s_password}
+                                    name="s_password"
                                     onInput={this.ChangeSPassword.bind(this)}
                                     onChange={this.ChangeSPassword.bind(this)}
                                     className="user_confi_password" />
+                                <label for="s_password">{this.state.info_s_password}</label>
                             </div>
                             <button className="sign-in-button focus" type="button" onClick={this.register.bind(this)} > 开启新世界大门 </button>
                             <p className="sign-in-msg" > 以上设置可在页面右上角个人信息中再次修改 </p>

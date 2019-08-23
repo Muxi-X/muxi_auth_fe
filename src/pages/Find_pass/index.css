@@ -55,6 +55,7 @@
 }
 .title{
     font-size: 19px;
+    font-weight: bold;
     color: rgba(9, 9, 9, 1);
 }
 .container{

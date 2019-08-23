@@ -12,6 +12,22 @@ var sectionStyle = {
   };
 
 class Login extends Component {
+    componentWillMount(){
+        if(localStorage.getItem('checked')){
+            Service.Login(localStorage.getItem('username'),localStorage.getItem('password')).then(
+                res=>{
+                if (res !== null && res!== undefined) {
+                    let landing = 'work.muxixyz.com/'
+                    if (landing) {
+                            window.location.href = 'http://'+ landing + 'landing/?username=' + localStorage.getItem('username') +'&token=' + res.token + '&id=' + res.user_id
+                        }
+                    } else {
+                        this.failed = true
+                    }
+                }
+                )
+        }
+    }
     constructor(props){
         super(props);
         this.state = {
@@ -38,12 +54,17 @@ class Login extends Component {
         } 
 
     login(){
+        if(this.state.ischecked){
+            localStorage.setItem('username',this.state.username);
+            localStorage.setItem('password',this.state.password);
+            localStorage.setItem('checked',this.state.ischecked)
+        };
         Service.Login(this.state.username,this.state.password).then(
             res=>{
             if (res !== null && res!== undefined) {
                 let landing = 'work.muxixyz.com/'
                 if (landing) {
-                        window.location.href = 'http://'+ landing + 'landing/?username=' + this.username +'&token=' + res.token + '&id=' + res.user_id
+                        window.location.href = 'http://'+ landing + 'landing/?username=' + this.state.username +'&token=' + res.token + '&id=' + res.user_id
                     }
                 } else {
                     this.failed = true

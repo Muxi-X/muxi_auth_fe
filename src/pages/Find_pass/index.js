@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import Background from '../../images/login.png';
 import "./index.css"
+import {  Link } from 'react-router-dom'
+// import { Server } from 'https';
+// import Service from '../../compoment/service'
 
 var sectionStyle = {
     width: "100%",
@@ -18,11 +21,43 @@ class Index extends Component {
             btnContent: '发送',
             btnDisable:false,
             time: 60,
+            emailInput: '',
+            captchaInput: '',
+            start: false,
+            code: false,
+            wrong: false
     }}
     get_captcha(e){
+    //   sendCode(value) {
+    //     value.stopPropagation();
+    //     value.preventDefault();
+    //     console.log(this.emailInput)
+    //     if (this.$v.emailInput.email && !this.$v.emailInput.isUnique && this.$v.emailInput.required) {
+    //         Service.getCaptcha(this.emailInput).then(res => {
+    //             if (res!== null && res !== undefined) {
+    //                 this.start = true
+    //                 this.code = true
+    //             }
+    //         })
+    //     }
+    // }
         this.setState({
             isWindowshowed:!this.state.isWindowshowed
         })
+    }
+    ChangeEmail(e){
+      this.setState({
+        emailInput: e.target.value
+      });
+    }
+    Changecaptcha(e){
+      this.setState({
+        captchaInput: e.target.value
+      });
+    }
+    next(e){
+      // Server.
+
     }
     render() {
         let timeChange;
@@ -71,7 +106,8 @@ class Index extends Component {
                             <div className="input-prepend1" >
                                 <input type="text"
                                     placeholder="输入邮箱"
-                                    name="session[nickname]"
+                                    onInput={this.ChangeEmail.bind(this)}
+                                    onChange={this.ChangeEmail.bind(this)}
                                     className="email_blank" />
                                     {/* <button className="get_captcha focus" type="button" onClick={this.get_captcha.bind(this)} >发送 </button> */}
                                     <button type="primary" className={btnDisable?"get_captcha_unuse focus ":"get_captcha focus "} inline onClick={sendCode} disabled={btnDisable}>{this.state.btnContent}</button>
@@ -80,9 +116,11 @@ class Index extends Component {
                             <div className="margin-fix" >
                                 <input type="text"
                                     placeholder="验证码"
+                                    onInput={this.Changecaptcha.bind(this)}
+                                    onChange={this.Changecaptcha.bind(this)}
                                     className="user_password" />
                             </div>
-                            <button className="next-button focus" type="button" > 下一步 </button>
+                            <Link to="/reset"><button className="next-button focus" type="button" onClick={this.next.bind(this)}>下一步 </button></Link> 
                         </form>
                         </div>
                     </div>

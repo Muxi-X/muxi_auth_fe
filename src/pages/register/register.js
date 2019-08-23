@@ -24,27 +24,68 @@ class  Register extends Component {
             info_f_password:'',
             info_s_password:'',
             isUserUsed:false,
-            flag:false
+            isEmailUsed:false,
+            isTureEmail:false
     }}
     ChangeUsername(e) {
-        // Service.register
+        var result = false;
+        Service.checkUsername(e.target.value).then(
+            res =>{
+                result = res.ok;
+                this.setState({
+                    isUserUsed:res.ok
+                })
+            }
+        )
         var val = e.target.value;
         this.setState({"username":val.substring(0,15)});
-        if(this.state.isUserUsed === false){    
+        if(result === false){
             this.setState({"info_usr":"该用户名已被注册!"});
             setTimeout(function(){
                 this.setState({"info_usr":""});
             }.bind(this),1000);
         }else{
-            this.setState({"info_f_password":""});
+            this.setState({"info_usr":""});
         }
     }
 
     ChangeEmail(e) {
-        this.setState({
-          email: e.target.value
-        });
-    } 
+        var result = false;
+        var isTureEmail = false;
+        var val = e.target.value;
+        var myReg=/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+        this.setState({"email":val.substring(0,30)});
+        if (myReg.test(val)){
+          isTureEmail = true;
+        }
+        if(isTureEmail !== true){
+            this.setState({"info_email":"输入的邮箱格式有误"});
+            this.setState({isTureEmail:false});
+            setTimeout(function(){
+                this.setState({"info_email":""});
+            }.bind(this),1000);
+        }else{
+            this.setState({"info_email":""});
+            this.setState({isTureEmail:true});
+            Service.checkEmail(e.target.value).then(
+                res =>{
+                    result = res.ok;
+                    this.setState({
+                        isEmailUsed:res.ok
+                    })
+                }
+            )
+            this.setState({"email":val.substring(0,30)});
+            if(result === false){
+                this.setState({"info_email":"该邮箱已被使用!"});
+                setTimeout(function(){
+                    this.setState({"info_email":""});
+                }.bind(this),1000);
+            }else{
+                this.setState({"info_email":""});
+            }
+        }
+    }
 
     ChangeFPassword(e) {
         var val = e.target.value;

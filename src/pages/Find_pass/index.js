@@ -44,8 +44,6 @@ class Index extends Component {
       }else{
           this.setState({"info_email":""});
           this.setState({isTureEmail:true});
-          // Service.getCaptcha(){
-          // };
       }
     }
     Changecaptcha(e){
@@ -88,7 +86,19 @@ class Index extends Component {
             });
             //每隔一秒执行一次clock方法
             timeChange = setInterval(clock,1000);
-          };
+            if(this.state.isTureEmail === true){
+              Service.getCaptcha(this.state.emailInput).then(
+                res=>{
+                  if (res !== null && res!== undefined) {
+                    alert("验证码发送成功")
+                }
+              }
+            )
+            }else{
+              alert("验证码发送失败，请检查重试")
+            }
+        }
+
 
         const{btnDisable} = this.state;
         return (          

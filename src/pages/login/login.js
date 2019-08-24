@@ -51,26 +51,32 @@ class Login extends Component {
             this.setState({
                 ischecked:!now
             })
-        } 
-
+        }
+    makePromise_lg(username,password){
+        return  new Promise((resolve, reject) => {
+        Service.Login(username,password).then(res => {
+            resolve(res)
+        },() => {
+            reject()
+        })
+      })
+    }        
     login(){
         if(this.state.ischecked){
             localStorage.setItem('username',this.state.username);
             localStorage.setItem('password',this.state.password);
             localStorage.setItem('checked',this.state.ischecked)
-        };
-        Service.Login(this.state.username,this.state.password).then(
-            res=>{
-            if (res !== null && res!== undefined) {
+        }
+        this.makePromise_lg(this.state.username, this.state.password).then(
+            res =>{
+                if (res !== null && res!== undefined){
                 let landing = 'work.muxixyz.com/'
-                if (landing) {
-                        window.location.href = 'http://'+ landing + 'landing/?username=' + this.state.username +'&token=' + res.token + '&id=' + res.user_id
-                    }
-                } else {
-                    this.failed = true
+                window.location.href = 'http://'+ landing + 'landing/?username=' + this.state.username +'&token=' + res.token + '&id=' + res.user_id
                 }
-            }
-            )
+            }).catch(
+            () =>{
+                alert("登录失败（请检查用户名和密码）")
+        })
         }
     render() {
         const {ischecked , username , password} = this.state;

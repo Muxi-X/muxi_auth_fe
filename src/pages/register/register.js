@@ -34,17 +34,26 @@ class  Register extends Component {
         },() => {
             reject()
         })
-    })
-}
-makePromise_usr(value){
-    return  new Promise((resolve, reject) => {
-      Service.checkUsername(value).then(res => {
-          resolve(res)
-      },() => {
-          reject()
       })
-  })
-}
+    }
+    makePromise_usr(value){
+        return  new Promise((resolve, reject) => {
+        Service.checkUsername(value).then(res => {
+            resolve(res)
+        },() => {
+            reject()
+        })
+      })
+    }
+    makePromise_re(a,b,c){
+        return  new Promise((resolve, reject) => {
+        Service.register(a,b,c).then(res => {
+            resolve(res)
+        },() => {
+            reject()
+        })
+      })
+    }
     ChangeUsername(e) {
         var result;
         var val = e.target.value;
@@ -59,7 +68,7 @@ makePromise_usr(value){
                 this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
                 setTimeout(function(){
                     this.setState({"info_usr":""});
-                }.bind(this),1000);
+                }.bind(this),10000);
                 }).catch(
             () =>{
                 result = false;
@@ -69,7 +78,7 @@ makePromise_usr(value){
                 this.setState({"info_usr":"该用户名已被注册!"});
                 setTimeout(function(){
                     this.setState({"info_usr":""});
-                }.bind(this),1000);
+                }.bind(this),10000);
             })
         }
 
@@ -153,19 +162,19 @@ makePromise_usr(value){
         }
     }
     register(){
-        if(this.state.s_password===this.state.f_password){
-        Service.register(this.state.email , this.state.username, this.state.s_password).then(res=>{
-            if (res !== null && res!== undefined) {
-                alert("注册成功")
-                window.location.href = '/login'
-            } else {
-                this.failed = true
-            }
-            }
-        )}
-        else{
-            alert("两次输入密码不一致")
+        if(this.state.isEmailUsed && this.state.isUserUsed && (this.state.s_password===this.state.f_password)){
+            this.makePromise_re(this.state.email , this.state.username, this.state.s_password).then(
+                res =>{
+                    alert("注册成功")
+                    window.location.href = '/login'
+                    }).catch(
+                () =>{
+                    alert("注册失败（未知的错误）")
+            })
         }
+        else{
+            alert("用户名被使用或邮箱被注册或密码不一致")
+        }    
     }
     render() {
         const { username , email , f_password , s_password }= this.state

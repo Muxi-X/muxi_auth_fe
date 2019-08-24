@@ -25,12 +25,12 @@ function Fetch(url, opt = {}) {
         //     return response.status;            
         // }
         if(response.status===200) return json;
-        else if(response.status===400) return response.status;
+        else  return console.log('77777');
         // if(response.status===502) return util.message(response.statusText, "err");
       });
     });
   }
-  
+
   let Service = {
     // login
     Login(username, password) {

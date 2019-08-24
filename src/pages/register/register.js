@@ -29,24 +29,37 @@ class  Register extends Component {
     }}
     ChangeUsername(e) {
         var result = false;
-        Service.checkUsername(e.target.value).then(
-            res =>{
-                result = res.ok;
-                this.setState({
-                    isUserUsed:res.ok
-                })
-            }
-        )
         var val = e.target.value;
         this.setState({"username":val.substring(0,15)});
-        if(result === false){
-            this.setState({"info_usr":"该用户名已被注册!"});
-            setTimeout(function(){
-                this.setState({"info_usr":""});
-            }.bind(this),1000);
-        }else{
-            this.setState({"info_usr":""});
-        }
+        Service.checkUsername(e.target.value).then(
+            res =>{
+                console.log(res);
+               if (res !== undefined && res !== null){
+                    result = res.ok;
+                    this.setState({
+                        isUserUsed:res.ok
+                    })
+                }else{
+                    result = false;
+                    this.setState({
+                        isUserUsed:false
+                    })
+                    console.log(result);
+                }
+                return result;
+            }).then((result)=>{
+                if(result === true){
+                    this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
+                    setTimeout(function(){
+                        this.setState({"info_usr":""});
+                    }.bind(this),1000);
+                }else{
+                    this.setState({"info_usr":"该用户名已被注册!"});
+                    setTimeout(function(){
+                        this.setState({"info_usr":""});
+                    }.bind(this),1000);
+                }
+        })
     }
 
     ChangeEmail(e) {

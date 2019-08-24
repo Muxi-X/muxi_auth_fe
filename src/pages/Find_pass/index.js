@@ -28,8 +28,8 @@ class Index extends Component {
     }}
 
     ChangeEmail(e){
-      var val = e.target.value;
       var isTureEmail = false;
+      var val = e.target.value;
       var myReg=/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
       this.setState({"emailInput":val.substring(0,20)});
       if (myReg.test(val)){

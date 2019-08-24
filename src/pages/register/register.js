@@ -27,40 +27,43 @@ class  Register extends Component {
             isEmailUsed:false,
             isTureEmail:false
     }}
+    makePromise(value){
+      return  new Promise((resolve, reject) => {
+        Service.checkEmail(value).then(res => {
+            resolve(res)
+        },() => {
+            reject()
+        })
+    })
+}
     ChangeUsername(e) {
-        var result = false;
+        var result;
         var val = e.target.value;
         this.setState({"username":val.substring(0,15)});
-        Service.checkUsername(e.target.value).then(
+        this.makePromise(val).then(
             res =>{
                 console.log(res);
-               if (res !== undefined && res !== null){
-                    result = res.ok;
-                    this.setState({
-                        isUserUsed:res.ok
-                    })
-                }else{
-                    result = false;
-                    this.setState({
-                        isUserUsed:false
-                    })
-                    console.log(result);
-                }
-                return result;
-            }).then((result)=>{
-                if(result === true){
-                    this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
-                    setTimeout(function(){
-                        this.setState({"info_usr":""});
-                    }.bind(this),1000);
-                }else{
-                    this.setState({"info_usr":"该用户名已被注册!"});
-                    setTimeout(function(){
-                        this.setState({"info_usr":""});
-                    }.bind(this),1000);
-                }
-        })
-    }
+                result = res.ok;
+                this.setState({
+                    isUserUsed:res.ok
+                })
+                this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
+                setTimeout(function(){
+                    this.setState({"info_usr":""});
+                }.bind(this),1000);
+                }).catch(
+            () =>{
+                result = false;
+                this.setState({
+                    isUserUsed:false
+                })
+                this.setState({"info_usr":"该用户名已被注册!"});
+                setTimeout(function(){
+                    this.setState({"info_usr":""});
+                }.bind(this),1000);
+            })
+        }
+
 
     ChangeEmail(e) {
         var result = false;
@@ -80,25 +83,30 @@ class  Register extends Component {
         }else{
             this.setState({"info_email":""});
             this.setState({isTureEmail:true});
-            Service.checkEmail(e.target.value).then(
+            this.makePromise(val).then(
                 res =>{
                     result = res.ok;
                     this.setState({
                         isEmailUsed:res.ok
                     })
+                    this.setState({"info_email":"恭喜你，该邮箱未被使用"});
+                    setTimeout(function(){
+                        this.setState({"info_email":""});
+                    }.bind(this),1000);
                 }
-            )
-            this.setState({"email":val.substring(0,30)});
-            if(result === false){
-                this.setState({"info_email":"该邮箱已被使用!"});
-                setTimeout(function(){
-                    this.setState({"info_email":""});
-                }.bind(this),1000);
-            }else{
-                this.setState({"info_email":""});
-            }
+            ).catch(
+                ()=>{
+                    result = false;
+                    this.setState({
+                        isEmailUsed:false
+                    })
+                    this.setState({"info_email":"该邮箱已被使用!"});
+                    setTimeout(function(){
+                        this.setState({"info_email":""});
+                    }.bind(this),1000);
+                }
+            )}
         }
-    }
 
     ChangeFPassword(e) {
         var val = e.target.value;

@@ -36,11 +36,20 @@ class  Register extends Component {
         })
     })
 }
+makePromise_usr(value){
+    return  new Promise((resolve, reject) => {
+      Service.checkUsername(value).then(res => {
+          resolve(res)
+      },() => {
+          reject()
+      })
+  })
+}
     ChangeUsername(e) {
         var result;
         var val = e.target.value;
         this.setState({"username":val.substring(0,15)});
-        this.makePromise(val).then(
+        this.makePromise_usr(val).then(
             res =>{
                 console.log(res);
                 result = res.ok;

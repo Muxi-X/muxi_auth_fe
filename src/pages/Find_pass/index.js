@@ -51,10 +51,26 @@ class Index extends Component {
         captchaInput: e.target.value
       });
     }
-    next(e){
-      // Server.
-
+    makePromise_em(email, captcha){
+      return  new Promise((resolve, reject) => {
+        Service.checkCaptcha(email, captcha).then(res => {
+            resolve(res)
+        },() => {
+            reject()
+        })
+      })
     }
+    next(e){
+      this.makePromise_em(this.state.emailInput,this.state.captchaInput).then(
+        res =>{
+            window.location.href='/reset'
+            }).catch(
+        () =>{
+            alert("验证码错误")
+        })
+    }
+
+
     render() {
         let timeChange;
         let ti = this.state.time;
@@ -99,8 +115,7 @@ class Index extends Component {
             }
         }
 
-
-        const{btnDisable} = this.state;
+        const{btnDisable , captchaInput , emailInput} = this.state;
         return (          
                 <div className="sign" style={sectionStyle} >
                     <div className="main">
@@ -115,6 +130,7 @@ class Index extends Component {
                                 <input type="text"
                                     placeholder="输入邮箱"
                                     name="email"
+                                    value={emailInput}
                                     onInput={this.ChangeEmail.bind(this)}
                                     onChange={this.ChangeEmail.bind(this)}
                                     className="email_blank" />
@@ -124,13 +140,13 @@ class Index extends Component {
                             <div className="margin-fix" >
                                 <input type="text"
                                     placeholder="验证码"
+                                    value={captchaInput}
                                     onInput={this.Changecaptcha.bind(this)}
                                     onChange={this.Changecaptcha.bind(this)}
                                     className="user_password" />
                             </div>
                             </form>
-                            <Link to="/reset"><button className="next-button focus" type="button" onClick={this.next.bind(this)}>下一步 </button></Link> 
-
+                            <button className="next-button focus" type="button" onClick={this.next.bind(this)}>下一步 </button>
                         </div>
                     </div>
                 </div>

@@ -19,12 +19,15 @@ class Index extends Component {
         super(props);
         this.state = {
             isTureEmail:false,
+            isTureCaptcha:false,
             btnContent: '发送',
             btnDisable:false,
             time: 60,
             emailInput: '',
             captchaInput: '',
-            info_email:''
+            info_email:'',
+            f_password:'',
+            s_password:''
     }}
 
     ChangeEmail(e){
@@ -60,14 +63,80 @@ class Index extends Component {
         })
       })
     }
+    makePromise_rp(email, password, captcha){
+      return  new Promise((resolve, reject) => {
+        Service.resetPassword(email, password, captcha).then(res => {
+            resolve(res)
+        },() => {
+            reject()
+        })
+      })
+    }
+
     next(e){
       this.makePromise_em(this.state.emailInput,this.state.captchaInput).then(
         res =>{
-            window.location.href='/reset'
-            }).catch(
+            this.setState({
+              isTureCaptcha:true
+            })
+          }).catch(
         () =>{
             alert("验证码错误")
         })
+    }
+
+    submit(e){
+      var first = this.state.f_password;
+      var second = this.state.s_password;
+      var email = this.state.emailInput;
+      var captcha = this.state.captchaInput;
+      if( (first==second) && this.state.isTureCaptcha){
+      this.makePromise_re(email , second , captcha).then(
+        res =>{
+            alert("重置成功")
+            window.location.href='/login'
+          }).catch(
+        () =>{
+            alert("验证码错误")
+        })
+      }
+      else {
+        alert("验证码错误")
+      }
+    }
+    Changef_password(e){
+        var val = e.target.value;
+        var length = val.length;
+        this.setState({"f_password":val.substring(0,15)});
+        if(length > 15){
+            this.setState({"info":"不能输入超过15个字!"});
+            setTimeout(function(){
+                this.setState({"info":""});
+            }.bind(this),1000);
+        }else{
+            this.setState({"info":""});
+        }
+        if(length < 8){
+            this.setState({"info":"不能输入低于8个字!"});
+            setTimeout(function(){
+                this.setState({"info":""});
+            }.bind(this),1000);
+        }else{
+            this.setState({"info":""});
+        }
+    }
+    Changesec_password(e){
+        var val = e.target.value;
+        this.setState({"s_password":val.substring(0,15)});
+
+        if(val !== this.state.f_password){
+            this.setState({"info_s":"前后两次输入密码不正确!"});
+            setTimeout(function(){
+                this.setState({"info_s":""});
+            }.bind(this),1000);
+        }else{
+            this.setState({"info_s":""});
+        }
     }
 
 
@@ -115,7 +184,7 @@ class Index extends Component {
             }
         }
 
-        const{btnDisable , captchaInput , emailInput} = this.state;
+        const{btnDisable , captchaInput , emailInput ,s_password ,f_password} = this.state;
         return (          
                 <div className="sign" style={sectionStyle} >
                     <div className="main">
@@ -131,7 +200,6 @@ class Index extends Component {
                                     placeholder="输入邮箱"
                                     name="email"
                                     value={emailInput}
-                                    onInput={this.ChangeEmail.bind(this)}
                                     onChange={this.ChangeEmail.bind(this)}
                                     className="email_blank" />
                                     <button type="primary" className={btnDisable?"get_captcha_unuse focus ":"get_captcha focus "} inline onClick={sendCode} disabled={btnDisable}>{this.state.btnContent}</button>
@@ -141,12 +209,32 @@ class Index extends Component {
                                 <input type="text"
                                     placeholder="验证码"
                                     value={captchaInput}
-                                    onInput={this.Changecaptcha.bind(this)}
                                     onChange={this.Changecaptcha.bind(this)}
                                     className="user_password" />
                             </div>
                             </form>
-                            <button className="next-button focus" type="button" onClick={this.next.bind(this)}>下一步 </button>
+                            <form method="post" >
+                            <div className="input-prepend" >
+                                <input type="password"
+                                placeholder="请输入新密码"
+                                value={f_password}
+                                name="f_password"
+                                onChange={this.Changef_password.bind(this)}
+                                className="user_nickname" />
+                                <label for="f_password">{this.state.info}</label>
+                            </div>
+                            <div className="input-prepend" >
+                                <input type="password"
+                                    placeholder="请再次输入新密码"
+                                    value={s_password}
+                                    name="s_password"
+                                    onInput={this.Changesec_password.bind(this)}
+                                    onChange={this.Changesec_password.bind(this)}
+                                    className="user_confi_password" />
+                                <label for="s_password">{this.state.info_s}</label>
+                                </div>
+                            </form>
+                            <button className="next-button focus" type="button" onClick={this.next.bind(this)}>完成 </button>
                         </div>
                     </div>
                 </div>

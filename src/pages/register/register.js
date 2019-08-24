@@ -25,7 +25,8 @@ class  Register extends Component {
             info_s_password:'',
             isUserUsed:false,
             isEmailUsed:false,
-            isTureEmail:false
+            isTureEmail:false,
+            isRightPassword:false
     }}
     makePromise(value){
       return  new Promise((resolve, reject) => {
@@ -54,32 +55,42 @@ class  Register extends Component {
         })
       })
     }
-    ChangeUsername(e) {
+    usrOnBlur(e){
+        var val = e.target.value;
         var result;
+        if(!this.state.username){
+            this.setState({"info_usr":"用户名不能为空"});
+            setTimeout(function(){
+                this.setState({"info_usr":""});
+            }.bind(this),5000);
+        }else{
+            this.makePromise_usr(val).then(
+                res =>{
+                    console.log(res);
+                    result = res.ok;
+                    this.setState({
+                        isUserUsed:res.ok
+                    })
+                    this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
+                    setTimeout(function(){
+                        this.setState({"info_usr":""});
+                    }.bind(this),5000);
+                    }).catch(
+                () =>{
+                    result = false;
+                    this.setState({
+                        isUserUsed:false
+                    })
+                    this.setState({"info_usr":"该用户名已被注册!"});
+                    setTimeout(function(){
+                        this.setState({"info_usr":""});
+                    }.bind(this),5000);
+                })
+        }
+    }
+    ChangeUsername(e) {
         var val = e.target.value;
         this.setState({"username":val.substring(0,15)});
-        this.makePromise_usr(val).then(
-            res =>{
-                console.log(res);
-                result = res.ok;
-                this.setState({
-                    isUserUsed:res.ok
-                })
-                this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
-                setTimeout(function(){
-                    this.setState({"info_usr":""});
-                }.bind(this),10000);
-                }).catch(
-            () =>{
-                result = false;
-                this.setState({
-                    isUserUsed:false
-                })
-                this.setState({"info_usr":"该用户名已被注册!"});
-                setTimeout(function(){
-                    this.setState({"info_usr":""});
-                }.bind(this),10000);
-            })
         }
 
 
@@ -97,7 +108,7 @@ class  Register extends Component {
             this.setState({isTureEmail:false});
             setTimeout(function(){
                 this.setState({"info_email":""});
-            }.bind(this),1000);
+            }.bind(this),5000);
         }else{
             this.setState({"info_email":""});
             this.setState({isTureEmail:true});
@@ -110,7 +121,7 @@ class  Register extends Component {
                     this.setState({"info_email":"恭喜你，该邮箱未被使用"});
                     setTimeout(function(){
                         this.setState({"info_email":""});
-                    }.bind(this),1000);
+                    }.bind(this),5000);
                 }
             ).catch(
                 ()=>{
@@ -121,7 +132,7 @@ class  Register extends Component {
                     this.setState({"info_email":"该邮箱已被使用!"});
                     setTimeout(function(){
                         this.setState({"info_email":""});
-                    }.bind(this),1000);
+                    }.bind(this),5000);
                 }
             )}
         }
@@ -132,19 +143,18 @@ class  Register extends Component {
         this.setState({"f_password":val.substring(0,15)});
         if(length > 15){
             this.setState({"info_f_password":"不能输入超过15个字!"});
-            setTimeout(function(){
-                this.setState({"info_f_password":""});
-            }.bind(this),1000);
         }else{
             this.setState({"info_f_password":""});
         }
         if(length < 8){
             this.setState({"info_f_password":"不能输入低于8个字!"});
-            setTimeout(function(){
-                this.setState({"info_f_password":""});
-            }.bind(this),1000);
         }else{
             this.setState({"info_f_password":""});
+        }
+        if(length > 8 && length < 15){
+            this.setState({
+                isRightPassword:true
+            })
         }
     }
 
@@ -153,12 +163,12 @@ class  Register extends Component {
         this.setState({"s_password":val.substring(0,15)});
 
         if(val !== this.state.f_password){
-            this.setState({"info_s_password":"前后两次输入密码不正确!"});
+            this.setState({"info_s_password":"前后两次输入密码不一致!"});
+        }else{
+            this.setState({"info_s_password":"密码一致"});
             setTimeout(function(){
                 this.setState({"info_s_password":""});
-            }.bind(this),1000);
-        }else{
-            this.setState({"info_s_password":""});
+            }.bind(this),5000);
         }
     }
     register(){
@@ -173,7 +183,7 @@ class  Register extends Component {
             })
         }
         else{
-            alert("用户名被使用或邮箱被注册或密码不一致")
+            alert("注册失败，请检查重试")
         }    
     }
     render() {
@@ -196,7 +206,7 @@ class  Register extends Component {
                                     placeholder="用户名"
                                     value={username}
                                     name="username"
-                                    onInput={this.ChangeUsername.bind(this)}
+                                    onBlur={this.usrOnBlur.bind(this) }
                                     onChange={this.ChangeUsername.bind(this)}
                                     className="user_nickname" />
                                 <label for="username">{this.state.info_usr}</label>
@@ -206,7 +216,6 @@ class  Register extends Component {
                                     placeholder="登录邮箱"
                                     value={email}
                                     name="email"
-                                    onInput={this.ChangeEmail.bind(this)}
                                     onChange={this.ChangeEmail.bind(this)}
                                     className="user_email_number" />
                                 <label for="email">{this.state.info_email}</label>
@@ -216,7 +225,6 @@ class  Register extends Component {
                                     placeholder="密码"
                                     value={f_password}
                                     name="f_password"
-                                    onInput={this.ChangeFPassword.bind(this)}
                                     onChange={this.ChangeFPassword.bind(this)}
                                     className="user_password" />
                                 <label for="f_password">{this.state.info_f_password}</label>
@@ -226,7 +234,6 @@ class  Register extends Component {
                                     placeholder="确认密码"
                                     value={s_password}
                                     name="s_password"
-                                    onInput={this.ChangeSPassword.bind(this)}
                                     onChange={this.ChangeSPassword.bind(this)}
                                     className="user_confi_password" />
                                 <label for="s_password">{this.state.info_s_password}</label>

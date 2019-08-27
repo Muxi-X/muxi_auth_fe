@@ -66,7 +66,7 @@ function Fetch(url, opt = {}) {
       return Fetch("http://pass.muxixyz.com/api/password/reset", {
         method: "POST",
         data: {
-          new_password: password,
+          new_password: btoa(password),
           email: email,
           captcha: captcha
         }

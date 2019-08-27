@@ -90,7 +90,7 @@ class Index extends Component {
       var second = this.state.s_password;
       var email = this.state.emailInput;
       var captcha = this.state.captchaInput;
-      if( (first==second) && this.state.isTureCaptcha){
+      if( (first===second) && this.state.isTureCaptcha){
       this.makePromise_re(email , second , captcha).then(
         res =>{
             alert("重置成功")

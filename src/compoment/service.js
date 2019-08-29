@@ -1,5 +1,6 @@
 function Fetch(url, opt = {}) {
-    opt.method = opt.method || "GET";
+    // opt.method = opt.method || "GET";
+    opt.method = "POST";
     opt.headers = {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -34,7 +35,7 @@ function Fetch(url, opt = {}) {
   let Service = {
     // login
     Login(username, password) {
-      return Fetch("http://pass.muxixyz.com/api/signin/", {
+      return Fetch("http://pass2.muxixyz.com/auth/api/signin", {
         method: 'POST',
         data: {
           username: username,

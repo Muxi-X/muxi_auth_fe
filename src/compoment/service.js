@@ -35,7 +35,7 @@ function Fetch(url, opt = {}) {
   let Service = {
     // login
     Login(username, password) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/signin", {
+      return Fetch("http://pass2.muxixyz.com/auth/api/signin/", {
         method: 'POST',
         data: {
           username: username,

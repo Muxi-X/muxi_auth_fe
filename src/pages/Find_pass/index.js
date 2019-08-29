@@ -72,6 +72,15 @@ class Index extends Component {
         })
       })
     }
+    makePromise_sd(email){
+      return  new Promise((resolve, reject) => {
+        Service.getCaptcha(email).then(res => {
+            resolve(res)
+        },() => {
+            reject()
+        })
+      })
+    }
 
     next(e){
       this.makePromise_em(this.state.emailInput,this.state.captchaInput).then(
@@ -91,7 +100,7 @@ class Index extends Component {
       var email = this.state.emailInput;
       var captcha = this.state.captchaInput;
       if( (first===second) && this.state.isTureCaptcha){
-      this.makePromise_re(email , second , captcha).then(
+      this.makePromise_rp(email , second , captcha).then(
         res =>{
             alert("重置成功")
             window.location.href='/login'
@@ -171,13 +180,21 @@ class Index extends Component {
             });
             //每隔一秒执行一次clock方法
             timeChange = setInterval(clock,1000);
-            if(this.state.isTureEmail === true){
-              Service.getCaptcha(this.state.emailInput).then(
-                res=>{
-                  if (res !== null && res!== undefined) {
-                    alert("验证码发送成功")
-                }
-              }
+            if(this.state.isTureEmail === true){ 
+              // Service.getCaptcha(this.state.emailInput).then(
+              //   res=>{
+              //     if (res !== null && res!== undefined) {
+              //       alert("验证码发送成功")
+              //   }
+              //  }
+            //)
+            this.makePromise_sd(emailInput).then(
+              res =>{
+                alert("验证码发送成功")
+              }).catch(
+            () =>{
+                alert("验证码发送失败")
+             }
             )
             }else{
               alert("验证码发送失败，请检查重试")

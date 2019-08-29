@@ -34,11 +34,12 @@ function Fetch(url, opt = {}) {
   let Service = {
     // login
     Login(username, password) {
-      return Fetch("http://pass.muxixyz.com/api/login/", {
+      return Fetch("http://pass.muxixyz.com/api/signin/", {
         method: 'POST',
         data: {
           username: username,
           password: btoa(password)
+          // password: password
         }
       })
     },

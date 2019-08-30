@@ -71,7 +71,7 @@ class  Register extends Component {
                     this.setState({
                         isUserUsed:res.ok
                     })
-                    if(result == true){
+                    if(result === true){
                         this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
                         setTimeout(function(){
                             this.setState({"info_usr":""});
@@ -125,7 +125,7 @@ class  Register extends Component {
                     this.setState({
                         isEmailUsed:res.ok
                     })
-                    if(result == true){
+                    if(result === true){
                         this.setState({"info_email":"恭喜你，该邮箱未被使用"});
                         setTimeout(function(){
                             this.setState({"info_email":""});

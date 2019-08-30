@@ -33,7 +33,8 @@ class Login extends Component {
         this.state = {
             ischecked:false,
             username:'',
-            password:''
+            password:'',
+            info_f_password:""
     }}
     ChangeUsername(e) {
         this.setState({
@@ -42,9 +43,23 @@ class Login extends Component {
     };
 
     ChangePassword(e) {
-        this.setState({
-          password: e.target.value
-        })
+        var val = e.target.value;
+        this.setState({"password":val.substring(0,15)});
+        // if(length > 15){
+        //     this.setState({"info_f_password":"不能输入超过15个字!"});
+        // }else{
+        //     this.setState({"info_f_password":""});
+        // }
+        // if(length < 8){
+        //     this.setState({"info_f_password":"不能输入低于8个字!"});
+        // }else{
+        //     this.setState({"info_f_password":""});
+        // }
+        // if(length > 8 && length < 15){
+        //     this.setState({
+        //         isRightPassword:true
+        //     })
+        // }
     }; 
     changecheck(e){
         var now = this.state.ischecked;
@@ -62,30 +77,42 @@ class Login extends Component {
       })
     }        
     login(){
-        if(this.state.ischecked){
+        if(this.state.username && this.state.password){
+        if(this.state.ischecked ){
             localStorage.setItem('username',this.state.username);
             localStorage.setItem('password',this.state.password);
             localStorage.setItem('checked',this.state.ischecked)
         }
         this.makePromise_lg(this.state.username, this.state.password).then(
             res =>{
-                console.log(res);
-                if (res !== null && res!== undefined){
-                let landing = 'work.muxixyz.com/'
-                window.location.href = 'http://'+ landing + 'landing/?username=' + this.state.username +'&token=' + res.token + '&id=' + res.user_id
+                console.log(res.data);
+                if(res.data.Message === "The user was not found."){
+                    alert("用户名错误,无效的用户名");
+                }else if(res.data.Message === "Password incorrect."){
+                    alert("密码错误");
+                }else if(res.message === "OK"){
+                    alert("登录成功");
+                    let landing = 'work.muxixyz.com/'
+                    window.location.href = 'http://'+ landing + 'landing/?username=' + this.state.username +'&token=' + res.token + '&id=' + res.user_id
+                }else{
+                    alert("登录失败，请检查后重试");
                 }
+
             }).catch(
             () =>{
                 alert("登录失败（请检查用户名和密码）")
         })
+        }else{
+            alert("用户名或密码不能为空");
         }
+    }
     render() {
         const {ischecked , username , password} = this.state;
         return (
             <div className="sign" style={sectionStyle} >
                 <div className="main">
                     <div className="logo">
-                       <img src={require('../../images/muxilogo.png')} alt=" " />
+                       <img src={require('../../images/muxi_logo.png')} alt=" " />
                     </div>
                     
                     <div className="sign-in-container" >
@@ -93,13 +120,11 @@ class Login extends Component {
                         <div className="span1">登录</div>
                         <div className="span2"><Link to='/register' style={{ textDecoration: 'none',color: 'rgba(145,145,145,1)' }}>注册</Link></div>
                         </div>
-                        <form method="post" >
                             
                             <div className="input-prepend" >
                                 <input type="text"
                                     placeholder="用户名"
                                     value={username}
-                                    onInput={this.ChangeUsername.bind(this)}
                                     onChange={this.ChangeUsername.bind(this)}
                                     className="session_nickname" />
                             </div>
@@ -107,11 +132,9 @@ class Login extends Component {
                                 <input type="password"
                                     placeholder="密码"
                                     value={password}
-                                    onInput={this.ChangePassword.bind(this)}
                                     onChange={this.ChangePassword.bind(this)}
                                     className="user_password" />
                             </div>
-                            
                             <div className="auto-login-btn" >
                                 <input type="checkbox"
                                     value="true"
@@ -126,7 +149,6 @@ class Login extends Component {
                             <button className="sign-in-button focus" type="button" onClick={this.login.bind(this)}> 登录 </button>
                             
 
-                        </form>
                     </div>
                 </div>
             </div>

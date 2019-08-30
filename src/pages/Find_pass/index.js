@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import Background from '../../images/login.png';
 import "./index.css"
-import {  Link } from 'react-router-dom'
 // import { Server } from 'https';
 import Service from '../../compoment/service';
 

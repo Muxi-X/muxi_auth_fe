@@ -26,7 +26,7 @@ function Fetch(url, opt = {}) {
         //     return response.status;            
         // }
         if(response.status===200) return json;
-        else if(response.status===403) return response.status;
+        else  return json;
         // if(response.status===502) return util.message(response.statusText, "err");
       });
     });

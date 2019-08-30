@@ -46,26 +46,26 @@ function Fetch(url, opt = {}) {
     },
     // register 
     register(email, username, password) {
-      return Fetch("http://pass.muxixyz.com/api/signup/", {
+      return Fetch("http://pass2.muxixyz.com/auth/api/signup", {
         method: "POST",
         data: {
           email: email,
           username: username,
-          password: password
+          password: btoa(password)
         }
       })
     },
     // check email
     checkEmail(email) {
-      return fetch(`/api/check_email/?email=${email}`)
+      return fetch(`http://pass2.muxixyz.com/auth/api/check_email?email=${email}`)
     },
     // check username
     checkUsername(username) {
-      return fetch(`/api/check_name/?username=${username}`)
+      return fetch(`http://pass2.muxixyz.com/auth/api/check_name?username=${username}`)
     },
     // reset password
     resetPassword(email, password, captcha) {
-      return Fetch("http://pass.muxixyz.com/api/password/reset", {
+      return Fetch("http://pass2.muxixyz.com/auth/api/password/reset", {
         method: "POST",
         data: {
           new_password: btoa(password),
@@ -76,7 +76,7 @@ function Fetch(url, opt = {}) {
     },
     // get captcha
     getCaptcha(email) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/password/get_captcha/", {
+      return Fetch("http://pass2.muxixyz.com/auth/api/password/get_captcha", {
         method: "POST",
         data: {
           email: email
@@ -85,23 +85,13 @@ function Fetch(url, opt = {}) {
     },
     // check captcha
     checkCaptcha(email, captcha) {
-      return Fetch("http://pass.muxixyz.com/api/password/check_captcha/", {
+      return Fetch("http://pass2.muxixyz.com/auth/api/password/check_captcha", {
         method: "POST",
         data: {
           email: email,
           captcha: captcha
         }
       })
-    },
-    // get profile
-    getProfile(id, token) {
-      return Fetch("http://pass.muxixyz.com/api/show_profile/"+id, {
-          token: token
-      })
-    },
-    // get user's share
-    getShare(id) {
-      return Fetch("http://share.muxixyz.com/api/v2.0/get_one_all/" + id + "/")
     }
   };
   

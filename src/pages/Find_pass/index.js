@@ -100,6 +100,16 @@ class Index extends Component {
       var email = this.state.emailInput;
       var captcha = this.state.captchaInput;
       if( (first===second) && this.state.isTureCaptcha){
+      this.makePromise_em(email , captcha).then(
+        res =>{
+            this.setState({
+              isTureCaptcha:true
+            })
+          }).catch(
+        () =>{
+            alert("验证码错误")
+        })
+      if(this.state.isTureCaptcha){
       this.makePromise_rp(email , second , captcha).then(
         res =>{
             alert("重置成功")
@@ -112,6 +122,7 @@ class Index extends Component {
       else {
         alert("验证码错误")
       }
+     }
     }
     Changef_password(e){
         var val = e.target.value;
@@ -250,7 +261,7 @@ class Index extends Component {
                                 <label for="s_password">{this.state.info_s}</label>
                                 </div>
                             </form>
-                            <button className="next-button focus" type="button" onClick={this.next.bind(this)}>完成 </button>
+                            <button className="next-button focus" type="button" onClick={this.submit.bind(this)}>完成 </button>
                         </div>
                     </div>
                 </div>

@@ -173,13 +173,7 @@ class Index extends Component {
           }
         };
         
-        const sendCode = () =>{
-            this.setState({
-              btnDisable: true,
-              btnContent: "60s后重发",
-            });
-            //每隔一秒执行一次clock方法
-            timeChange = setInterval(clock,1000);
+        const sendCode = () =>{console.log(this.state.isTureEmail, 123);
             if(this.state.isTureEmail === true){ 
               // Service.getCaptcha(this.state.emailInput).then(
               //   res=>{
@@ -188,9 +182,16 @@ class Index extends Component {
               //   }
               //  }
             //)
+            
             this.makePromise_sd(emailInput).then(
               res =>{
                 alert("验证码发送成功")
+                this.setState({
+                  btnDisable: true,
+                  btnContent: "60s后重发",
+                });
+                //每隔一秒执行一次clock方法
+                timeChange = setInterval(clock,1000);
               }).catch(
             () =>{
                 alert("验证码发送失败")
@@ -210,7 +211,6 @@ class Index extends Component {
                         </div>
                         <div className="container" >
                             <div className="title" >找回密码</div>
-                            <form method="post" >
                             
                             <div className="input-prepend1" >
                                 <input type="text"
@@ -229,7 +229,6 @@ class Index extends Component {
                                     onChange={this.Changecaptcha.bind(this)}
                                     className="user_password" />
                             </div>
-                            </form>
                             <form method="post" >
                             <div className="input-prepend" >
                                 <input type="password"

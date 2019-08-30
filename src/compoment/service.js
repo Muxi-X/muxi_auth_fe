@@ -1,5 +1,6 @@
 function Fetch(url, opt = {}) {
-    opt.method = opt.method || "GET";
+    // opt.method = opt.method || "GET";
+    opt.method = "POST";
     opt.headers = {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -34,7 +35,7 @@ function Fetch(url, opt = {}) {
   let Service = {
     // login
     Login(username, password) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/signin/", {
+      return Fetch("http://pass2.muxixyz.com/auth/api/signin", {
         method: 'POST',
         data: {
           username: username,
@@ -45,7 +46,7 @@ function Fetch(url, opt = {}) {
     },
     // register 
     register(email, username, password) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/signup", {
+      return Fetch("http://pass.muxixyz.com/api/signup/", {
         method: "POST",
         data: {
           email: email,
@@ -56,15 +57,15 @@ function Fetch(url, opt = {}) {
     },
     // check email
     checkEmail(email) {
-      return fetch(`http://pass2.muxixyz.com/auth/api/check_email?email=${email}`)
+      return fetch(`/api/check_email/?email=${email}`)
     },
     // check username
     checkUsername(username) {
-      return fetch(`http://pass2.muxixyz.com/auth/api/check_name?username=${username}`)
+      return fetch(`/api/check_name/?username=${username}`)
     },
     // reset password
     resetPassword(email, password, captcha) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/password/reset", {
+      return Fetch("http://pass.muxixyz.com/api/password/reset", {
         method: "POST",
         data: {
           new_password: btoa(password),
@@ -84,7 +85,7 @@ function Fetch(url, opt = {}) {
     },
     // check captcha
     checkCaptcha(email, captcha) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/password/check_captcha/", {
+      return Fetch("http://pass.muxixyz.com/api/password/check_captcha/", {
         method: "POST",
         data: {
           email: email,
@@ -92,6 +93,16 @@ function Fetch(url, opt = {}) {
         }
       })
     },
+    // get profile
+    getProfile(id, token) {
+      return Fetch("http://pass.muxixyz.com/api/show_profile/"+id, {
+          token: token
+      })
+    },
+    // get user's share
+    getShare(id) {
+      return Fetch("http://share.muxixyz.com/api/v2.0/get_one_all/" + id + "/")
+    }
   };
   
   export default Service;

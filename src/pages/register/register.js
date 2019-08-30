@@ -71,10 +71,17 @@ class  Register extends Component {
                     this.setState({
                         isUserUsed:res.ok
                     })
-                    this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
-                    setTimeout(function(){
-                        this.setState({"info_usr":""});
-                    }.bind(this),5000);
+                    if(result == true){
+                        this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
+                        setTimeout(function(){
+                            this.setState({"info_usr":""});
+                        }.bind(this),5000);
+                    }else{
+                        this.setState({"info_usr":"该用户名已被注册!"});
+                        setTimeout(function(){
+                            this.setState({"info_usr":""});
+                        }.bind(this),5000);
+                    }
                     }).catch(
                 () =>{
                     result = false;
@@ -118,10 +125,17 @@ class  Register extends Component {
                     this.setState({
                         isEmailUsed:res.ok
                     })
-                    this.setState({"info_email":"恭喜你，该邮箱未被使用"});
-                    setTimeout(function(){
-                        this.setState({"info_email":""});
-                    }.bind(this),5000);
+                    if(result == true){
+                        this.setState({"info_email":"恭喜你，该邮箱未被使用"});
+                        setTimeout(function(){
+                            this.setState({"info_email":""});
+                        }.bind(this),5000);
+                    }else{
+                        this.setState({"info_email":"该邮箱已被使用!"});
+                        setTimeout(function(){
+                            this.setState({"info_email":""});
+                        }.bind(this),5000);
+                    }
                 }
             ).catch(
                 ()=>{

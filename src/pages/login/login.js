@@ -69,6 +69,7 @@ class Login extends Component {
         }
         this.makePromise_lg(this.state.username, this.state.password).then(
             res =>{
+                console.log(res);
                 if (res !== null && res!== undefined){
                 let landing = 'work.muxixyz.com/'
                 window.location.href = 'http://'+ landing + 'landing/?username=' + this.state.username +'&token=' + res.token + '&id=' + res.user_id

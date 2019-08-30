@@ -82,46 +82,44 @@ class Index extends Component {
       })
     }
 
-    next(e){
-      this.makePromise_em(this.state.emailInput,this.state.captchaInput).then(
-        res =>{
-            this.setState({
-              isTureCaptcha:true
-            })
-          }).catch(
-        () =>{
-            alert("验证码错误")
-        })
-    }
 
     submit(e){
       var first = this.state.f_password;
       var second = this.state.s_password;
       var email = this.state.emailInput;
       var captcha = this.state.captchaInput;
-      if( (first===second) && this.state.isTureCaptcha){
+      var result = "";
+      if( first===second){
       this.makePromise_em(email , captcha).then(
         res =>{
-            this.setState({
-              isTureCaptcha:true
-            })
-          }).catch(
+            result = res.message;
+            console.log(result);
+
+            if(result === "OK"){
+              this.setState({
+                isTureCaptcha:true
+              })
+              this.makePromise_rp(email , second , captcha).then(
+                res =>{
+                    alert("重置成功")
+                    window.location.href='/login'
+                  }).catch(
+                () =>{
+                    alert("重置失败，请检查重试")
+                })
+
+              }else {
+                alert("验证码输入错误")
+              }
+            }).catch(
         () =>{
             alert("验证码错误")
         })
-      if(this.state.isTureCaptcha){
-      this.makePromise_rp(email , second , captcha).then(
-        res =>{
-            alert("重置成功")
-            window.location.href='/login'
-          }).catch(
-        () =>{
-            alert("验证码错误")
-        })
-      }
-      else {
-        alert("验证码错误")
-      }
+
+
+
+     }else{
+       alert("输入的两次密码不一致")
      }
     }
     Changef_password(e){
@@ -172,7 +170,6 @@ class Index extends Component {
                 time: ti,
                 btnContent: ti + "s后重发",
               });
-             console.log(ti);
           }else{
             //当ti=0时执行终止循环方法
             clearInterval(timeChange);
@@ -184,7 +181,7 @@ class Index extends Component {
           }
         };
         
-        const sendCode = () =>{console.log(this.state.isTureEmail, 123);
+        const sendCode = () =>{
             if(this.state.isTureEmail === true){ 
               // Service.getCaptcha(this.state.emailInput).then(
               //   res=>{

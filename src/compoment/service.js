@@ -35,7 +35,7 @@ function Fetch(url, opt = {}) {
   let Service = {
     // login
     Login(username, password) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/signin", {
+      return Fetch("/auth/api/signin", {
         method: 'POST',
         data: {
           username: username,
@@ -46,7 +46,7 @@ function Fetch(url, opt = {}) {
     },
     // register 
     register(email, username, password) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/signup", {
+      return Fetch("/auth/api/signup", {
         method: "POST",
         data: {
           email: email,
@@ -57,15 +57,15 @@ function Fetch(url, opt = {}) {
     },
     // check email
     checkEmail(email) {
-      return fetch(`http://pass2.muxixyz.com/auth/api/check_email?email=${email}`)
+      return fetch(`/auth/api/check_email?email=${email}`)
     },
     // check username
     checkUsername(username) {
-      return fetch(`http://pass2.muxixyz.com/auth/api/check_name?username=${username}`)
+      return fetch(`/auth/api/check_name?username=${username}`)
     },
     // reset password
     resetPassword(email, password, captcha) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/password/reset", {
+      return Fetch("/auth/api/password/reset", {
         method: "POST",
         data: {
           new_password: btoa(password),
@@ -76,7 +76,7 @@ function Fetch(url, opt = {}) {
     },
     // get captcha
     getCaptcha(email) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/password/get_captcha", {
+      return Fetch("/auth/api/password/get_captcha", {
         method: "POST",
         data: {
           email: email
@@ -85,7 +85,7 @@ function Fetch(url, opt = {}) {
     },
     // check captcha
     checkCaptcha(email, captcha) {
-      return Fetch("http://pass2.muxixyz.com/auth/api/password/check_captcha", {
+      return Fetch("/auth/api/password/check_captcha", {
         method: "POST",
         data: {
           email: email,

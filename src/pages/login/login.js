@@ -19,7 +19,7 @@ class Login extends Component {
                 if (res !== null && res!== undefined) {
                     let landing = 'work.muxixyz.com/'
                     if (landing) {
-                            window.location.href = 'http://'+ landing + 'landing/?username=' + localStorage.getItem('username') +'&token=' + res.token + '&id=' + res.user_id
+                             window.location.href = 'http://'+ landing + 'landing/?username=' + localStorage.getItem('username') +'&token=' + res.token + '&id=' + res.user_id
                         }
                     } else {
                         this.failed = true

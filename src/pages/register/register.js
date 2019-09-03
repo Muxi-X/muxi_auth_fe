@@ -3,13 +3,6 @@ import './register.css';
 import {  Link } from 'react-router-dom'
 import Background from '../../images/login.png';
 import Service from '../../compoment/service'
-var sectionStyle = {
-    width: "100%",
-    padding: "0 0 0 0",
-    margin: "0 auto",
-    backgroundImage: `url(${Background})`,
-    backgroundSize: 'cover' 
-  };
 
 class  Register extends Component {
     constructor(props){
@@ -17,12 +10,12 @@ class  Register extends Component {
         this.state = {
             username:'',
             email:'',
-            f_password:'',
-            s_password:'',
-            info_usr:'',
-            info_email:'',
-            info_f_password:'',
-            info_s_password:'',
+            fristPassword:'',
+            secondPassword:'',
+            infoUsr:'',
+            infoEmail:'',
+            infoFristPassword:'',
+            infoSecondPassword:'',
             isUserUsed:false,
             isEmailUsed:false,
             isTureEmail:false,
@@ -37,7 +30,7 @@ class  Register extends Component {
         })
       })
     }
-    makePromise_usr(value){
+    makePromiseUsr(value){
         return  new Promise((resolve, reject) => {
         Service.checkUsername(value).then(res => {
             resolve(res)
@@ -46,7 +39,7 @@ class  Register extends Component {
         })
       })
     }
-    makePromise_re(a,b,c){
+    makePromiseRe(a,b,c){
         return  new Promise((resolve, reject) => {
         Service.register(a,b,c).then(res => {
             resolve(res)
@@ -59,12 +52,12 @@ class  Register extends Component {
         var val = e.target.value;
         var result;
         if(!this.state.username){
-            this.setState({"info_usr":"用户名不能为空"});
+            this.setState({"infoUsr":"用户名不能为空"});
             setTimeout(function(){
-                this.setState({"info_usr":""});
+                this.setState({"infoUsr":""});
             }.bind(this),5000);
         }else{
-            this.makePromise_usr(val).then(
+            this.makePromiseUsr(val).then(
                 res =>{
                     console.log(res);
                     result = res.ok;
@@ -72,14 +65,14 @@ class  Register extends Component {
                         isUserUsed:res.ok
                     })
                     if(result === true){
-                        this.setState({"info_usr":"恭喜你，该用户名暂未被使用。"});
+                        this.setState({"infoUsr":"恭喜你，该用户名暂未被使用。"});
                         setTimeout(function(){
-                            this.setState({"info_usr":""});
+                            this.setState({"infoUsr":""});
                         }.bind(this),5000);
                     }else{
-                        this.setState({"info_usr":"该用户名已被注册!"});
+                        this.setState({"infoUsr":"该用户名已被注册!"});
                         setTimeout(function(){
-                            this.setState({"info_usr":""});
+                            this.setState({"infoUsr":""});
                         }.bind(this),5000);
                     }
                     }).catch(
@@ -88,20 +81,20 @@ class  Register extends Component {
                     this.setState({
                         isUserUsed:false
                     })
-                    this.setState({"info_usr":"该用户名已被注册!"});
+                    this.setState({"infoUsr":"该用户名已被注册!"});
                     setTimeout(function(){
-                        this.setState({"info_usr":""});
+                        this.setState({"infoUsr":""});
                     }.bind(this),5000);
                 })
         }
     }
-    ChangeUsername(e) {
+    changeUsername(e) {
         var val = e.target.value;
         this.setState({"username":val.substring(0,15)});
         }
 
 
-    ChangeEmail(e) {
+    changeEmail(e) {
         var result = false;
         var isTureEmail = false;
         var val = e.target.value;
@@ -111,13 +104,13 @@ class  Register extends Component {
           isTureEmail = true;
         }
         if(isTureEmail !== true){
-            this.setState({"info_email":"输入的邮箱格式有误"});
+            this.setState({"infoEmail":"输入的邮箱格式有误"});
             this.setState({isTureEmail:false});
             setTimeout(function(){
-                this.setState({"info_email":""});
+                this.setState({"infoEmail":""});
             }.bind(this),5000);
         }else{
-            this.setState({"info_email":""});
+            this.setState({"infoEmail":""});
             this.setState({isTureEmail:true});
             this.makePromise(val).then(
                 res =>{
@@ -126,14 +119,14 @@ class  Register extends Component {
                         isEmailUsed:res.ok
                     })
                     if(result === true){
-                        this.setState({"info_email":"恭喜你，该邮箱未被使用"});
+                        this.setState({"infoEmail":"恭喜你，该邮箱未被使用"});
                         setTimeout(function(){
-                            this.setState({"info_email":""});
+                            this.setState({"infoEmail":""});
                         }.bind(this),5000);
                     }else{
-                        this.setState({"info_email":"该邮箱已被使用!"});
+                        this.setState({"infoEmail":"该邮箱已被使用!"});
                         setTimeout(function(){
-                            this.setState({"info_email":""});
+                            this.setState({"infoEmail":""});
                         }.bind(this),5000);
                     }
                 }
@@ -143,27 +136,27 @@ class  Register extends Component {
                     this.setState({
                         isEmailUsed:false
                     })
-                    this.setState({"info_email":"该邮箱已被使用!"});
+                    this.setState({"infoEmail":"该邮箱已被使用!"});
                     setTimeout(function(){
-                        this.setState({"info_email":""});
+                        this.setState({"infoEmail":""});
                     }.bind(this),5000);
                 }
             )}
         }
 
-    ChangeFPassword(e) {
+    changeFristPassword(e) {
         var val = e.target.value;
         var length = val.length;
-        this.setState({"f_password":val.substring(0,15)});
+        this.setState({"fristPassword":val.substring(0,15)});
         if(length > 15){
-            this.setState({"info_f_password":"不能输入超过15个字!"});
+            this.setState({"infoFristPassword":"不能输入超过15个字!"});
         }else{
-            this.setState({"info_f_password":""});
+            this.setState({"infoFristPassword":""});
         }
         if(length < 8){
-            this.setState({"info_f_password":"不能输入低于8个字!"});
+            this.setState({"infoFristPassword":"不能输入低于8个字!"});
         }else{
-            this.setState({"info_f_password":""});
+            this.setState({"infoFristPassword":""});
         }
         if(length > 8 && length < 15){
             this.setState({
@@ -172,22 +165,22 @@ class  Register extends Component {
         }
     }
 
-    ChangeSPassword(e) {
+    changeSecondPassword(e) {
         var val = e.target.value;
-        this.setState({"s_password":val.substring(0,15)});
+        this.setState({"secondPassword":val.substring(0,15)});
 
-        if(val !== this.state.f_password){
-            this.setState({"info_s_password":"前后两次输入密码不一致!"});
+        if(val !== this.state.fristPassword){
+            this.setState({"infoSecondPassword":"前后两次输入密码不一致!"});
         }else{
-            this.setState({"info_s_password":"密码一致"});
+            this.setState({"infoSecondPassword":"密码一致"});
             setTimeout(function(){
-                this.setState({"info_s_password":""});
+                this.setState({"infoSecondPassword":""});
             }.bind(this),5000);
         }
     }
     register(){
-        if(this.state.isEmailUsed && this.state.isUserUsed && (this.state.s_password===this.state.f_password)){
-            this.makePromise_re(this.state.email , this.state.username, this.state.s_password).then(
+        if(this.state.isEmailUsed && this.state.isUserUsed && (this.state.secondPassword===this.state.fristPassword)){
+            this.makePromiseRe(this.state.email , this.state.username, this.state.secondPassword).then(
                 res =>{
                     alert("注册成功")
                     window.location.href = '/login'
@@ -201,9 +194,9 @@ class  Register extends Component {
         }    
     }
     render() {
-        const { username , email , f_password , s_password }= this.state
+        const { username , email , fristPassword , secondPassword, infoUsr, infoEmail, infoFristPassword, infoSecondPassword }= this.state;
         return (
-            <div className="sign" style={sectionStyle} >
+            <div className="sign" style={{backgroundImage: `url(${Background})`}} className="background">
                 <div className="main">
                     <div className="logo">
                        <img src={require('../../images/muxilogo.png')} alt=" " />
@@ -221,36 +214,36 @@ class  Register extends Component {
                                     value={username}
                                     name="username"
                                     onBlur={this.usrOnBlur.bind(this) }
-                                    onChange={this.ChangeUsername.bind(this)}
+                                    onChange={this.changeUsername.bind(this)}
                                     className="user_nickname" />
-                                <label for="username">{this.state.info_usr}</label>
+                                <label for="username">{infoUsr}</label>
                             </div>
                             <div className="input-prepend" >
                                 <input type="email"
                                     placeholder="登录邮箱"
                                     value={email}
                                     name="email"
-                                    onChange={this.ChangeEmail.bind(this)}
+                                    onChange={this.changeEmail.bind(this)}
                                     className="user_email_number" />
-                                <label for="email">{this.state.info_email}</label>
+                                <label for="email">{infoEmail}</label>
                             </div>
                             <div className="input-prepend" >
                                 <input type="password"
                                     placeholder="密码"
-                                    value={f_password}
-                                    name="f_password"
-                                    onChange={this.ChangeFPassword.bind(this)}
+                                    value={fristPassword}
+                                    name="fristPassword"
+                                    onChange={this.changeFristPassword.bind(this)}
                                     className="user_password" />
-                                <label for="f_password">{this.state.info_f_password}</label>
+                                <label for="fristPassword">{infoFristPassword}</label>
                             </div>
                             <div className="input-prepend" >
                                 <input type="password"
                                     placeholder="确认密码"
-                                    value={s_password}
-                                    name="s_password"
-                                    onChange={this.ChangeSPassword.bind(this)}
+                                    value={secondPassword}
+                                    name="secondPassword"
+                                    onChange={this.changeSecondPassword.bind(this)}
                                     className="user_confi_password" />
-                                <label for="s_password">{this.state.info_s_password}</label>
+                                <label for="secondPassword">{infoSecondPassword}</label>
                             </div>
                             <button className="sign-in-button focus" type="button" onClick={this.register.bind(this)} > 开启新世界大门 </button>
                             <p className="sign-in-msg" > 以上设置可在页面右上角个人信息中再次修改 </p>

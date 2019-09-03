@@ -1,4 +1,15 @@
-.get_captcha{
+html{
+    height: 100%;
+}
+
+.background{
+    width: 100%;
+    padding: 0 0 0 0;
+    margin: 0 auto;
+    background-size: cover;
+}
+
+.get-captcha{
     width:70px;
 }
 .input-prepend1{
@@ -6,7 +17,7 @@
     height: 33px;
     margin: 17px auto 0 auto;
 }
-.email_blank{
+.email-blank{
     display: inline-block;
     outline: none;
     border: 0;
@@ -15,12 +26,12 @@
     width: 202px;
     background: rgba(244, 244, 244, 1);
 }
-.get_captcha{
+.get-captcha{
     height: 33px;
     background: rgba(29, 76, 181, 1);
     color: white;
 }
-.get_captcha_unuse{
+.get-captcha-unuse{
     width: 70px;
     height: 33px;
     background: rgba(29, 76, 181, 1);
@@ -43,7 +54,7 @@
     height: 33px;
     margin: 20px auto 0 auto;
 }
-.user_password{
+.user-password{
     display: inline-block;
     outline: none;
     border: 0;

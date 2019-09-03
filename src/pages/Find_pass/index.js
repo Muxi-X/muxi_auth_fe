@@ -15,7 +15,7 @@ class Index extends Component {
             btnDisable:false,
             time: 60,
             info:'',
-            SecondInfo:'',
+            secondInfo:'',
             emailInput: '',
             captchaInput: '',
             infoEmail:'',
@@ -141,12 +141,12 @@ class Index extends Component {
         this.setState({"secondPassword":val.substring(0,15)});
 
         if(val !== this.state.firstPassword){
-            this.setState({"SecondInfo":"前后两次输入密码不正确!"});
+            this.setState({"secondInfo":"前后两次输入密码不正确!"});
             setTimeout(function(){
-                this.setState({"SecondInfo":""});
+                this.setState({"secondInfo":""});
             }.bind(this),1000);
         }else{
-            this.setState({"SecondInfo":""});
+            this.setState({"secondInfo":""});
         }
     }
 
@@ -203,7 +203,7 @@ class Index extends Component {
             }
         }
 
-        const{btnDisable , captchaInput , emailInput ,secondPassword ,firstPassword, SecondInfo, info, btnContent, infoEmail} = this.state;
+        const{btnDisable , captchaInput , emailInput ,secondPassword ,firstPassword, secondInfo, info, btnContent, infoEmail} = this.state;
         return (          
                 <div className="sign" style={{backgroundImage: `url(${Background})`}} className="background">
                     <div className="main">
@@ -247,7 +247,7 @@ class Index extends Component {
                                     name="secondPassword"
                                     onChange={this.changesecondPassword.bind(this)}
                                     className="user-confi-password" />
-                                <label for="secondPassword">{SecondInfo}</label>
+                                <label for="secondPassword">{secondInfo}</label>
                                 </div>
                             </form>
                             <button className="next-button focus" type="button" onClick={this.submit.bind(this)}>完成 </button>

@@ -3,6 +3,8 @@ import {  Link } from 'react-router-dom'
 import './login.css';
 import Background from '../../images/login.png';
 import Service from '../../compoment/service';
+import Notification from 'rc-notification';
+import 'rc-notification/assets/index.css';
 
 class Login extends Component {
     componentWillMount(){
@@ -60,6 +62,14 @@ class Login extends Component {
                 isChecked:!now
             })
         }
+    
+    alert(string){
+        Notification.newInstance({}, notification => {
+            notification.notice({
+            content: string
+            });
+        });
+    }
     makePromiseLg(username,password){
         return  new Promise((resolve, reject) => {
         Service.Login(username,password).then(res => {
@@ -80,23 +90,23 @@ class Login extends Component {
             res =>{
                 console.log(res.data);
                 if(res.data.Message === "The user was not found."){
-                    alert("用户名错误,无效的用户名");
+                    this.alert("用户名错误,无效的用户名");
                 }else if(res.data.Message === "Password incorrect."){
-                    alert("密码错误");
+                    this.alert("密码错误");
                 }else if(res.message === "OK"){
-                    alert("登录成功");
+                    this.alert("登录成功");
                     let landing = 'work.muxixyz.com/'
                     window.location.href = 'http://'+ landing + 'landing/?username=' + this.state.username +'&token=' + res.token + '&id=' + res.user_id
                 }else{
-                    alert("登录失败，请检查后重试");
+                    this.alert("登录失败，请检查后重试");
                 }
 
             }).catch(
             () =>{
-                alert("登录失败（请检查用户名和密码）")
+                this.alert("登录失败（请检查用户名和密码）")
         })
         }else{
-            alert("用户名或密码不能为空");
+            this.alert("用户名或密码不能为空");
         }
     }
     render() {

@@ -3,6 +3,8 @@ import './register.css';
 import {  Link } from 'react-router-dom'
 import Background from '../../images/login.png';
 import Service from '../../compoment/service'
+import Notification from 'rc-notification';
+import 'rc-notification/assets/index.css';
 
 class  Register extends Component {
     constructor(props){
@@ -47,6 +49,13 @@ class  Register extends Component {
             reject()
         })
       })
+    }
+    alert(string){
+        Notification.newInstance({}, notification => {
+            notification.notice({
+            content: string
+            });
+        });
     }
     usrOnBlur(e){
         var val = e.target.value;
@@ -182,15 +191,15 @@ class  Register extends Component {
         if(this.state.isEmailUsed && this.state.isUserUsed && (this.state.secondPassword===this.state.fristPassword)){
             this.makePromiseRe(this.state.email , this.state.username, this.state.secondPassword).then(
                 res =>{
-                    alert("注册成功")
+                    this.alert("注册成功")
                     window.location.href = '/login'
                     }).catch(
                 () =>{
-                    alert("注册失败（未知的错误）")
+                    this.alert("注册失败（未知的错误）")
             })
         }
         else{
-            alert("注册失败，请检查重试")
+            this.alert("注册失败，请检查重试")
         }    
     }
     render() {

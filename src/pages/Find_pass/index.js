@@ -3,7 +3,8 @@ import Background from '../../images/login.png';
 import "./index.css"
 // import { Server } from 'https';
 import Service from '../../compoment/service';
-
+import Notification from 'rc-notification';
+import 'rc-notification/assets/index.css';
 
 class Index extends Component {
         constructor(props){
@@ -75,7 +76,13 @@ class Index extends Component {
       })
     }
 
-
+    alert(string){
+      Notification.newInstance({}, notification => {
+        notification.notice({
+         content: string
+     });
+   });
+    }
     submit(e){
       var first = this.state.firstPassword;
       var second = this.state.secondPassword;
@@ -94,25 +101,25 @@ class Index extends Component {
               })
               this.makePromiseRp(email , second , captcha).then(
                 res =>{
-                    alert("重置成功")
+                    this.alert("重置成功")
                     window.location.href='/login'
                   }).catch(
                 () =>{
-                    alert("重置失败，请检查重试")
+                  this.alert("重置失败，请检查重试")
                 })
 
               }else {
-                alert("验证码输入错误")
+                this.alert("验证码输入错误")
               }
             }).catch(
         () =>{
-            alert("验证码错误")
+          this.alert("验证码错误")
         })
 
 
 
      }else{
-       alert("输入的两次密码不一致")
+      this.alert("输入的两次密码不一致")
      }
     }
     changeFristPassword(e){
@@ -186,7 +193,7 @@ class Index extends Component {
             
             this.makePromiseSd(emailInput).then(
               res =>{
-                alert("验证码发送成功")
+                this.alert("验证码发送成功")
                 this.setState({
                   btnDisable: true,
                   btnContent: "60s后重发",
@@ -195,11 +202,11 @@ class Index extends Component {
                 timeChange = setInterval(clock,1000);
               }).catch(
             () =>{
-                alert("验证码发送失败")
+              this.alert("验证码发送失败")
              }
             )
             }else{
-              alert("验证码发送失败，请检查重试")
+              this.alert("验证码发送失败，请检查重试")
             }
         }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Background from '../../images/login.png';
 import './index.css';
 // import { Server } from 'https';
-import Service from '../../compoment/service';
+import Service from '../../common/service';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
 
@@ -178,58 +178,58 @@ class Index extends Component {
     }
   }
 
-  render() {
-    let timeChange;
-    let ti = this.state.time;
-    //关键在于用ti取代time进行计算和判断，因为time在render里不断刷新，但在方法中不会进行刷新
-    const clock = () => {
-      if (ti > 0) {
-        //当ti>0时执行更新方法
-        ti = ti - 1;
-        this.setState({
-          time: ti,
-          btnContent: ti + 's后重发'
-        });
-      } else {
-        //当ti=0时执行终止循环方法
-        clearInterval(timeChange);
-        this.setState({
-          btnDisable: false,
-          time: 60,
-          btnContent: '发送'
-        });
-      }
-    };
+  //关键在于用ti取代time进行计算和判断，因为time在render里不断刷新，但在方法中不会进行刷新
+  clock = () => {
+    var timeChange;
+    var ti = this.state.time;
+    if (ti > 0) {
+      //当ti>0时执行更新方法
+      ti = ti - 1;
+      this.setState({
+        time: ti,
+        btnContent: ti + 's后重发'
+      });
+    } else {
+      //当ti=0时执行终止循环方法
+      clearInterval(timeChange);
+      this.setState({
+        btnDisable: false,
+        time: 60,
+        btnContent: '发送'
+      });
+    }
+  };
 
-    const sendCode = () => {
-      const { isTureEmail } = this.state;
-      if (isTureEmail === true) {
-        // Service.getCaptcha(this.state.emailInput).then(
-        //   res=>{
-        //     if (res !== null && res!== undefined) {
-        //       alert("验证码发送成功")
-        //   }
-        //  }
-        //)
+  sendCode = () => {
+    const { isTureEmail, emailInput } = this.state;
+    if (isTureEmail === true) {
+      // Service.getCaptcha(this.state.emailInput).then(
+      //   res=>{
+      //     if (res !== null && res!== undefined) {
+      //       alert("验证码发送成功")
+      //   }
+      //  }
+      //)
 
-        this.makePromiseSd(emailInput)
-          .then(res => {
-            this.alert('验证码发送成功');
-            this.setState({
-              btnDisable: true,
-              btnContent: '60s后重发'
-            });
-            //每隔一秒执行一次clock方法
-            timeChange = setInterval(clock, 1000);
-          })
-          .catch(() => {
-            this.alert('验证码发送失败');
+      this.makePromiseSd(emailInput)
+        .then(res => {
+          this.alert('验证码发送成功');
+          this.setState({
+            btnDisable: true,
+            btnContent: '60s后重发'
           });
-      } else {
-        this.alert('验证码发送失败，请检查重试');
-      }
-    };
+          //每隔一秒执行一次clock方法
+          setInterval(this.clock, 1000);
+        })
+        .catch(() => {
+          this.alert('验证码发送失败');
+        });
+    } else {
+      this.alert('验证码发送失败，请检查重试');
+    }
+  };
 
+  render() {
     const {
       btnDisable,
       captchaInput,
@@ -241,6 +241,7 @@ class Index extends Component {
       btnContent,
       infoEmail
     } = this.state;
+
     return (
       <div
         className="sign"
@@ -269,7 +270,7 @@ class Index extends Component {
                   btnDisable ? 'get-captcha-unuse focus ' : 'get-captcha focus '
                 }
                 inline
-                onClick={sendCode}
+                onClick={this.sendCode}
                 disabled={btnDisable}
               >
                 {btnContent}

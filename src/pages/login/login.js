@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './login.css';
 import Background from '../../images/login.png';
-import Service from '../../compoment/service';
+import Service from '../../common/service';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
 
@@ -133,7 +133,7 @@ class Login extends Component {
     const { isChecked, username, password } = this.state;
     return (
       <div
-        className="sign"
+        className="sign "
         style={{ backgroundImage: `url(${Background})` }}
         className="background"
       >

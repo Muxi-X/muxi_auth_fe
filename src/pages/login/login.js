@@ -7,7 +7,7 @@ import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
 
 class Login extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if (localStorage.getItem('checked')) {
       Service.Login(
         localStorage.getItem('username'),

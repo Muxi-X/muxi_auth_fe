@@ -80,18 +80,6 @@ class Login extends Component {
       });
     });
   }
-  makePromiseLg(username, password) {
-    return new Promise((resolve, reject) => {
-      Service.Login(username, password).then(
-        res => {
-          resolve(res);
-        },
-        () => {
-          reject();
-        }
-      );
-    });
-  }
   login() {
     const { username, password, isChecked } = this.state;
     if (username && password) {
@@ -100,7 +88,7 @@ class Login extends Component {
         localStorage.setItem('password', password);
         localStorage.setItem('checked', isChecked);
       }
-      this.makePromiseLg(username, password)
+      Service.Login(username, password)
         .then(res => {
           if (res.data.Message === 'The user was not found.') {
             this.alert('用户名错误,无效的用户名');

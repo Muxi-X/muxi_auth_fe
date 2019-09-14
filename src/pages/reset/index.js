@@ -52,43 +52,6 @@ class Index extends Component {
       captchaInput: e.target.value
     });
   }
-  makePromiseEm(email, captcha) {
-    return new Promise((resolve, reject) => {
-      Service.checkCaptcha(email, captcha).then(
-        res => {
-          resolve(res);
-        },
-        () => {
-          reject();
-        }
-      );
-    });
-  }
-  makePromiseRp(email, password, captcha) {
-    return new Promise((resolve, reject) => {
-      Service.resetPassword(email, password, captcha).then(
-        res => {
-          resolve(res);
-        },
-        () => {
-          reject();
-        }
-      );
-    });
-  }
-  makePromiseSd(email) {
-    return new Promise((resolve, reject) => {
-      Service.getCaptcha(email).then(
-        res => {
-          resolve(res);
-        },
-        () => {
-          reject();
-        }
-      );
-    });
-  }
-
   alert(string) {
     Notification.newInstance({}, notification => {
       notification.notice({
@@ -105,7 +68,7 @@ class Index extends Component {
     } = this.state;
     var result = '';
     if (firstPassword === secondPassword && firstPassword.length > 8) {
-      this.makePromiseEm(emailInput, captchaInput)
+      Service.checkCaptcha(emailInput, captchaInput)
         .then(res => {
           result = res.message;
           console.log(result);
@@ -114,7 +77,7 @@ class Index extends Component {
             this.setState({
               isTureCaptcha: true
             });
-            this.makePromiseRp(emailInput, secondPassword, captchaInput)
+            Service.resetPassword(emailInput, secondPassword, captchaInput)
               .then(res => {
                 this.alert('重置成功');
                 window.location.href = '/login';
@@ -211,7 +174,7 @@ class Index extends Component {
       //  }
       //)
 
-      this.makePromiseSd(emailInput)
+      Service.getCaptcha(emailInput)
         .then(res => {
           this.alert('验证码发送成功');
           this.setState({

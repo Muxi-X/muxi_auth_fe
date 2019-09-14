@@ -24,42 +24,7 @@ class Register extends Component {
       isRightPassword: false
     };
   }
-  makePromise(value) {
-    return new Promise((resolve, reject) => {
-      Service.checkEmail(value).then(
-        res => {
-          resolve(res);
-        },
-        () => {
-          reject();
-        }
-      );
-    });
-  }
-  makePromiseUsr(value) {
-    return new Promise((resolve, reject) => {
-      Service.checkUsername(value).then(
-        res => {
-          resolve(res);
-        },
-        () => {
-          reject();
-        }
-      );
-    });
-  }
-  makePromiseRe(a, b, c) {
-    return new Promise((resolve, reject) => {
-      Service.register(a, b, c).then(
-        res => {
-          resolve(res);
-        },
-        () => {
-          reject();
-        }
-      );
-    });
-  }
+
   alert(string) {
     Notification.newInstance({}, notification => {
       notification.notice({
@@ -80,7 +45,7 @@ class Register extends Component {
         5000
       );
     } else {
-      this.makePromiseUsr(val)
+      Service.checkUsername(val)
         .then(res => {
           result = res.ok;
           this.setState({
@@ -145,7 +110,7 @@ class Register extends Component {
     } else {
       this.setState({ infoEmail: '' });
       this.setState({ isTureEmail: true });
-      this.makePromise(val)
+      Service.checkEmail(val)
         .then(res => {
           result = res.ok;
           this.setState({
@@ -233,7 +198,7 @@ class Register extends Component {
       username
     } = this.state;
     if (isEmailUsed && isUserUsed && secondPassword === fristPassword) {
-      this.makePromiseRe(email, username, secondPassword)
+      Service.register(email, username, secondPassword)
         .then(res => {
           this.alert('注册成功');
           window.location.href = '/login';

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Background from '../../images/login.png';
 import './index.css';
-// import { Server } from 'https';
 import Service from '../../common/service';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
@@ -26,9 +25,9 @@ class Index extends Component {
   }
 
   changeEmail(e) {
-    var isTureEmail = false;
-    var val = e.target.value;
-    var myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+    let isTureEmail = false;
+    let val = e.target.value;
+    let myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
     this.setState({ emailInput: val.substring(0, 20) });
     if (myReg.test(val)) {
       isTureEmail = true;
@@ -66,13 +65,11 @@ class Index extends Component {
       emailInput,
       captchaInput
     } = this.state;
-    var result = '';
+    let result = '';
     if (firstPassword === secondPassword && firstPassword.length > 8) {
       Service.checkCaptcha(emailInput, captchaInput)
         .then(res => {
           result = res.message;
-          console.log(result);
-
           if (result === 'OK') {
             this.setState({
               isTureCaptcha: true
@@ -97,8 +94,8 @@ class Index extends Component {
     }
   }
   changeFristPassword(e) {
-    var val = e.target.value;
-    var length = val.length;
+    let val = e.target.value;
+    let length = val.length;
     this.setState({ firstPassword: val.substring(0, 15) });
     if (length > 15) {
       this.setState({ info: '不能输入超过15个字!' });
@@ -124,7 +121,7 @@ class Index extends Component {
     }
   }
   changesecondPassword(e) {
-    var val = e.target.value;
+    let val = e.target.value;
     const { firstPassword } = this.state;
     this.setState({ secondPassword: val.substring(0, 15) });
 
@@ -143,8 +140,8 @@ class Index extends Component {
 
   //关键在于用ti取代time进行计算和判断，因为time在render里不断刷新，但在方法中不会进行刷新
   clock = () => {
-    var timeChange;
-    var ti = this.state.time;
+    let timeChange;
+    let ti = this.state.time;
     if (ti > 0) {
       //当ti>0时执行更新方法
       ti = ti - 1;
@@ -213,7 +210,7 @@ class Index extends Component {
       >
         <div className="main">
           <div className="logo">
-            <img src={require('../../images/muxilogo.png')} alt=" " />
+            <img src={require('../../images/muxi_logo.png')} />
           </div>
           <div className="container">
             <div className="title">找回密码</div>

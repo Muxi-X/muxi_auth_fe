@@ -33,9 +33,9 @@ class Register extends Component {
     });
   }
   usrOnBlur(e) {
-    var val = e.target.value;
+    let val = e.target.value;
     const { username } = this.state;
-    var result;
+    let result;
     if (!username) {
       this.setState({ infoUsr: '用户名不能为空' });
       setTimeout(
@@ -85,15 +85,15 @@ class Register extends Component {
     }
   }
   changeUsername(e) {
-    var val = e.target.value;
+    let val = e.target.value;
     this.setState({ username: val.substring(0, 15) });
   }
 
   changeEmail(e) {
-    var result = false;
-    var isTureEmail = false;
-    var val = e.target.value;
-    var myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+    let result = false;
+    let isTureEmail = false;
+    let val = e.target.value;
+    let myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
     this.setState({ email: val.substring(0, 30) });
     if (myReg.test(val)) {
       isTureEmail = true;
@@ -151,8 +151,8 @@ class Register extends Component {
   }
 
   changeFristPassword(e) {
-    var val = e.target.value;
-    var length = val.length;
+    let val = e.target.value;
+    let length = val.length;
     this.setState({ fristPassword: val.substring(0, 15) });
     if (length > 15) {
       this.setState({ infoFristPassword: '不能输入超过15个字!' });
@@ -172,7 +172,7 @@ class Register extends Component {
   }
 
   changeSecondPassword(e) {
-    var val = e.target.value;
+    let val = e.target.value;
     const { fristPassword } = this.state;
     this.setState({ secondPassword: val.substring(0, 15) });
 
@@ -229,7 +229,7 @@ class Register extends Component {
       >
         <div className="main">
           <div className="logo">
-            <img src={require('../../images/muxilogo.png')} alt=" " />
+            <img src={require('../../images/muxi_logo.png')} />
           </div>
 
           <div className="sign-in-container">
@@ -256,7 +256,7 @@ class Register extends Component {
                   name="username"
                   onBlur={this.usrOnBlur.bind(this)}
                   onChange={this.changeUsername.bind(this)}
-                  className="user_nickname"
+                  className="user-nickname"
                 />
                 <label for="username">{infoUsr}</label>
               </div>
@@ -267,7 +267,7 @@ class Register extends Component {
                   value={email}
                   name="email"
                   onChange={this.changeEmail.bind(this)}
-                  className="user_email_number"
+                  className="user-email-number"
                 />
                 <label for="email">{infoEmail}</label>
               </div>
@@ -278,7 +278,7 @@ class Register extends Component {
                   value={fristPassword}
                   name="fristPassword"
                   onChange={this.changeFristPassword.bind(this)}
-                  className="user_password"
+                  className="user-password"
                 />
                 <label for="fristPassword">{infoFristPassword}</label>
               </div>
@@ -289,7 +289,7 @@ class Register extends Component {
                   value={secondPassword}
                   name="secondPassword"
                   onChange={this.changeSecondPassword.bind(this)}
-                  className="user_confi_password"
+                  className="user-confi-password"
                 />
                 <label for="secondPassword">{infoSecondPassword}</label>
               </div>

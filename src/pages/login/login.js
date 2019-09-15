@@ -48,24 +48,10 @@ class Login extends Component {
   }
 
   changePassword(e) {
-    var val = e.target.value;
+    let val = e.target.value;
     this.setState({ password: val.substring(0, 15) });
-    // if(length > 15){
-    //     this.setState({"infoPassword":"不能输入超过15个字!"});
-    // }else{
-    //     this.setState({"infoPassword":""});
-    // }
-    // if(length < 8){
-    //     this.setState({"infoPassword":"不能输入低于8个字!"});
-    // }else{
-    //     this.setState({"infoPassword":""});
-    // }
-    // if(length > 8 && length < 15){
-    //     this.setState({
-    //         isRightPassword:true
-    //     })
-    // }
   }
+
   changeCheck(e) {
     const { isChecked } = this.state;
     this.setState({
@@ -127,7 +113,7 @@ class Login extends Component {
       >
         <div className="main">
           <div className="logo">
-            <img src={require('../../images/muxi_logo.png')} alt=" " />
+            <img src={require('../../images/muxi_logo.png')} />
           </div>
 
           <div className="sign-in-container">
@@ -152,7 +138,7 @@ class Login extends Component {
                 placeholder="用户名"
                 value={username}
                 onChange={this.changeUsername.bind(this)}
-                className="session_nickname"
+                className="session-nickname"
               />
             </div>
             <div className="input-prepend">

@@ -90,9 +90,9 @@ class Login extends Component {
       }
       Service.Login(username, password)
         .then(res => {
-          if (res.data.Message === 'The user was not found.') {
+          if (res.data.message === 'The user was not found.') {
             this.alert('用户名错误,无效的用户名');
-          } else if (res.data.Message === 'Password incorrect.') {
+          } else if (res.data.message === 'Password incorrect.') {
             this.alert('密码错误');
           } else if (res.message === 'OK') {
             this.alert('登录成功');
@@ -103,9 +103,9 @@ class Login extends Component {
               'landing/?username=' +
               username +
               '&token=' +
-              res.token +
+              res.data.token +
               '&id=' +
-              res.user_id;
+              res.data.user_id;
           } else {
             this.alert('登录失败，请检查后重试');
           }

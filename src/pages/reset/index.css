@@ -20,12 +20,14 @@
   width: 80px;
   background: rgba(29, 76, 181, 1);
   color: white;
+  border-radius: 5px;
 }
 .get-captcha-unuse {
   width: 80px;
   height: 33px;
   background: rgba(29, 76, 181, 1);
   color: white;
+  border-radius: 5px;
 }
 .none {
   width: 20px;
@@ -44,15 +46,7 @@
   height: 33px;
   margin: 20px auto 0 auto;
 }
-.user-password {
-  display: inline-block;
-  outline: none;
-  border: 0;
-  padding-left: 15px;
-  line-height: 33px;
-  width: 272px;
-  background: rgba(244, 244, 244, 1);
-}
+
 .title {
   font-size: 19px;
   font-weight: bold;
@@ -67,15 +61,7 @@
   padding: 19px 52px;
   color: rgba(145, 145, 145, 1);
 }
-.next-button {
-  display: block;
-  width: 272px;
-  height: 33px;
-  background: rgba(29, 76, 181, 1);
-  margin: 0 auto;
-  margin-top: 30px;
-  color: white;
-}
+
 .emailtab {
   margin-left: 15px;
 }

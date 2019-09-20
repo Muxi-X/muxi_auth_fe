@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './login.css';
-import Background from '../../images/login.png';
 import Service from '../../common/service';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
+import Layout from '../../component/layout';
+import Button from '../../component/common/button/button';
+import Input from '../../component/common/input/input';
 
 class Login extends Component {
   componentDidMount() {
@@ -106,16 +108,8 @@ class Login extends Component {
   render() {
     const { isChecked, username, password } = this.state;
     return (
-      <div
-        className="sign "
-        style={{ backgroundImage: `url(${Background})` }}
-        className="background"
-      >
-        <div className="main">
-          <div className="logo">
-            <img src={require('../../images/muxi_logo.png')} />
-          </div>
-
+      <div>
+        <Layout>
           <div className="sign-in-container">
             <div className="title">
               <div className="span1">登录</div>
@@ -133,7 +127,7 @@ class Login extends Component {
             </div>
 
             <div className="input-prepend">
-              <input
+              <Input
                 type="text"
                 placeholder="用户名"
                 value={username}
@@ -142,16 +136,15 @@ class Login extends Component {
               />
             </div>
             <div className="input-prepend">
-              <input
+              <Input
                 type="password"
                 placeholder="密码"
                 value={password}
                 onChange={this.changePassword.bind(this)}
-                className="user-password"
               />
             </div>
             <div className="auto-login-btn">
-              <input
+              <Input
                 type="checkbox"
                 value="true"
                 checked={isChecked}
@@ -169,16 +162,14 @@ class Login extends Component {
                 </Link>
               </div>
             </div>
-            <button
-              className="sign-in-button focus"
+            <Button
+              disabled={false}
               type="button"
+              btnContent="登录"
               onClick={this.login.bind(this)}
-            >
-              {' '}
-              登录{' '}
-            </button>
+            />
           </div>
-        </div>
+        </Layout>
       </div>
     );
   }

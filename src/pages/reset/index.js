@@ -4,6 +4,9 @@ import './index.css';
 import Service from '../../common/service';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
+import Layout from '../../component/layout.js';
+import Button from '../../component/common/button/button';
+import Input from '../../component/common/input/input';
 
 class Index extends Component {
   constructor(props) {
@@ -163,14 +166,6 @@ class Index extends Component {
   sendCode = () => {
     const { isTureEmail, emailInput } = this.state;
     if (isTureEmail === true) {
-      // Service.getCaptcha(this.state.emailInput).then(
-      //   res=>{
-      //     if (res !== null && res!== undefined) {
-      //       alert("验证码发送成功")
-      //   }
-      //  }
-      //)
-
       Service.getCaptcha(emailInput)
         .then(res => {
           this.alert('验证码发送成功');
@@ -203,20 +198,13 @@ class Index extends Component {
     } = this.state;
 
     return (
-      <div
-        className="sign"
-        style={{ backgroundImage: `url(${Background})` }}
-        className="background"
-      >
-        <div className="main">
-          <div className="logo">
-            <img src={require('../../images/muxi_logo.png')} />
-          </div>
+      <div>
+        <Layout>
           <div className="container">
             <div className="title">找回密码</div>
 
             <div className="input-prepend1">
-              <input
+              <Input
                 type="text"
                 placeholder="输入邮箱"
                 name="email"
@@ -224,63 +212,54 @@ class Index extends Component {
                 onChange={this.changeEmail.bind(this)}
                 className="email-blank"
               />
-              <button
+              <Button
                 type="primary"
                 className={
                   btnDisable ? 'get-captcha-unuse focus ' : 'get-captcha focus '
                 }
-                inline
                 onClick={this.sendCode}
                 disabled={btnDisable}
-              >
-                {btnContent}
-              </button>
+                btnContent={btnContent}
+              />
               <label className="emailtab" for="email">
                 {infoEmail}
               </label>
             </div>
             <div className="margin-fix">
-              <input
+              <Input
                 type="text"
                 placeholder="验证码"
                 value={captchaInput}
                 onChange={this.changeCaptcha.bind(this)}
-                className="user-password"
               />
             </div>
-            <form method="post">
-              <div className="input-prepend">
-                <input
-                  type="password"
-                  placeholder="请输入新密码"
-                  value={firstPassword}
-                  name="firstPassword"
-                  onChange={this.changeFristPassword.bind(this)}
-                  className="user-nickname"
-                />
-                <label for="firstPassword">{info}</label>
-              </div>
-              <div className="input-prepend">
-                <input
-                  type="password"
-                  placeholder="请再次输入新密码"
-                  value={secondPassword}
-                  name="secondPassword"
-                  onChange={this.changesecondPassword.bind(this)}
-                  className="user-confi-password"
-                />
-                <label for="secondPassword">{secondInfo}</label>
-              </div>
-            </form>
-            <button
-              className="next-button focus"
+            <div className="input-prepend">
+              <Input
+                type="password"
+                placeholder="请输入新密码"
+                value={firstPassword}
+                name="firstPassword"
+                onChange={this.changeFristPassword.bind(this)}
+              />
+              <label for="firstPassword">{info}</label>
+            </div>
+            <div className="input-prepend">
+              <Input
+                type="password"
+                placeholder="请再次输入新密码"
+                value={secondPassword}
+                name="secondPassword"
+                onChange={this.changesecondPassword.bind(this)}
+              />
+              <label for="secondPassword">{secondInfo}</label>
+            </div>
+            <Button
               type="button"
               onClick={this.submit.bind(this)}
-            >
-              完成{' '}
-            </button>
+              btnContent="完成"
+            />
           </div>
-        </div>
+        </Layout>
       </div>
     );
   }

@@ -1,0 +1,9 @@
+.standard {
+  display: inline-block;
+  outline: none;
+  border: 0;
+  padding-left: 15px;
+  line-height: 33px;
+  width: 272px;
+  background: rgba(244, 244, 244, 1);
+}

@@ -5,6 +5,9 @@ import Background from '../../images/login.png';
 import Service from '../../common/service';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
+import Layout from '../../component/layout.js';
+import Button from '../../component/common/button/button';
+import Input from '../../component/common/input/input';
 
 class Register extends Component {
   constructor(props) {
@@ -222,16 +225,8 @@ class Register extends Component {
       infoSecondPassword
     } = this.state;
     return (
-      <div
-        className="sign"
-        style={{ backgroundImage: `url(${Background})` }}
-        className="background"
-      >
-        <div className="main">
-          <div className="logo">
-            <img src={require('../../images/muxi_logo.png')} />
-          </div>
-
+      <div>
+        <Layout>
           <div className="sign-in-container">
             <div className="title">
               <div className="span2">
@@ -249,65 +244,57 @@ class Register extends Component {
             </div>
             <form method="post">
               <div className="input-prepend">
-                <input
+                <Input
                   type="text"
                   placeholder="用户名"
                   value={username}
                   name="username"
-                  onBlur={this.usrOnBlur.bind(this)}
                   onChange={this.changeUsername.bind(this)}
-                  className="user-nickname"
                 />
                 <label for="username">{infoUsr}</label>
               </div>
               <div className="input-prepend">
-                <input
+                <Input
                   type="email"
                   placeholder="登录邮箱"
                   value={email}
                   name="email"
                   onChange={this.changeEmail.bind(this)}
-                  className="user-email-number"
                 />
                 <label for="email">{infoEmail}</label>
               </div>
               <div className="input-prepend">
-                <input
+                <Input
                   type="password"
                   placeholder="密码"
                   value={fristPassword}
                   name="fristPassword"
                   onChange={this.changeFristPassword.bind(this)}
-                  className="user-password"
                 />
                 <label for="fristPassword">{infoFristPassword}</label>
               </div>
               <div className="input-prepend">
-                <input
+                <Input
                   type="password"
                   placeholder="确认密码"
                   value={secondPassword}
                   name="secondPassword"
                   onChange={this.changeSecondPassword.bind(this)}
-                  className="user-confi-password"
                 />
                 <label for="secondPassword">{infoSecondPassword}</label>
               </div>
-              <button
-                className="sign-in-button focus"
+              <Button
                 type="button"
                 onClick={this.register.bind(this)}
-              >
-                {' '}
-                开启新世界大门{' '}
-              </button>
+                btnContent="开启新世界大门"
+              />
               <p className="sign-in-msg">
                 {' '}
                 以上设置可在页面右上角个人信息中再次修改{' '}
               </p>
             </form>
           </div>
-        </div>
+        </Layout>
       </div>
     );
   }

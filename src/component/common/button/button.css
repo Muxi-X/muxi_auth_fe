@@ -1,0 +1,11 @@
+.standard-button {
+  display: block;
+  width: 272px;
+  height: 33px;
+  background: rgba(29, 76, 181, 1);
+  margin: 0 auto;
+  margin-top: 30px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}

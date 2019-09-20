@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 function Fetch(url, opt = {}) {
   // opt.method = opt.method || "GET";
   opt.method = 'POST';

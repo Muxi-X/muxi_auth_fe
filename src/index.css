@@ -56,8 +56,10 @@ code {
 
 .logo {
   margin: 0 auto;
-  width: 200px;
   height: 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .logo img {
   width: 100%;
@@ -91,7 +93,7 @@ code {
 .input-prepend {
   width: 272px;
   height: 33px;
-  margin: 17px auto 0 auto;
+  margin: 20px auto 0 auto;
 }
 
 .input-prepend input {
@@ -108,28 +110,17 @@ code {
 .auto-login-btn {
   display: flex;
   text-align: start;
-  font-size: 12px;
+  font-size: 14px;
   margin: 15px auto 11px 0;
 }
 
 .session-auto-login {
   display: inline-block;
   width: 14px;
-  height: 14px;
-  margin-top: 3px;
+  height: 12px;
+  margin-top: 5px;
   background: rgba(29, 76, 181, 1);
   border-radius: 2px;
-}
-
-.sign-in-button {
-  display: block;
-  width: 272px;
-  height: 33px;
-  background: rgba(29, 76, 181, 1);
-  margin: 0 auto;
-  margin-top: 30px;
-  color: white;
-  border-radius: 5px;
 }
 
 .sign-in-msg {
@@ -137,6 +128,15 @@ code {
   margin-top: 16px;
 }
 
-.focus {
-  cursor: pointer;
+label {
+  font-size: 12px;
+  padding: 2px 0;
+  color: red;
+}
+
+.header {
+  font-size: 24px;
+  color: rgba(29, 76, 181, 1);
+  line-height: 46px;
+  height: 46px;
 }

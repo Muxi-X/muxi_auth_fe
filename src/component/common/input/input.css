@@ -5,5 +5,7 @@
   padding-left: 15px;
   line-height: 33px;
   width: 272px;
+  font-size: 14px;
+  border-radius: 5px;
   background: rgba(244, 244, 244, 1);
 }

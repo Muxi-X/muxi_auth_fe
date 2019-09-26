@@ -132,7 +132,6 @@ class Login extends Component {
                 placeholder="用户名"
                 value={username}
                 onChange={this.changeUsername.bind(this)}
-                className="session-nickname"
               />
             </div>
             <div className="input-prepend">

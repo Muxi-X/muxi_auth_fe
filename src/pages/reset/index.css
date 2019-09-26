@@ -13,6 +13,7 @@
   padding-left: 15px;
   line-height: 33px;
   width: 192px;
+  border-radius: 5px;
   background: rgba(244, 244, 244, 1);
 }
 .get-captcha {

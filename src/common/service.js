@@ -34,7 +34,7 @@ function Fetch(url, opt = {}) {
           content: `服务端错误：${e.message}`
         });
       });
-      // 切换下一个 then 调用
+      // 切断下一个 then 调用
       throw e;
     });
 }
@@ -47,7 +47,6 @@ let Service = {
       data: {
         username: username,
         password: btoa(password)
-        // password: password
       }
     });
   },

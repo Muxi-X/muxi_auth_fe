@@ -88,7 +88,8 @@ class Login extends Component {
           }
           // landing 逻辑是获取地址栏中的 landing 参数，然后在这个时候跳转。
           // landing 参数是应用登陆跳转到内网门户时加在 URL 里面的，比如：http://pass.muxixyz.com/?landing=work.muxixyz.com%2Flanding
-          // 为了防止内网门户这边路由跳转时 landing 参数丢失，需要把在登录页把参数放到 localStorage 里面。
+          // 为了防止内网门户这边路由跳转时 landing 参数丢失，服务端会把 landing 放在cookie里面
+          // 所以这个从 cookie 里获取 landing 然后跳转就可以
 
           // let landing = "work.muxixyz.com/";
           // window.location.href =

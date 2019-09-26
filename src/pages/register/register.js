@@ -135,7 +135,7 @@ class Register extends Component {
       email,
       username
     } = this.state;
-    console.log(isEmailUsed, isUserUsed, secondPassword, fristPassword);
+
     if (
       !isEmailUsed &&
       !isUserUsed &&

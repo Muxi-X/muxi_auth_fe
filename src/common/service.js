@@ -1,8 +1,8 @@
 import 'whatwg-fetch';
+import Notification from 'rc-notification';
 
 function Fetch(url, opt = {}) {
-  // opt.method = opt.method || "GET";
-  opt.method = 'POST';
+  opt.method = opt.method || 'GET';
   opt.headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json'
@@ -13,25 +13,30 @@ function Fetch(url, opt = {}) {
 
   opt.body = JSON.stringify(opt.data) || null;
 
-  return fetch(url, opt).then(response => {
-    return response.json().then(json => {
-      // switch (response.status) {
-      //   case 200:
-      //     return json; break;
-      //   case 502:
-      //     //util.message(response.statusText, "err");
-      //     break;
-      //   case 403:
-      //     //util.message(json.message, "err");
-      //     break;
-      //   case 401:
-      //     return response.status;
-      // }
-      if (response.status === 200) return json;
-      else return json;
-      // if(response.status===502) return util.message(response.statusText, "err");
+  return fetch(url, opt)
+    .then(response => {
+      if (response.ok) {
+        return response.json().then(res => {
+          return res;
+        });
+      } else {
+        return response.json().then(res => {
+          return new Promise((_, reject) => {
+            console.log(res);
+            reject(res);
+          });
+        });
+      }
+    })
+    .catch(e => {
+      Notification.newInstance({}, notification => {
+        notification.notice({
+          content: `服务端错误：${e.message}`
+        });
+      });
+      // 切换下一个 then 调用
+      throw e;
     });
-  });
 }
 
 let Service = {
@@ -59,11 +64,11 @@ let Service = {
   },
   // check email
   checkEmail(email) {
-    return fetch(`/auth/api/check_email?email=${email}`);
+    return Fetch(`/auth/api/check_email?email=${email}`);
   },
   // check username
   checkUsername(username) {
-    return fetch(`/auth/api/check_name?username=${username}`);
+    return Fetch(`/auth/api/check_name?username=${username}`);
   },
   // reset password
   resetPassword(email, password, captcha) {

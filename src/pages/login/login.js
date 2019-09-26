@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './login.css';
-import Service from '../../common/service';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
+
+import { ERROR_CODE } from '../../common/consts';
+import './login.css';
+import Service from '../../common/service';
 import Layout from '../../component/layout';
 import Button from '../../component/common/button/button';
 import Input from '../../component/common/input/input';
@@ -71,36 +73,37 @@ class Login extends Component {
   login() {
     const { username, password, isChecked } = this.state;
     if (username && password) {
-      if (isChecked) {
-        localStorage.setItem('username', username);
-        localStorage.setItem('password', password);
-        localStorage.setItem('checked', isChecked);
-      }
-      Service.Login(username, password)
-        .then(res => {
-          if (res.data.message === 'The user was not found.') {
-            this.alert('用户名错误,无效的用户名');
-          } else if (res.data.message === 'Password incorrect.') {
-            this.alert('密码错误');
-          } else if (res.message === 'OK') {
-            this.alert('登录成功');
-            let landing = 'work.muxixyz.com/';
-            window.location.href =
-              'http://' +
-              landing +
-              'landing/?username=' +
-              username +
-              '&token=' +
-              res.data.token +
-              '&id=' +
-              res.data.user_id;
-          } else {
-            this.alert('登录失败，请检查后重试');
+      Service.Login(username, password).then(res => {
+        if (res.code === ERROR_CODE.USER_NOT_FOUND) {
+          this.alert('用户不存在');
+        } else if (res.code === ERROR_CODE.PWD_NOT_CORRECT) {
+          this.alert('密码错误');
+        } else if (res.code === 0) {
+          this.alert('登录成功');
+          // 如果登陆成功，缓存登陆信息
+          if (isChecked) {
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+            localStorage.setItem('checked', isChecked);
           }
-        })
-        .catch(() => {
-          this.alert('登录失败（请检查用户名和密码）');
-        });
+          // landing 逻辑是获取地址栏中的 landing 参数，然后在这个时候跳转。
+          // landing 参数是应用登陆跳转到内网门户时加在 URL 里面的，比如：http://pass.muxixyz.com/?landing=work.muxixyz.com%2Flanding
+          // 为了防止内网门户这边路由跳转时 landing 参数丢失，需要把在登录页把参数放到 localStorage 里面。
+
+          // let landing = "work.muxixyz.com/";
+          // window.location.href =
+          //   "http://" +
+          //   landing +
+          //   "landing/?username=" +
+          //   username +
+          //   "&token=" +
+          //   res.data.token +
+          //   "&id=" +
+          //   res.data.user_id;
+        } else {
+          this.alert('未知错误，请联系应用管理员');
+        }
+      });
     } else {
       this.alert('用户名或密码不能为空');
     }
@@ -129,7 +132,7 @@ class Login extends Component {
             <div className="input-prepend">
               <Input
                 type="text"
-                placeholder="用户名"
+                placeholder="用户名或邮箱"
                 value={username}
                 onChange={this.changeUsername.bind(this)}
               />
@@ -152,12 +155,11 @@ class Login extends Component {
                 className="session-auto-login"
               />
               <div className="focus" onClick={this.changeCheck.bind(this)}>
-                {' '}
-                下次自动登陆{' '}
+                下次自动登陆
               </div>
               <div className="find-pass">
                 <Link to="/find_pass" style={{ textDecoration: 'none' }}>
-                  找回密码？{' '}
+                  找回密码？
                 </Link>
               </div>
             </div>

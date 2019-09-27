@@ -22,7 +22,8 @@ router.get("/", function(ctx, next) {
 router.get(/^\/static(?:\/|$)/, async ctx => {
   let filepath = ctx.path;
   await send(ctx, filepath, {
-    root: path.join(__dirname, "../build")
+    root: path.join(__dirname, "../build"),
+    maxage: 60 * 60 * 24 * 365
   });
 });
 

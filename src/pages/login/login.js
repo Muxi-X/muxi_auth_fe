@@ -96,7 +96,7 @@ class Login extends Component {
           window.location.href =
             'http://' +
             landing +
-            'landing/?username=' +
+            '/?username=' +
             username +
             '&token=' +
             res.data.token +

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
-
+import getCookie from '../../common/cookie';
 import { ERROR_CODE } from '../../common/consts';
 import './login.css';
 import Service from '../../common/service';
 import Layout from '../../component/layout';
 import Button from '../../component/common/button/button';
 import Input from '../../component/common/input/input';
+import { get } from 'https';
 
 class Login extends Component {
   componentDidMount() {
@@ -91,16 +92,16 @@ class Login extends Component {
           // 为了防止内网门户这边路由跳转时 landing 参数丢失，服务端会把 landing 放在cookie里面
           // 所以这个从 cookie 里获取 landing 然后跳转就可以
 
-          // let landing = "work.muxixyz.com/";
-          // window.location.href =
-          //   "http://" +
-          //   landing +
-          //   "landing/?username=" +
-          //   username +
-          //   "&token=" +
-          //   res.data.token +
-          //   "&id=" +
-          //   res.data.user_id;
+          let landing = getCookie('landing');
+          window.location.href =
+            'http://' +
+            landing +
+            'landing/?username=' +
+            username +
+            '&token=' +
+            res.data.token +
+            '&id=' +
+            res.data.user_id;
         } else {
           this.alert('未知错误，请联系应用管理员');
         }
@@ -109,6 +110,7 @@ class Login extends Component {
       this.alert('用户名或密码不能为空');
     }
   }
+
   render() {
     const { isChecked, username, password } = this.state;
     return (

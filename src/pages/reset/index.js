@@ -165,6 +165,7 @@ class Index extends Component {
 
   sendCode = () => {
     const { isTureEmail, emailInput } = this.state;
+    console.log(document.cookie);
     if (isTureEmail === true) {
       Service.getCaptcha(emailInput)
         .then(res => {

@@ -19,7 +19,7 @@
     "store": "^2.0.12",
     "whatwg-fetch": "^3.0.0"
   },
-  "proxy": "http://pass2.muxixyz.com",
+  "proxy": "http://pass.muxi-tech.xyz",
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --single-quote --write",

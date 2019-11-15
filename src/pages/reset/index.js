@@ -31,7 +31,7 @@ class Index extends Component {
     let isTureEmail = false;
     let val = e.target.value;
     let myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
-    this.setState({ emailInput: val.substring(0, 20) });
+    this.setState({ emailInput: val.substring(0, 35) });
     if (myReg.test(val)) {
       isTureEmail = true;
     }
@@ -99,7 +99,7 @@ class Index extends Component {
   changeFristPassword(e) {
     let val = e.target.value;
     let length = val.length;
-    this.setState({ firstPassword: val.substring(0, 15) });
+    this.setState({ firstPassword: val.substring(0, 20) });
     if (length > 15) {
       this.setState({ info: '不能输入超过15个字!' });
       setTimeout(
@@ -126,7 +126,7 @@ class Index extends Component {
   changesecondPassword(e) {
     let val = e.target.value;
     const { firstPassword } = this.state;
-    this.setState({ secondPassword: val.substring(0, 15) });
+    this.setState({ secondPassword: val.substring(0, 20) });
 
     if (val !== firstPassword) {
       this.setState({ secondInfo: '前后两次输入密码不正确!' });

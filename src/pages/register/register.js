@@ -59,7 +59,7 @@ class Register extends Component {
 
   changeUsername(e) {
     let val = e.target.value;
-    this.setState({ username: val.substring(0, 15) });
+    this.setState({ username: val.substring(0, 20) });
   }
 
   changeEmail(e) {
@@ -68,7 +68,7 @@ class Register extends Component {
     let val = e.target.value;
     // FIXIT: 不应该限制邮箱的域名
     let myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
-    this.setState({ email: val.substring(0, 30) });
+    this.setState({ email: val.substring(0, 35) });
     if (myReg.test(val)) {
       isTureEmail = true;
     }
@@ -97,7 +97,7 @@ class Register extends Component {
   changeFristPassword(e) {
     let val = e.target.value;
     let length = val.length;
-    this.setState({ fristPassword: val.substring(0, 15) });
+    this.setState({ fristPassword: val.substring(0, 20) });
     if (length > 15) {
       this.setState({ infoFristPassword: '密码长度不能超过15个字!' });
     } else {
@@ -118,7 +118,7 @@ class Register extends Component {
   changeSecondPassword(e) {
     let val = e.target.value;
     const { fristPassword } = this.state;
-    this.setState({ secondPassword: val.substring(0, 15) });
+    this.setState({ secondPassword: val.substring(0, 20) });
 
     if (val !== fristPassword) {
       this.setState({ infoSecondPassword: '前后两次输入密码不一致!' });

@@ -54,7 +54,7 @@ class Login extends Component {
 
   changePassword(e) {
     let val = e.target.value;
-    this.setState({ password: val.substring(0, 15) });
+    this.setState({ password: val.substring(0, 20) });
   }
 
   changeCheck(e) {

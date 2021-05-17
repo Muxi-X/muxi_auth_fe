@@ -19,7 +19,7 @@ class Login extends Component {
         localStorage.getItem('password')
       ).then(res => {
         if (res !== null && res !== undefined) {
-          let landing = 'work.muxixyz.com/';
+          let landing = 'pass.muxi-tech.xyz/';
           if (landing) {
             window.location.href =
               'http://' +
@@ -93,6 +93,7 @@ class Login extends Component {
           // 所以这个从 cookie 里获取 landing 然后跳转就可以
 
           let landing = getCookie('landing');
+          // let landing = 'pass.muxi-tech.xyz'
           window.location.href =
             'http://' +
             landing +

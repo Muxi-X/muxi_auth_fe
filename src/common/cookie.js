@@ -1,5 +1,6 @@
 function getCookie(cname) {
   let name = cname + '=';
+  // let name = cname;
   let ca = document.cookie.split(';');
   for (var i = 0; i < ca.length; i++) {
     let c = ca[i].trim();

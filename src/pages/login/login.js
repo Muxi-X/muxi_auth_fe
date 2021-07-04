@@ -38,9 +38,6 @@ class Login extends Component {
   //   }
   // }
   componentDidMount() {
-    // console.log(localStorage.getItem('checked'));
-    // console.log(localStorage.getItem('username'));
-    // console.log(localStorage.getItem('token'));
     if (localStorage.getItem('checked')) {
       Service.refreshtoken(localStorage.getItem('token')).then(res => {
         console.log(res);
@@ -82,47 +79,6 @@ class Login extends Component {
       });
     });
   }
-  // login() {
-  //   const { username, password, isChecked } = this.state;
-  //   if (username && password) {
-  //     Service.Login(username, password).then(res => {
-  //       if (res.code === ERROR_CODE.USER_NOT_FOUND) {
-  //         this.alert('用户不存在');
-  //       } else if (res.code === ERROR_CODE.PWD_NOT_CORRECT) {
-  //         this.alert('密码错误');
-  //       } else if (res.code === 0) {
-  //         this.alert('登录成功');
-  //         // 如果登陆成功，缓存登陆信息
-  //         if (isChecked) {
-  //           localStorage.setItem('username', username);
-  //           localStorage.setItem('password', password);
-  //           localStorage.setItem('checked', isChecked);
-  //         }
-  //         // landing 逻辑是获取地址栏中的 landing 参数，然后在这个时候跳转。
-  //         // landing 参数是应用登陆跳转到内网门户时加在 URL 里面的，比如：http://pass.muxixyz.com/?landing=work.muxixyz.com%2Flanding
-  //         // 为了防止内网门户这边路由跳转时 landing 参数丢失，服务端会把 landing 放在cookie里面
-  //         // 所以这个从 cookie 里获取 landing 然后跳转就可以
-
-  //         let landing = getCookie('landing');
-  //         // let landing = 'pass.muxi-tech.xyz'
-  //         window.location.href =
-  //           'http://' +
-  //           landing +
-  //           '/?username=' +
-  //           username +
-  //           '&token=' +
-  //           res.data.token +
-  //           '&id=' +
-  //           res.data.user_id;
-  //       } else {
-  //         this.alert('未知错误，请联系应用管理员');
-  //       }
-  //     });
-  //   } else {
-  //     this.alert('用户名或密码不能为空');
-  //   }
-  // }
-
   login() {
     const { username, password, isChecked } = this.state;
     console.log(username, password, isChecked);
@@ -145,7 +101,6 @@ class Login extends Component {
           let accessCode = res.data.code;
           //获取token
           Service.getOauthToken(accessCode).then(res => {
-            // console.log(res);
             let token = res.data.access_token;
             localStorage.setItem('token', token);
           });
@@ -155,8 +110,7 @@ class Login extends Component {
             localStorage.setItem('userID', res.data.role_id);
           });
           //跳转到工作台
-          // let landing= getCookie('landing');
-          let landing = 'pass.muxi-tech.xyz/';
+          let landing = getCookie('landing');
           let token = localStorage.getItem('token');
           let id = localStorage.getItem('userID');
           window.location.href =

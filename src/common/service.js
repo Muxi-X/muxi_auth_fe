@@ -1,12 +1,10 @@
 import 'whatwg-fetch';
 import Notification from 'rc-notification';
+import getCookie from './cookie';
 
 function Fetch(url, opt = {}) {
   opt.method = opt.method || 'GET';
-  opt.headers = {
-    // Accept: 'application/json',
-    // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-  };
+  opt.headers = {};
   if (opt.token) {
     opt.headers.token = opt.token;
   }
@@ -117,8 +115,8 @@ let Service = {
   },
   // get auth-token
   getOauthToken(aceessCode) {
-    let client_id = '51f03389-2a18-4941-ba73-c85d08201d42';
-    let client_secret = '7d52480f-730d-45a1-99cc-1397985ebe0e';
+    let client_id = getCookie('client_id');
+    let client_secret = getCookie('client_secret');
     let formdata = new FormData();
     formdata.append('client_secret', client_secret);
     formdata.append('code', aceessCode);
@@ -133,8 +131,8 @@ let Service = {
   },
   //refresh-token
   refreshtoken(token) {
-    let client_id = '51f03389-2a18-4941-ba73-c85d08201d42';
-    let client_secret = '7d52480f-730d-45a1-99cc-1397985ebe0e';
+    let client_id = getCookie('client_id');
+    let client_secret = getCookie('client_secret');
     let formdata = new FormData();
     formdata.append('client_secret', client_secret);
     formdata.append('refresh_token', token);

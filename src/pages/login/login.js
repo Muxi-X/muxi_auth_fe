@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
 import getCookie from '../../common/cookie';
-import { ERROR_CODE } from '../../common/consts';
 import './login.css';
 import Service from '../../common/service';
 import Layout from '../../component/layout';
 import Button from '../../component/common/button/button';
 import Input from '../../component/common/input/input';
-import { get } from 'https';
 
 class Login extends Component {
   // componentDidMount() {

@@ -8,33 +8,9 @@ import Service from '../../common/service';
 import Layout from '../../component/layout';
 import Button from '../../component/common/button/button';
 import Input from '../../component/common/input/input';
+import getFromUrl from '../../common/getFromUrl';
 
 class Login extends Component {
-  // componentDidMount() {
-  //   if (localStorage.getItem('checked')) {
-  //     Service.Login(
-  //       localStorage.getItem('username'),
-  //       localStorage.getItem('password')
-  //     ).then(res => {
-  //       if (res !== null && res !== undefined) {
-  //         let landing = 'pass.muxi-tech.xyz/';
-  //         if (landing) {
-  //           window.location.href =
-  //             'http://' +
-  //             landing +
-  //             'landing/?username=' +
-  //             localStorage.getItem('username') +
-  //             '&token=' +
-  //             res.token +
-  //             '&id=' +
-  //             res.user_id;
-  //         }
-  //       } else {
-  //         this.failed = true;
-  //       }
-  //     });
-  //   }
-  // }
   componentDidMount() {
     if (localStorage.getItem('checked')) {
       Service.refreshtoken(
@@ -88,11 +64,11 @@ class Login extends Component {
     console.log(username, password, isChecked);
     if (username && password) {
       Service.getOauthCode(username, password).then(res => {
-        if (res.code == 20102) {
+        if (res.code === 20102) {
           this.alert('用户不存在');
-        } else if (res.code == 20301) {
+        } else if (res.code === 20301) {
           this.alert('密码错误');
-        } else if (res.code == 0) {
+        } else if (res.code === 0) {
           this.alert('登录成功，正在跳转');
           //如果用户勾选下次自动登录，保存此次登录信息
           if (isChecked) {

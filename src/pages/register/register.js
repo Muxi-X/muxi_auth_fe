@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './register.css';
 import { Link } from 'react-router-dom';
-// import Background from '../../images/login.png';
 import Service from '../../common/service';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';

@@ -1,8 +1,5 @@
 import 'whatwg-fetch';
 import Notification from 'rc-notification';
-import getCookie from './cookie';
-import getFromUrl from './getFromUrl';
-
 function Fetch(url, opt = {}) {
   opt.method = opt.method || 'GET';
   opt.headers = {};

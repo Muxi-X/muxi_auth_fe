@@ -37,7 +37,11 @@ class Login extends Component {
   // }
   componentDidMount() {
     if (localStorage.getItem('checked')) {
-      Service.refreshtoken(localStorage.getItem('token')).then(res => {
+      Service.refreshtoken(
+        localStorage.getItem('token'),
+        localStorage.getItem('client_id'),
+        localStorage.getItem('client_secret')
+      ).then(res => {
         console.log(res);
       });
     }
@@ -78,6 +82,8 @@ class Login extends Component {
     });
   }
   login() {
+    let client_id = getFromUrl('client_id');
+    let client_secret = getFromUrl('client_secret');
     const { username, password, isChecked } = this.state;
     console.log(username, password, isChecked);
     if (username && password) {
@@ -98,10 +104,14 @@ class Login extends Component {
           //保存code
           let accessCode = res.data.code;
           //获取token
-          Service.getOauthToken(accessCode).then(res => {
-            let token = res.data.access_token;
-            localStorage.setItem('token', token);
-          });
+          Service.getOauthToken(accessCode, client_id, client_secret).then(
+            res => {
+              let token = res.data.access_token;
+              localStorage.setItem('token', token);
+              localStorage.setItem('client_id', client_id);
+              localStorage.setItem('client_secret', client_secret);
+            }
+          );
           //get user info
           Service.getUserInfo(localStorage.getItem('token')).then(res => {
             console.log(res);

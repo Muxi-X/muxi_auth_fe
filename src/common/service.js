@@ -115,9 +115,7 @@ let Service = {
     );
   },
   // get auth-token
-  getOauthToken(aceessCode) {
-    let client_id = getFromUrl('client_id');
-    let client_secret = getFromUrl('client_secret');
+  getOauthToken(aceessCode, client_id, client_secret) {
     let formdata = new FormData();
     formdata.append('client_secret', client_secret);
     formdata.append('code', aceessCode);
@@ -131,9 +129,7 @@ let Service = {
     );
   },
   //refresh-token
-  refreshtoken(token) {
-    let client_id = getFromUrl('client_id');
-    let client_secret = getFromUrl('client_secret');
+  refreshtoken(token, client_id, client_secret) {
     let formdata = new FormData();
     formdata.append('client_secret', client_secret);
     formdata.append('refresh_token', token);

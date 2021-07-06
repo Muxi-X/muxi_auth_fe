@@ -3,40 +3,26 @@ import { Link } from 'react-router-dom';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
 import getCookie from '../../common/cookie';
-import { ERROR_CODE } from '../../common/consts';
 import './login.css';
 import Service from '../../common/service';
 import Layout from '../../component/layout';
 import Button from '../../component/common/button/button';
 import Input from '../../component/common/input/input';
-import { get } from 'https';
+import getFromUrl from '../../common/getFromUrl';
 
 class Login extends Component {
   componentDidMount() {
     if (localStorage.getItem('checked')) {
-      Service.Login(
-        localStorage.getItem('username'),
-        localStorage.getItem('password')
+      Service.refreshtoken(
+        localStorage.getItem('token'),
+        localStorage.getItem('client_id'),
+        localStorage.getItem('client_secret')
       ).then(res => {
-        if (res !== null && res !== undefined) {
-          let landing = 'work.muxixyz.com/';
-          if (landing) {
-            window.location.href =
-              'http://' +
-              landing +
-              'landing/?username=' +
-              localStorage.getItem('username') +
-              '&token=' +
-              res.token +
-              '&id=' +
-              res.user_id;
-          }
-        } else {
-          this.failed = true;
-        }
+        console.log(res);
       });
     }
   }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -72,42 +58,58 @@ class Login extends Component {
     });
   }
   login() {
+    let client_id = getFromUrl('client_id');
+    let client_secret = getFromUrl('client_secret');
     const { username, password, isChecked } = this.state;
+    console.log(username, password, isChecked);
     if (username && password) {
-      Service.Login(username, password).then(res => {
-        if (res.code === ERROR_CODE.USER_NOT_FOUND) {
+      Service.getOauthCode(username, password).then(res => {
+        if (res.code === 20102) {
           this.alert('用户不存在');
-        } else if (res.code === ERROR_CODE.PWD_NOT_CORRECT) {
+        } else if (res.code === 20301) {
           this.alert('密码错误');
         } else if (res.code === 0) {
-          this.alert('登录成功');
-          // 如果登陆成功，缓存登陆信息
+          this.alert('登录成功，正在跳转');
+          //如果用户勾选下次自动登录，保存此次登录信息
           if (isChecked) {
             localStorage.setItem('username', username);
             localStorage.setItem('password', password);
             localStorage.setItem('checked', isChecked);
           }
-          // landing 逻辑是获取地址栏中的 landing 参数，然后在这个时候跳转。
-          // landing 参数是应用登陆跳转到内网门户时加在 URL 里面的，比如：http://pass.muxixyz.com/?landing=work.muxixyz.com%2Flanding
-          // 为了防止内网门户这边路由跳转时 landing 参数丢失，服务端会把 landing 放在cookie里面
-          // 所以这个从 cookie 里获取 landing 然后跳转就可以
 
+          //保存code
+          let accessCode = res.data.code;
+          //获取token
+          Service.getOauthToken(accessCode, client_id, client_secret).then(
+            res => {
+              let token = res.data.access_token;
+              localStorage.setItem('token', token);
+              localStorage.setItem('client_id', client_id);
+              localStorage.setItem('client_secret', client_secret);
+            }
+          );
+          //get user info
+          Service.getUserInfo(localStorage.getItem('token')).then(res => {
+            console.log(res);
+            localStorage.setItem('userID', res.data.role_id);
+          });
+          //跳转到工作台
           let landing = getCookie('landing');
+          let token = localStorage.getItem('token');
+          let id = localStorage.getItem('userID');
           window.location.href =
             'http://' +
             landing +
-            '/?username=' +
+            'landing/?username=' +
             username +
             '&token=' +
-            res.data.token +
+            token +
             '&id=' +
-            res.data.user_id;
-        } else {
-          this.alert('未知错误，请联系应用管理员');
+            id;
         }
       });
     } else {
-      this.alert('用户名或密码不能为空');
+      this.alert('请输入用户名和密码');
     }
   }
 

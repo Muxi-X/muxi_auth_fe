@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './register.css';
 import { Link } from 'react-router-dom';
-import Background from '../../images/login.png';
 import Service from '../../common/service';
 import Notification from 'rc-notification';
 import 'rc-notification/assets/index.css';
@@ -89,6 +88,7 @@ class Register extends Component {
         });
         if (result === true) {
           this.setState({ infoEmail: '该邮箱已被使用!' });
+          console.log('该邮箱已被使用');
         }
       });
     }
@@ -184,7 +184,7 @@ class Register extends Component {
               </div>
               <div className="span1">注册</div>
             </div>
-            <form method="post" autocomplete="off">
+            <form method="post" autoComplete="off">
               <div className="input-prepend">
                 <Input
                   type="text"

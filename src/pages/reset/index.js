@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Background from '../../images/login.png';
 import './index.css';
 import Service from '../../common/service';
 import Notification from 'rc-notification';

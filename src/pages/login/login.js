@@ -8,21 +8,7 @@ import Service from '../../common/service';
 import Layout from '../../component/layout';
 import Button from '../../component/common/button/button';
 import Input from '../../component/common/input/input';
-import getFromUrl from '../../common/getFromUrl';
-
 class Login extends Component {
-  componentDidMount() {
-    if (localStorage.getItem('checked')) {
-      Service.refreshtoken(
-        localStorage.getItem('token'),
-        localStorage.getItem('client_id'),
-        localStorage.getItem('client_secret')
-      ).then(res => {
-        console.log(res);
-      });
-    }
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -58,8 +44,6 @@ class Login extends Component {
     });
   }
   login() {
-    let client_id = getFromUrl('client_id');
-    let client_secret = getFromUrl('client_secret');
     const { username, password, isChecked } = this.state;
     console.log(username, password, isChecked);
     if (username && password) {
@@ -79,15 +63,6 @@ class Login extends Component {
 
           //保存code
           let accessCode = res.data.code;
-          //获取token
-          Service.getOauthToken(accessCode, client_id, client_secret).then(
-            res => {
-              let token = res.data.access_token;
-              localStorage.setItem('token', token);
-              localStorage.setItem('client_id', client_id);
-              localStorage.setItem('client_secret', client_secret);
-            }
-          );
           //get user info
           Service.getUserInfo(localStorage.getItem('token')).then(res => {
             console.log(res);
@@ -95,17 +70,9 @@ class Login extends Component {
           });
           //跳转到工作台
           let landing = getCookie('landing');
-          let token = localStorage.getItem('token');
           let id = localStorage.getItem('userID');
           window.location.href =
-            'http://' +
-            landing +
-            'landing/?username=' +
-            username +
-            '&token=' +
-            token +
-            '&id=' +
-            id;
+            'http://' + landing + 'landing/?' + 'accessCode=' + accessCode;
         }
       });
     } else {

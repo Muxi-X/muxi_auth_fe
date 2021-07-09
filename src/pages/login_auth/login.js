@@ -8,7 +8,8 @@ import Service from '../../common/service';
 import Layout from '../../component/layout';
 import Button from '../../component/common/button/button';
 import Input from '../../component/common/input/input';
-class Login extends Component {
+import getQueryVariable from '../../common/getFromUrl';
+class Login_auth extends Component {
   componentDidMount() {
     if (localStorage.getItem('checked')) {
       Service.Login(
@@ -62,8 +63,9 @@ class Login extends Component {
   }
   async login() {
     const { username, password, isChecked } = this.state;
+    let client_id = getQueryVariable('client_id');
     if (username && password) {
-      const res = await Service.getOauthCode(username, password);
+      const res = await Service.getOauthCode(username, password, client_id);
       console.log(res);
       if (res.code === 20102) {
         this.alert('用户不存在');
@@ -155,4 +157,4 @@ class Login extends Component {
     );
   }
 }
-export default Login;
+export default Login_auth;

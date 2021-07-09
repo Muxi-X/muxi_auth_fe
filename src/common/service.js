@@ -99,17 +99,14 @@ let Service = {
     });
   },
   // get auth-code
-  getOauthCode(username, password) {
-    return Fetch(
-      '/auth/api/oauth?response_type=code&client_id=51f03389-2a18-4941-ba73-c85d08201d42',
-      {
-        method: 'POST',
-        data: {
-          username: username,
-          password: btoa(password)
-        }
+  getOauthCode(username, password, client_id) {
+    return Fetch(`/auth/api/oauth?response_type=code&client_id=${client_id}`, {
+      method: 'POST',
+      data: {
+        username: username,
+        password: btoa(password)
       }
-    );
+    });
   },
   //get user info
   getUserInfo() {

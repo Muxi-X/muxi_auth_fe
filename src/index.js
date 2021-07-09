@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import reset from './pages/reset/index';
 import Login from './pages/login/login';
+import Login_auth from './pages/login_auth/login';
 import Register from './pages/register/register';
 import * as serviceWorker from './serviceWorker';
 import ReactDOM from 'react-dom';
@@ -21,6 +22,7 @@ export default class Portal extends Component {
           <Route path="/Register" component={Register} />
           <Route path="/find_pass" component={reset} />
           <Route path="/login" component={Login} />
+          <Route path="/login_auth" component={Login_auth} />
         </Switch>
       </Router>
     );

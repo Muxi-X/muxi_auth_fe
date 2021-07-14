@@ -4,14 +4,16 @@ const Router = require("koa-router");
 const userAgent = require("koa-useragent");
 const path = require("path");
 const swig = require("swig");
+const bodyParser = require('koa-bodyparser');
 const router = new Router();
 const app = new Koa();
 
-const templateRoot = path.join(__dirname, "../build");
+const templateRoot = path.join(__dirname, "../build/");
 
 app.use(userAgent);
+app.use(bodyParser());
 
-router.get("/", function(ctx, next) {
+router.get(/^\/(.*)$/, function(ctx, next) {
   ctx.cookies.set("landing", ctx.request.query.landing, {
     httpOnly: false
   });
@@ -20,7 +22,7 @@ router.get("/", function(ctx, next) {
 });
 
 router.get(/^\/static(?:\/|$)/, async ctx => {
-  let filepath = ctx.path;
+  let filepath = ctx.path.replace(/static\//,'');
   await send(ctx, filepath, {
     root: path.join(__dirname, "../build"),
     maxage: 60 * 60 * 24 * 365

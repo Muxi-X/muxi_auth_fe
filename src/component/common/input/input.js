@@ -4,10 +4,6 @@ import './input.css';
 const noop = () => {};
 
 class Input extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       type,

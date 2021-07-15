@@ -84,6 +84,7 @@ class Login_auth extends Component {
         //跳转到工作台
         let landing = getCookie('landing');
         window.location.href =
+          // eslint-disable-next-line no-useless-concat
           'http://' + landing + 'landing/?' + 'accessCode=' + accessCode;
       }
     } else {

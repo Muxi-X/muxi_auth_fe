@@ -34,10 +34,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-      "no-useless-concat": "disable"
-    }
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [

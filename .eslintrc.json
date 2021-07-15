@@ -1,6 +1,3 @@
 {
-  "extends": "react-app",
-  "rules": {
-    "no-useless-concat": "disable"
-  }
+  "extends": "react-app"
 }

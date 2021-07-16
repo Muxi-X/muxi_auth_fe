@@ -83,9 +83,12 @@ class Login_auth extends Component {
         }
         //跳转到工作台
         let landing = getCookie('landing');
+        if (landing === '') {
+          landing = getQueryVariable('landing');
+        }
         window.location.href =
           // eslint-disable-next-line no-useless-concat
-          'http://' + landing + 'landing/?' + 'accessCode=' + accessCode;
+          'http://' + landing + '/?accessCode=' + accessCode;
       }
     } else {
       this.alert('请输入用户名和密码');

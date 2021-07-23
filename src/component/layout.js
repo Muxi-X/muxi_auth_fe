@@ -14,7 +14,7 @@ class Layout extends React.Component {
           <div className="main">
             <div className="logo">
               <div className="header">
-                <img src={icon} alt="tupian" className="icon"></img>
+                <img src={icon} alt="one_img" className="icon"></img>
                 木犀内网门户
               </div>
             </div>

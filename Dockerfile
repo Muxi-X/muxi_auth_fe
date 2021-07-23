@@ -8,7 +8,7 @@ COPY . /usr/src/app
 WORKDIR /usr/src/app/server
 
 #Build server file
-RUN yarn config set registry https://registry.npm.taobao.org/ #»»Ô´
+RUN yarn config set registry https://registry.npm.taobao.org/ 
 RUN yarn install 
 
 # Bundle app source

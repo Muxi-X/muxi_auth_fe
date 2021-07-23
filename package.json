@@ -17,8 +17,7 @@
     "react-router-native": "^5.0.1",
     "react-scripts": "3.1.1",
     "store": "^2.0.12",
-    "whatwg-fetch": "^3.0.0",
-    "yarn": "^1.22.10"
+    "whatwg-fetch": "^3.0.0"
   },
   "proxy": "http://pass.muxi-tech.xyz",
   "lint-staged": {

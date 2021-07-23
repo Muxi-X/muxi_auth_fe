@@ -84,6 +84,7 @@ class Login extends Component {
           // 所以这个从 cookie 里获取 landing 然后跳转就可以
 
           let landing = getCookie('landing');
+
           window.location.href =
             'http://' +
             landing +

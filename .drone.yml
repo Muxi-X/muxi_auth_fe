@@ -1,0 +1,50 @@
+kind: pipeline
+type: docker
+name: muxiauth/fe
+
+trigger:
+  ref:
+  - refs/tags/release-* #触发器，当打入以release-为模板的新tags时开始执行。
+
+clone:
+  depth: 1 #克隆当前文件
+
+steps:
+  - name: build-assets
+    image: node #在node Docker 容器当中
+    environment: #环境变量
+      REACT_APP_VERSION: ${DRONE_TAG}
+      PUBLIC_URL: http://static.muxixyz.com/muxiauth/fe/ #create-my-app脚手架中的环境变量
+    commands: #执行
+    - yarn config set registry https://registry.npm.taobao.org
+    - yarn install
+    - yarn build
+  - name: upload-assets
+    image: node
+    environment:
+      AK:
+        from_secret: AK
+      SK:
+        from_secret: SK
+    commands:
+    - yarn global add qiniu-upload-tool --registry=https://registry.npm.taobao.org
+    - qiniu-upload push -z huad -p ./build -b ccnustatic -f muxiauth/fe -r yes
+    - rm -rf ./src
+    - rm -rf ./node_modules
+  - name: build-and-push-image # 构建 user 服务镜像
+    image: plugins/docker 
+    volumes:
+      - name: dockersock # 挂载下面定义的Volumn
+        path: /var/run/docker.sock # 与宿主机用同一docker
+    settings: # plugins/docker用到的相关配置
+      username:
+        from_secret: docker_user # alicloud指定的docker hub的用户名(前面配置)
+      password:
+        from_secret: docker_password # alicloud指定的docker hub的密码(前面配置)
+      repo: registry-vpc.cn-hangzhou.aliyuncs.com/muxiauth/fe #要推送docker地址
+      registry: registry-vpc.cn-hangzhou.aliyuncs.com # 使用的docker hub地址
+      tags: ${DRONE_TAG} 
+volumes:
+- name: dockersock
+  host: 
+    path: /var/run/docker.sock

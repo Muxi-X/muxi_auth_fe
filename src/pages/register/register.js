@@ -147,7 +147,8 @@ class Register extends Component {
         if (res.code === 0) {
           this.alert('注册成功');
           setTimeout(() => {
-            window.location.href = '/login';
+            let param = new URLSearchParams(window.location.href);
+            window.location.href = `/login?${param.get('redirect')}`;
           }, 1500);
         }
       });

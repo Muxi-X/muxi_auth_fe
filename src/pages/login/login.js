@@ -87,6 +87,7 @@ class Login extends Component {
           window.location.href =
             'http://' +
             landing +
+            'work.muxi-tech.xyz' +
             '/?username=' +
             username +
             '&token=' +

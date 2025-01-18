@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:16.20.2
 
 # Create app directory
 RUN mkdir -p /usr/src/app
@@ -6,13 +6,13 @@ WORKDIR /usr/src/app
 COPY . /usr/src/app
 
 # Build static file
-RUN npm install --registry=https://registry.npm.taobao.org
+RUN npm install --registry=https://registry.npmmirror.com
 RUN npm run build
 
 WORKDIR /usr/src/app/server
 
 # Build server file
-RUN npm install --registry=https://registry.npm.taobao.org
+RUN npm install --registry=https://registry.npmmirror.com
 
 # Bundle app source
 EXPOSE 3000

@@ -84,7 +84,11 @@ class Login_auth extends Component {
         //跳转到工作台
         let landing = getCookie('landing');
         window.location.href =
-          'http://' + landing + 'landing/?' + 'accessCode=' + accessCode;
+          'http://' +
+          landing +
+          'landing/?work.muxi-tech.xyz' +
+          'accessCode=' +
+          accessCode;
       }
     } else {
       this.alert('请输入用户名和密码');

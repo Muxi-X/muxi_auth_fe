@@ -6,6 +6,7 @@ import 'rc-notification/assets/index.css';
 import Layout from '../../component/layout.js';
 import Button from '../../component/common/button/button';
 import Input from '../../component/common/input/input';
+import getQueryVariable from '../../common/getFromUrl';
 
 class Index extends Component {
   constructor(props) {
@@ -79,7 +80,10 @@ class Index extends Component {
             Service.resetPassword(emailInput, secondPassword, captchaInput)
               .then(res => {
                 this.alert('重置成功');
-                window.location.href = '/login';
+                window.location.href =
+                  '/login' +
+                  getQueryVariable('landing') +
+                  getQueryVariable('client_id');
               })
               .catch(() => {
                 this.alert('重置失败，请检查重试');

@@ -7,14 +7,13 @@ class Layout extends React.Component {
     return (
       <div>
         <div
-          className="sign"
+          className="sign background"
           style={{ backgroundImage: `url(${Background})` }}
-          className="background"
         >
           <div className="main">
             <div className="logo">
               <div className="header">
-                <img src={icon} className="icon"></img>
+                <img alt="logo" src={icon} className="icon"></img>
                 木犀内网门户
               </div>
             </div>

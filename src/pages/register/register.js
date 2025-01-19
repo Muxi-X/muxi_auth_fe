@@ -7,6 +7,7 @@ import 'rc-notification/assets/index.css';
 import Layout from '../../component/layout.js';
 import Button from '../../component/common/button/button';
 import Input from '../../component/common/input/input';
+import getQueryVariable from '../../common/getFromUrl';
 
 class Register extends Component {
   constructor(props) {
@@ -25,7 +26,13 @@ class Register extends Component {
       isRightPassword: false
     };
   }
-
+  componentDidMount() {
+    this.setState(prev => ({
+      ...prev,
+      landing: getQueryVariable('landing'),
+      client_id: getQueryVariable('client_id')
+    }));
+  }
   alert(string) {
     Notification.newInstance({}, notification => {
       notification.notice({
@@ -147,7 +154,7 @@ class Register extends Component {
         if (res.code === 0) {
           this.alert('注册成功');
           setTimeout(() => {
-            window.location.href = '/login';
+            window.location.href = `/login?landing=${this.state.landing}&client_id=${this.state.client_id}`;
           }, 1500);
         }
       });
@@ -173,7 +180,7 @@ class Register extends Component {
             <div className="title">
               <div className="span2">
                 <Link
-                  to="/login"
+                  to={`/login?landing=${this.state.landing}&client_id=${this.state.client_id}`}
                   style={{
                     textDecoration: 'none',
                     color: 'rgba(145,145,145,1)'

@@ -107,13 +107,6 @@ let Service = {
         password: btoa(password)
       }
     });
-  },
-  //get user info
-  getUserInfo() {
-    return Fetch(`/auth/api//user`, {
-      method: 'GET',
-      token: localStorage.getItem('token')
-    });
   }
 };
 

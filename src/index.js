@@ -17,10 +17,10 @@ export default class Portal extends Component {
     return (
       <Router>
         <Switch>
-          <Redirect exact from="/" to="/login" />
+          <Redirect exact from="/" to="/login_auth" />
           <Route path="/register" component={Register} />
           <Route path="/find_pass" component={Reset} />
-          <Route path="/login" component={Login} />
+          <Route path="/login_auth" component={Login} />
         </Switch>
       </Router>
     );

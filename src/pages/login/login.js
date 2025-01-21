@@ -90,7 +90,7 @@ class Login extends Component {
         // 获取 landing 参数
         // let landing = getQueryVariable('landing');
         window.location.href =
-          'http://' + this.state.landing + 'accessCode=' + accessCode;
+          'http://' + this.state.landing + '?accessCode=' + accessCode;
       }
     } else {
       this.alert('请输入用户名和密码');

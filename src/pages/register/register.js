@@ -154,7 +154,7 @@ class Register extends Component {
         if (res.code === 0) {
           this.alert('注册成功');
           setTimeout(() => {
-            window.location.href = `/#/login_auth?landing=${this.state.landing}&client_id=${this.state.client_id}`;
+            window.location.href = `/#/login?landing=${this.state.landing}&client_id=${this.state.client_id}`;
           }, 1500);
         }
       });
@@ -180,7 +180,7 @@ class Register extends Component {
             <div className="title">
               <div className="span2">
                 <Link
-                  to={`/login_auth?landing=${this.state.landing}&client_id=${this.state.client_id}`}
+                  to={`/login?landing=${this.state.landing}&client_id=${this.state.client_id}`}
                   style={{
                     textDecoration: 'none',
                     color: 'rgba(145,145,145,1)'

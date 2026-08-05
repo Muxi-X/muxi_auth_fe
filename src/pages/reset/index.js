@@ -81,7 +81,7 @@ class Index extends Component {
               .then(res => {
                 this.alert('重置成功');
                 window.location.href =
-                  '/login?landing=' +
+                  '/#/login_auth?landing=' +
                   getQueryVariable('landing') +
                   '&client_id=' +
                   getQueryVariable('client_id');
